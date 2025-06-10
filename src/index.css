@@ -1,0 +1,232 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  *:focus {
+    outline: 1px solid dodgerblue;
+    transition: all linear;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.7rem;
+    height: 0.7rem;
+    background-color: #1d4ed8;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #3b82f6;
+    border-radius: 1rem;
+  }
+
+  ::selection {
+    background-color: #0f172a;
+    color: #fff;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    line-height: 1.4;
+    color: #1f2937;
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.6rem;
+  }
+
+  .toast_font {
+    font-family: "DM Sans", sans-serif;
+  }
+
+  .gradient,
+  .heading-2 {
+    background: linear-gradient(to right, #3b82f6 0%, #1d4ed8 100%);
+    background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .heading-2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+  }
+
+  .heading-4 {
+    @apply uppercase mb-5 mt-10 text-[1.2rem] font-bold tracking-widest text-gray-500;
+  }
+
+  .icon {
+    @apply text-slate-400 text-huge cursor-pointer;
+  }
+
+  th {
+    @apply font-semibold p-8 bg-slate-100 text-sm text-slate-500;
+  }
+
+  td {
+    @apply p-8 text-sm text-slate-500;
+  }
+
+  tr:nth-child(even) {
+    @apply bg-slate-50;
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  ul.list li:nth-child(even) {
+    @apply bg-slate-100;
+  }
+
+  #tsparticles {
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  }
+
+  .loader-sm {
+    width: 2.4rem;
+    height: 2.4rem;
+    border: 3px solid #fff;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .loader {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: block;
+    position: relative;
+    color: #fff;
+    animation: animloader 1s linear infinite alternate;
+    margin-left: 5rem;
+    margin-top: 2rem;
+  }
+
+  /* Make the video player have rounded corners */
+  .video-js {
+    border-radius: 2rem !important; /* Adjust to your desired roundness */
+    overflow: hidden !important;
+  }
+
+  /* Optional: Also apply to the video tag inside */
+  .video-js video {
+    border-radius: 2rem !important;
+  }
+
+  .video-js .vjs-poster {
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-color: black !important;
+  }
+
+  .vjs-has-started .vjs-poster {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .vjs-theme-fantasy .vjs-big-play-button {
+    color: #fff !important;
+  }
+  /* Change progress bar color */
+  .video-js .vjs-play-progress {
+    background-color: dodgerblue !important; /* Change to any color you want */
+  }
+
+  /* Optional: Change the load/progress buffer bar */
+  .video-js .vjs-load-progress div {
+    background: rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* Customize the playhead handle (the dot) */
+  .video-js .vjs-play-progress:before {
+    background-color: #00ffff !important; /* Neon Cyan */
+    border-radius: 50% !important;
+    width: 14px !important;
+    height: 14px !important;
+    top: -5px !important; /* vertically center it */
+    box-shadow: 0 0 8px #00ffff;
+  }
+
+  @keyframes animloader {
+    0% {
+      box-shadow: -38px -6px, -14px 6px, 14px -6px;
+    }
+    33% {
+      box-shadow: -38px 6px, -14px -6px, 14px 6px;
+    }
+    66% {
+      box-shadow: -38px -6px, -14px 6px, 14px -6px;
+    }
+    100% {
+      box-shadow: -38px 6px, -14px -6px, 14px 6px;
+    }
+  }
+
+  .loader-main {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #1f2937;
+    border-bottom-color: #1d4ed8;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media only screen and (max-width: 93.75em) {
+    html {
+      font-size: 56.25%;
+    }
+  }
+
+  @media only screen and (max-width: 81.9em) {
+    html {
+      font-size: 50%;
+    }
+  }
+}
