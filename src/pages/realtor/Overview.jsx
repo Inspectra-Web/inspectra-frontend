@@ -38,7 +38,7 @@ export default function Overview() {
     realtorStats,
     inquiryStats,
     scheduleStats,
-    subscriptionStats,
+    // subscriptionStats,
   } = useGetStatistics();
   const { isLoading, properties } = useGetRealtorListings();
   const { isPending: isSearching, profile } = useReadProfile(user?.profile);
@@ -54,7 +54,6 @@ export default function Overview() {
   const leaseCount = getPropertyCountBylistingStatus(properties, "lease");
   const shortletCount = getPropertyCountBylistingStatus(properties, "shortlet");
 
-  console.log(subscriptionStats);
   function padValue(value) {
     if (value === 0) return 0;
     return value?.toLocaleString().padStart(2, 0);

@@ -23,7 +23,6 @@ export default function SignInForm() {
     location.state?.from?.pathname ||
     localStorage.getItem("redirectAfterLogin") ||
     "/app/overview";
-  console.log(from);
   const { login, isPending } = useLogin();
   const {
     register,

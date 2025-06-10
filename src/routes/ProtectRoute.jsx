@@ -5,7 +5,6 @@ import { LoaderLg } from "../static/Loaders";
 export default function ProtectRoute({ children }) {
   const location = useLocation();
   const { isPending, isError, isAuthenticated } = useUser();
-  console.log(location);
   // useEffect(
   //   function () {
   //     if (!user && !isPending) navigate("/sign-in", { replace: true });

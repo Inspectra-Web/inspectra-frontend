@@ -16,7 +16,7 @@ export default function SuccessPage() {
         if (token) {
           try {
             const data = await emailVerify({ token });
-            console.log(data);
+
             setUser(data);
           } catch (err) {
             return err;
@@ -29,7 +29,7 @@ export default function SuccessPage() {
     [token]
   );
 
-  console.log(user);
+  user;
   return (
     <Container>
       <ParticlesBg />

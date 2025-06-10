@@ -83,8 +83,6 @@ export async function getPropertyListings({
       }`
     );
 
-    console.log(query.toString());
-
     return handleResponse(response);
   } catch (error) {
     return handleError(error);
@@ -113,7 +111,7 @@ export async function getPropertyListingsInfinite({
     if (listingStatus) params.append("listingStatus", listingStatus);
     if (category) params.append("category", category);
     if (location) params.append("address.city", location);
-    console.log(params.toString());
+
     const response = await apiClient.get(
       `/property/all-listings-infinite?${params.toString()}`
     );
@@ -147,7 +145,6 @@ export async function getRealtorListings() {
   try {
     const response = await apiClient.get("/property/populate-my-listings");
 
-    console.log(response);
     return handleResponse(response);
   } catch (error) {
     return handleError(error);

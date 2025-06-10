@@ -31,7 +31,6 @@ export default function AllClientsInspection() {
       page: currentPage,
     });
 
-  console.log(schedules);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();

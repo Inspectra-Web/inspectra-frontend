@@ -43,8 +43,6 @@ export default function AllSubscriptions() {
     { value: "-subscriptionStatus", label: "Status (Z - A)" },
   ];
 
-  console.log("subscriptions:", subscriptions);
-  console.log("totalCount:", totalCount);
   return (
     <>
       <GoBackBtn />

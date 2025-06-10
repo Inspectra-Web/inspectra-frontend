@@ -31,7 +31,6 @@ export async function getUserSubscriptionHistory({
       `/subscription/history?${query.toString()}`
     );
 
-    console.log(response);
     return handleResponse(response);
   } catch (error) {
     return handleError(error);
@@ -56,7 +55,6 @@ export async function getAllSubscriptions({
       `/subscription/admin/all?${query.toString()}`
     );
 
-    console.log(response);
     return handleResponse(response);
   } catch (error) {
     return handleError(error);

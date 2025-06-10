@@ -10,7 +10,6 @@ export default function LiveChatPage() {
   const { isPending, realtorChatRoom } = useGetRealtorChatRoom();
   const { user } = useUser();
 
-  console.log(realtorChatRoom);
   return (
     <>
       {isPending ? (

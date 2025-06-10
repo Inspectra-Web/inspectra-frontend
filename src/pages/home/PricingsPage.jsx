@@ -207,7 +207,6 @@ function SubscribeButton({ plan, user, active, navigate, isAuthenticated }) {
       {
         onSuccess: (subscribe) => {
           window.location.href = subscribe.paymentLink;
-          console.log(subscribe.paymentLink);
         },
       },
       {
@@ -238,7 +237,6 @@ export default function PricingsPage() {
   const { user, isAuthenticated } = useUser();
   const { isError, isPending, plans } = useGetPlans();
 
-  console.log(plans);
   const [active, setActive] = useState("monthly");
 
   // const calculator = (value) => value * 12 - (value * 12 * 20) / 100;

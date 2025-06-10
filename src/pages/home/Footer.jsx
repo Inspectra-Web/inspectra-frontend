@@ -1,7 +1,7 @@
 import Logo from "../../components/Logo";
 import { Link } from "react-router-dom";
-import { HiOutlinePhone, HiOutlineEnvelopeOpen } from "react-icons/hi2";
-import { FaWhatsapp } from "react-icons/fa6";
+import { HiOutlineEnvelopeOpen } from "react-icons/hi2";
+// import { FaWhatsapp } from "react-icons/fa6";
 
 export default function Footer() {
   return (

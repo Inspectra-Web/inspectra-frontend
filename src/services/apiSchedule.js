@@ -32,7 +32,6 @@ export async function viewRealtorInspectionSchedules({
     );
     return handleResponse(response);
   } catch (error) {
-    console.log(error);
     return handleError(error);
   }
 }
@@ -56,7 +55,6 @@ export async function viewInspectionSchedules({
     );
     return handleResponse(response);
   } catch (error) {
-    console.log(error);
     return handleError(error);
   }
 }

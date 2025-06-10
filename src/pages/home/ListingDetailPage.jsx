@@ -81,11 +81,11 @@ export default function ListingDetailPage() {
 
   const handlePlayerReady = (player) => {
     player.on("waiting", () => {
-      console.log("Video is buffering");
+      return "Video is buffering";
     });
 
     player.on("dispose", () => {
-      console.log("Player disposed");
+      return "Player disposed";
     });
   };
 

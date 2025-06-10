@@ -64,7 +64,6 @@ export default function AddProperty() {
   }, [property, reset]);
 
   function onSubmit(data) {
-    console.log(data);
     const {
       title,
       type,
@@ -712,7 +711,6 @@ export function PropertyVideoUpload({ setValue }) {
       const newVideoUrl = URL.createObjectURL(file);
       setSelectedVideo(newVideoUrl);
     }
-    console.log(file);
   };
   return (
     <>

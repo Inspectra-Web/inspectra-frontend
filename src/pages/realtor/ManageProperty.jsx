@@ -79,7 +79,6 @@ export default function ManageProperty() {
     verified,
     inspectionCost,
   } = property;
-  console.log(videoFile);
   const videoJsOptions = {
     autoplay: false,
     controls: true,
@@ -96,11 +95,11 @@ export default function ManageProperty() {
 
   const handlePlayerReady = (player) => {
     player.on("waiting", () => {
-      console.log("Video is buffering");
+      return "Video is buffering";
     });
 
     player.on("dispose", () => {
-      console.log("Player disposed");
+      return "Player disposed";
     });
   };
   return (
