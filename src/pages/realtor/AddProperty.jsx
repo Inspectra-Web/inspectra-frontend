@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import IntroHeading from "../../components/IntroHeading";
 import { FormInput } from "./FormInput";
 import { FormFieldHolder } from "./FormFieldHolder";
-import { FormCheckbox } from "./FormCheckBox";
+import { FormCheckbox } from "./FormCheckbox";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import GoBackBtn from "../../components/GoBackBtn";
 import nodataImg from "../../assets/no-data-found.svg";
