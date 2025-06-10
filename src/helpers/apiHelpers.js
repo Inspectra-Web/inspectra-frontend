@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export const apiClient = axios.create({
-  baseURL: "api.inspectraweb.com/api/v1",
+  baseURL: `${import.meta.env.VITE_SOCKET_URL}/api/v1`,
   withCredentials: true,
 });
 
