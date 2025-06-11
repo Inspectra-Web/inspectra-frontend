@@ -738,7 +738,7 @@ export function PropertyVideoUpload({ setValue, videoFile }) {
         </p>
       </div>
       <video controls className="w-full h-[50rem] object-cover rounded-2xl">
-        <source src={videoFile.url} type="video/mp4" />
+        <source src={videoFile?.url} type="video/mp4" />
       </video>
       {selectedVideo && (
         <div className="shadow-md rounded-2xl overflow-hidden">
