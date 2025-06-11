@@ -59,7 +59,7 @@ export default function ProfileVerification() {
             btnLabel="Upload ID"
             uploadLabel="Upload One Government-Issued ID"
             boldDescription="National ID Card // Driver's License // International Passport // Voter's Card (Should be valid and not expired)"
-            smallDescription="Accepted formats: PDF, JPG, PNG, WebP | 5MB max size recommended."
+            smallDescription="Accepted formats: PDF, JPG, PNG, WebP | 2MB max size recommended."
             onHandleUpload={(e) => handleFileChange(e, setSelectedID, setError)}
           />
           {error && <p className="text-red-500 text-center mb-5">{error}</p>}
@@ -103,7 +103,7 @@ export default function ProfileVerification() {
             btnLabel="Upload Certificate"
             uploadLabel="Confirm your qualifications in real estate."
             boldDescription="Real Estate Training Certificate // Realtor Accreditation Certification // Professional Membership Certificate (e.g., NIESV in Nigeria)"
-            smallDescription="Must show your name and date of issuance. Accepted formats: PDF, JPG, PNG, WebP | 5MB max size recommended."
+            smallDescription="Must show your name and date of issuance. Accepted formats: PDF, JPG, PNG, WebP | 2MB max size recommended."
             onHandleUpload={(e) =>
               handleFileChange(e, setSelectedID1, setError1)
             }
@@ -142,7 +142,7 @@ export default function ProfileVerification() {
             btnLabel="Upload License"
             uploadLabel="Agency/Agent License"
             boldDescription="Real Estate Agent License // Agency License"
-            smallDescription="Must include license number and expiry date. Accepted formats: PDF, JPG, PNG, WebP | 5MB max size recommended. "
+            smallDescription="Must include license number and expiry date. Accepted formats: PDF, JPG, PNG, WebP | 2MB max size recommended. "
             onHandleUpload={(e) =>
               handleFileChange(e, setSelectedID2, setError2)
             }
@@ -189,7 +189,7 @@ export default function ProfileVerification() {
             btnLabel="Upload Bill"
             uploadLabel="Utility Bill for Address Verification"
             boldDescription="Electricity Bill // Water Bill // Waste Management Bill"
-            smallDescription="Should be recent (within the last 3 months). Accepted formats: PDF, JPG, PNG, WebP | 5MB max size recommended."
+            smallDescription="Should be recent (within the last 3 months). Accepted formats: PDF, JPG, PNG, WebP | 2MB max size recommended."
             onHandleUpload={(e) =>
               handleFileChange(e, setSelectedID3, setError3)
             }

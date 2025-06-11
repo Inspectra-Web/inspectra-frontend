@@ -30,7 +30,7 @@ export default function AddProperty() {
   const [images, setImages] = useState([]);
   const [imagesToKeep, setImagesToKeep] = useState([]);
   const { id } = useParams();
-  const { isPending: isLoading, property } = useOnePropertyListing(id ?? "");
+  const { isPending: isLoading, property } = useOnePropertyListing(id);
   const { user } = useUser();
   const {
     register,
@@ -620,7 +620,10 @@ export default function AddProperty() {
               OR
             </p>
             {/* Upload Video */}
-            <PropertyVideoUpload setValue={setValue} />
+            <PropertyVideoUpload
+              setValue={setValue}
+              videoFile={property.videoFile}
+            />
 
             {/* Select Variations */}
             <h2 className="mt-20 mb-5 heading-2">Choose Listing Variations</h2>
@@ -675,7 +678,7 @@ export default function AddProperty() {
   );
 }
 
-export function PropertyVideoUpload({ setValue }) {
+export function PropertyVideoUpload({ setValue, videoFile }) {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [videoError, setVideoError] = useState("");
 
@@ -697,9 +700,9 @@ export function PropertyVideoUpload({ setValue }) {
           "Invalid format. Please upload an MP4, AVI, or MOV file."
         );
 
-      if (file.size > 20 * 1024 * 1024)
+      if (file.size > 10 * 1024 * 1024)
         return setVideoError(
-          "File size too large. Maximum allowed size is 20MB."
+          "File size too large. Maximum allowed size is 10MB."
         );
 
       setVideoError("");
@@ -721,7 +724,7 @@ export function PropertyVideoUpload({ setValue }) {
         </Button>
         <h3 className="heading-2 mt-8">Upload your property video here</h3>
         <p className="text-2xl">
-          Recommended: High-quality video (1080p or 720p). Max size: 20MB.
+          Recommended: High-quality video (1080p or 720p). Max size: 10MB.
         </p>
         <input
           type="file"
@@ -734,6 +737,9 @@ export function PropertyVideoUpload({ setValue }) {
           Accepted formats: MP4, AVI, MOV | A short 1-2 minute video is ideal.
         </p>
       </div>
+      <video controls className="w-full h-[50rem] object-cover rounded-2xl">
+        <source src={videoFile.url} type="video/mp4" />
+      </video>
       {selectedVideo && (
         <div className="shadow-md rounded-2xl overflow-hidden">
           <video

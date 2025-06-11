@@ -61,7 +61,7 @@ export default function ListingDetailPage() {
     propertyId,
     variations,
     verified,
-    // inspectionCost,
+    inspectionCost,
   } = property;
 
   console.log(variations);
@@ -95,11 +95,11 @@ export default function ListingDetailPage() {
       <IntroHeading label="Property overview" />
       <div className="mx-auto rounded-2xl">
         <PropertyImageCarousel images={images} listingStatus={listingStatus} />
-        <p className="mt-10 mb-5 font-semibold flex items-center smmobile:flex-col-reverse smmobile:items-start gap-5">
-          <span className="text-slate-500 smmobile:hidden">Property ID:</span>{" "}
+        <p className="mt-10 mb-5 font-semibold flex items-center smmobile:flex-col-reverse smmobile:items-start gap-5 flex-wrap">
+          <span className="text-slate-500 midmobile:hidden">Property ID:</span>{" "}
           {propertyId}
           <span className="text-slate-200 smmobile:hidden">|</span>
-          {/* <div>
+          <div>
             {inspectionCost === 0 ? (
               <strong className="text-sky-500 px-10 py-3 bg-sky-50 rounded-xl">
                 FREE INSPECTION
@@ -113,7 +113,7 @@ export default function ListingDetailPage() {
                 for Inspection
               </span>
             )}
-          </div> */}
+          </div>
           <button
             onClick={() => setShowPopup(true)}
             className="bg-blue-600 text-white px-4 py-2 rounded-xl"
@@ -125,7 +125,7 @@ export default function ListingDetailPage() {
         <div className="flex justify-between items-center mb-8 midtablet:flex-col midtablet:items-start midtablet:gap-5">
           <div>
             <h2 className="heading-2 text-6xl mb-5">{title}.</h2>
-            <div className="flex items-center">
+            <div className="flex items-center mt-5">
               {verified && (
                 <div
                   className={`cursor-default inline-flex items-center justify-center gap-2 border-dotted border-2 rounded-3xl px-4 text-green-500 border-green-500 mr-2`}

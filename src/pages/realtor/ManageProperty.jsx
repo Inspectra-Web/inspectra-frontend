@@ -108,11 +108,10 @@ export default function ManageProperty() {
       <IntroHeading label="Property overview" />
       <div className="mx-auto bg-white shadow shadow-slate-200 rounded-2xl p-10">
         <PropertyImageCarousel images={images} listingStatus={listingStatus} />
-        <div className="mt-10 mb-5 flex items-center gap-5">
-          <p className="font-semibold">
-            <span className="text-slate-500">Property ID:</span> {propertyId}
-          </p>
-          <span className="text-slate-200">|</span>
+        <p className="mt-10 mb-5 font-semibold flex items-center smmobile:flex-col-reverse smmobile:items-start gap-5">
+          <span className="text-slate-500 midmobile:hidden">Property ID:</span>{" "}
+          {propertyId}
+          <span className="text-slate-200 smmobile:hidden">|</span>
           <div>
             {inspectionCost === 0 ? (
               <strong className="text-sky-500 px-10 py-3 bg-sky-50 rounded-xl">
@@ -128,13 +127,13 @@ export default function ManageProperty() {
               </span>
             )}
           </div>
-        </div>
+        </p>
         <div className="flex justify-between items-center mb-8 midtablet:flex-col midtablet:items-start midtablet:gap-5">
           <div>
             <h2 className="heading-2 text-6xl">{title}.</h2>
             {verified && (
               <div
-                className={`cursor-default inline-flex items-center justify-center gap-2 border-dotted border-2 rounded-3xl px-4             text-green-500 border-green-500 mr-2`}
+                className={`cursor-default inline-flex items-center justify-center gap-2 border-dotted border-2 rounded-3xl px-4 text-green-500 border-green-500 mr-2 mt-5`}
               >
                 <CiCircleCheck />
                 <span className="text-[12px]">{verified && "Verified"}</span>
@@ -147,7 +146,7 @@ export default function ManageProperty() {
                   el === "Featured"
                     ? "text-blue-500 border-blue-500"
                     : "text-slate-500 border-slate-500"
-                } mr-2`}
+                } mr-2 mt-5`}
               >
                 {el === "Featured" && <LuMousePointer2 />}
                 <span className="text-[12px]">{el}</span>

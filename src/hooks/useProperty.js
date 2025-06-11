@@ -142,13 +142,15 @@ export function useGetPropertyListingsInfinite({
 }
 
 export function useOnePropertyListing(id) {
+  const isValid = Boolean(id);
   const { isPending, isError, data } = useQuery({
     queryKey: ["propertyKey", id],
     queryFn: () => onePropertyListingApi(id),
+    enabled: isValid,
   });
 
   return {
-    isPending,
+    isPending: isValid ? isPending : false,
     isError,
     property: data?.property,
     realtor: data?.realtor,

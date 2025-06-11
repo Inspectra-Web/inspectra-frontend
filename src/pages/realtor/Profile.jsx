@@ -114,7 +114,7 @@ export default function Profile() {
             </div>
           </div>
 
-          <div>
+          <div className="xsm:text-center">
             <h4 className="text-3xl font-semibold capitalize">
               {firstname} {middlename[0]}. {lastname}
               {/* Franklin C. Okoro */}
@@ -262,7 +262,7 @@ export default function Profile() {
           ) : null}
         </div>
         <h2 className="mt-20 mb-5 heading-2">Self Description</h2>
-        <p className="mb-5 leading-10 text-slate-500">
+        <p className="mb-5 leading-10 text-slate-500 text-[1.7rem]">
           {bio || "Add a description about your work here"}
         </p>
         <h2 className="mt-20 mb-5 heading-2">Professional Details</h2>
@@ -334,7 +334,7 @@ export default function Profile() {
           <ListDetails
             title="Availability Status"
             details={
-              <p className="capitalize">
+              <p className="uppercase">
                 {availabilityStatus || "Add your availability status"}
               </p>
             }
@@ -342,26 +342,26 @@ export default function Profile() {
           <ListDetails
             title="Contact Means"
             details={
-              <p className="capitalize">
+              <p className="uppercase">
                 {contactMeans || "Add main means of contact"}
               </p>
             }
           />
           <ListDetails
             title="Gender"
-            details={<p className="capitalize">{gender || "Male or Female"}</p>}
+            details={<p className="uppercase">{gender || "Male or Female"}</p>}
           />
           <ListDetails
             title="City"
-            details={<p className="capitalize">{city || "Add city"}</p>}
+            details={<p className="uppercase">{city || "Add city"}</p>}
           />
           <ListDetails
             title="State"
-            details={<p className="capitalize">{state || "Add state"}</p>}
+            details={<p className="uppercase">{state || "Add state"}</p>}
           />
           <ListDetails
             title="Country"
-            details={<p className="capitalize">{country || "Add country"}</p>}
+            details={<p className="uppercase">{country || "Add country"}</p>}
           />
         </ul>
         <h2 className="mt-20 mb-5 heading-2">Verification Details</h2>

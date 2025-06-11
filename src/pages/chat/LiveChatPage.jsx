@@ -33,7 +33,7 @@ export default function LiveChatPage() {
             <Button>View Plans & Subscribe</Button>
           </Link>
         </div>
-      ) : realtorChatRoom.chatRooms.length === 0 ? (
+      ) : realtorChatRoom?.chatRooms?.length === 0 ? (
         <div className="text-center my-20 flex flex-col items-center">
           <img src={nodataImg} className="w-96" />
           <h2 className="heading-2 my-5 capitalize">No Chat Room exists</h2>

@@ -44,8 +44,8 @@ export const handleFileChange = (e, setSelectedFile, setError) => {
     return;
   }
 
-  if (file.size > 5 * 1024 * 1024) {
-    setError(`File "${file.name}" exceeds the 5MB size limit.`);
+  if (file.size > 2 * 1024 * 1024) {
+    setError(`File "${file.name}" exceeds the 2MB size limit.`);
     return;
   }
 

@@ -11,6 +11,7 @@ export default {
       midmobile: { max: "37.5em" } /* 600px */,
       smmobile: { max: "30em" } /* 480px */,
       sm: { max: "23.4em" } /* 374.4px */,
+      xsm: { max: "21.875em" } /* 350px */,
     },
     extend: {
       colors: {
