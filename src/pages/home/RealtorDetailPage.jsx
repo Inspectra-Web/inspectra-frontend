@@ -115,7 +115,7 @@ export default function RealtorDetailPage() {
                 {(
                   <span className="flex items-center gap-2">
                     <strong className="text-[2rem] italic">
-                      {properties.length}
+                      {properties?.length}
                     </strong>{" "}
                     Listing(s)
                   </span>
