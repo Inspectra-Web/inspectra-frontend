@@ -1,15 +1,15 @@
 import IntroHeading from "../../components/IntroHeading";
 import { HiFingerPrint, HiOutlinePhoneOutgoing } from "react-icons/hi";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaWhatsapp,
-} from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { IoMailOpenOutline } from "react-icons/io5";
+// import {
+//   FaFacebookF,
+//   FaInstagram,
+//   FaLinkedinIn,
+//   FaWhatsapp,
+// } from "react-icons/fa";
+// import { FaXTwitter } from "react-icons/fa6";
+// import { IoMailOpenOutline } from "react-icons/io5";
 import ListDetails from "../../components/ListDetails";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useReadProfile } from "../../hooks/useProfile";
 import { LoaderMd } from "../../static/Loaders";
 import { TbFingerprintOff } from "react-icons/tb";
@@ -43,8 +43,8 @@ export default function RealtorDetailPage() {
     country,
     telephone,
     bio,
-    whatsapp,
-    socialLinks: { facebook, twitter, linkedIn, instagram },
+    // whatsapp,
+    // socialLinks: { facebook, twitter, linkedIn, instagram },
     language,
     avatar,
     role,
@@ -114,7 +114,7 @@ export default function RealtorDetailPage() {
             </div>
           </div>
         </div>
-        <h2 className="mt-20 mb-5 heading-2">Social Media</h2>
+        {/* <h2 className="mt-20 mb-5 heading-2">Social Media</h2>
         <div className="flex gap-7">
           {facebook ? (
             <Link to={facebook} target="_blank">
@@ -152,7 +152,7 @@ export default function RealtorDetailPage() {
               <FaLinkedinIn className="p-5 bg-sky-100 text-sky-500 text-7xl rounded-xl transition-all duration-300 hover:bg-sky-500 hover:text-sky-50 cursor-pointer" />
             </Link>
           ) : null}
-        </div>
+        </div> */}
         <h2 className="mt-20 mb-5 heading-2">Self Description</h2>
         <p className="mb-5 leading-10 text-slate-500">
           {bio || "Add a description about your work here"}
@@ -166,7 +166,7 @@ export default function RealtorDetailPage() {
           <ListDetails
             title="Availability Status"
             details={
-              <p className="capitalize">
+              <p className="uppercase">
                 {availabilityStatus || "Add your availability status"}
               </p>
             }
@@ -174,26 +174,26 @@ export default function RealtorDetailPage() {
           <ListDetails
             title="Contact Means"
             details={
-              <p className="capitalize">
+              <p className="uppercase">
                 {contactMeans || "Add main means of contact"}
               </p>
             }
           />
           <ListDetails
             title="Gender"
-            details={<p className="capitalize">{gender || "Male or Female"}</p>}
+            details={<p className="uppercase">{gender || "Male or Female"}</p>}
           />
           <ListDetails
             title="City of Operation"
-            details={<p className="capitalize">{city || "Add city"}</p>}
+            details={<p className="uppercase">{city || "Add city"}</p>}
           />
           <ListDetails
             title="State"
-            details={<p className="capitalize">{state || "Add state"}</p>}
+            details={<p className="uppercase">{state || "Add state"}</p>}
           />
           <ListDetails
             title="Country"
-            details={<p className="capitalize">{country || "Add country"}</p>}
+            details={<p className="uppercase">{country || "Add country"}</p>}
           />
         </ul>
         <h2 className="mt-20 mb-5 heading-2">

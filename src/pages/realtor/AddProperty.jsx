@@ -181,7 +181,7 @@ export default function AddProperty() {
       ) : (
         <>
           <GoBackBtn />
-          <IntroHeading label="Add Property Listing" />
+          <IntroHeading label={`${id ? "Update" : "Add"} Property Listing`} />
           <Form onSubmit={handleSubmit(onSubmit)}>
             {/* Upload */}
             <PropertyImageUpload
