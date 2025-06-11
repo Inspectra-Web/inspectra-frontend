@@ -737,7 +737,10 @@ export function PropertyVideoUpload({ setValue, videoFile }) {
           Accepted formats: MP4, AVI, MOV | A short 1-2 minute video is ideal.
         </p>
       </div>
-      <video controls className="w-full h-[50rem] object-cover rounded-2xl">
+      <video
+        controls
+        className="w-full h-[50rem] midmobile:h-[30rem] object-cover rounded-2xl"
+      >
         <source src={videoFile?.url} type="video/mp4" />
       </video>
       {selectedVideo && (

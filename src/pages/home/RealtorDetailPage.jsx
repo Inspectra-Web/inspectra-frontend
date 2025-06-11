@@ -1,5 +1,5 @@
 import IntroHeading from "../../components/IntroHeading";
-import { HiFingerPrint, HiOutlinePhoneOutgoing } from "react-icons/hi";
+import { HiFingerPrint } from "react-icons/hi";
 // import {
 //   FaFacebookF,
 //   FaInstagram,
@@ -18,7 +18,7 @@ import GoBackBtn from "../../components/GoBackBtn";
 import { CardContainer } from "../../components/CardContainer";
 import { useGetRealtorListingsMain } from "../../hooks/useProperty";
 import { NoMessage } from "../../components/NoDataMsg";
-import { BsHouseDoor } from "react-icons/bs";
+import { BsHouseDoor, BsHouses } from "react-icons/bs";
 
 export default function RealtorDetailPage() {
   const { id } = useParams();
@@ -41,15 +41,16 @@ export default function RealtorDetailPage() {
     city,
     state,
     country,
-    telephone,
+    // telephone,
     bio,
     // whatsapp,
     // socialLinks: { facebook, twitter, linkedIn, instagram },
     language,
     avatar,
     role,
-    agency,
+    // agency,
     consultationCost,
+    specialization,
   } = profile;
 
   return (
@@ -104,13 +105,26 @@ export default function RealtorDetailPage() {
           </div>
 
           <div className="mx-10 flex flex-col gap-5 smtablet:mx-0">
-            <div className="flex gap-4 text-slate-600 items-center">
+            {/* <div className="flex gap-4 text-slate-600 items-center">
               <HiOutlinePhoneOutgoing size={24} className="text-blue-500" />
               <p>{telephone || "Add your phone number here"}</p>
+            </div> */}
+            <div className="flex gap-4 text-slate-600 items-center">
+              <BsHouses size={24} className="text-blue-500" />
+              <p>
+                {(
+                  <span className="flex items-center gap-2">
+                    <strong className="text-[2rem] italic">
+                      {properties.length}
+                    </strong>{" "}
+                    Listing(s)
+                  </span>
+                ) || "Add your phone number here"}
+              </p>
             </div>
             <div className="flex gap-4 text-slate-600 items-center">
               <BsHouseDoor size={24} className="text-blue-500" />
-              <p>{agency || "INDIVIDUAL AGENT"}</p>
+              <p>INDIVIDUAL AGENT</p>
             </div>
           </div>
         </div>
@@ -194,6 +208,16 @@ export default function RealtorDetailPage() {
           <ListDetails
             title="Country"
             details={<p className="uppercase">{country || "Add country"}</p>}
+          />
+          <ListDetails
+            title="Area of Specialty"
+            details={
+              <p className="uppercase">
+                {specialization === "any"
+                  ? "Any Kind of Property"
+                  : specialization || "Add Specialty"}
+              </p>
+            }
           />
         </ul>
         <h2 className="mt-20 mb-5 heading-2">

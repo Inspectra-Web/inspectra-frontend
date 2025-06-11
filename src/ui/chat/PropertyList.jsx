@@ -16,7 +16,7 @@ export default function PropertyList({
                 onOpen(false);
               }}
               key={index}
-              className={`flex rounded-3xl gap-5 p-6 duration-500 hover:bg-gray-50 ${
+              className={`w-full overflow-hidden flex rounded-3xl gap-5 p-6 duration-500 hover:bg-gray-50 ${
                 selectedChatRoomId === chatRoom._id
                   ? "bg-gradient-to-tr from-sky-50 to-blue-100"
                   : ""
@@ -27,8 +27,8 @@ export default function PropertyList({
                 alt={chatRoom.property.title}
                 className="h-32 w-32 rounded-xl object-cover"
               />
-              <div>
-                <div className="w-3/5 bigmobile:w-full">
+              <div className="w-full">
+                <div className="w-3/5 ">
                   <h3 className="text-sky-500 truncate">
                     {chatRoom.property.title}
                   </h3>

@@ -13,6 +13,7 @@ import {
   SearchAndSort,
 } from "../../components/TableActions";
 import { useUser } from "../../hooks/useAuth";
+import { CiEdit } from "react-icons/ci";
 
 export default function PropertyListing() {
   const [sort, setSort] = useState("");
@@ -140,11 +141,15 @@ export default function PropertyListing() {
                               icon={<HiOutlineEye size={20} />}
                             />
                           </Link>
-                          {/* <BtnAction
-                            clr="from-indigo-100 to-indigo-200 text-indigo-600"
-                            hoverClr="hover:from-indigo-500 hover:to-indigo-500 hover:text-indigo-50"
-                            icon={<CiEdit size={20} />}
-                          /> */}
+                          <Link to={`/app/update-property/${el._id}`}>
+                            <BtnAction
+                              title="Edit property details"
+                              clr="from-indigo-100 to-indigo-200 text-indigo-600"
+                              hoverClr="hover:from-indigo-500 hover:to-indigo-500 hover:text-indigo-50"
+                              icon={<CiEdit size={20} />}
+                            />
+                          </Link>
+
                           {/* <BtnAction
                       clr=" from-red-100 to-red-200 text-red-600"
                       hoverClr="hover:from-red-500 hover:to-red-500 hover:text-red-50"
