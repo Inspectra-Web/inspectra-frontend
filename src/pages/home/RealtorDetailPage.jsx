@@ -82,7 +82,7 @@ export default function RealtorDetailPage() {
             </div>
           </div>
 
-          <div>
+          <div className="xsm:text-center">
             <h4 className="text-3xl font-semibold capitalize">
               {firstname} {middlename[0]}. {lastname}
               {/* Franklin C. Okoro */}

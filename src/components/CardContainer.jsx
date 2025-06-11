@@ -55,7 +55,9 @@ export const CardContainer = forwardRef(({ property }, ref) => {
               </div>
               <div className="py-1 px-5 bg-white flex items-center gap-2 rounded-full text-sky-500">
                 <HiOutlineVideoCamera />
-                <span className="text-[14px]">{!property?.videos ? 0 : 1}</span>
+                <span className="text-[14px]">
+                  {!property?.videos || !property?.videoFile ? 0 : 1}
+                </span>
               </div>
             </div>
           </div>

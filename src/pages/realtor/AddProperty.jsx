@@ -622,7 +622,7 @@ export default function AddProperty() {
             {/* Upload Video */}
             <PropertyVideoUpload
               setValue={setValue}
-              videoFile={property.videoFile}
+              videoFile={property?.videoFile}
             />
 
             {/* Select Variations */}
