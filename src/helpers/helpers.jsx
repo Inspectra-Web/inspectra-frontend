@@ -238,3 +238,27 @@ const convertFeaturesToList = (features, name) => {
     { yes: features.canCreateAgency, text: "Agent Performance Tracking" },
   ];
 };
+
+export const formatNigerianPhoneNumber = (input) => {
+  // Remove all non-digit characters
+  const digits = input.replace(/\D/g, "");
+
+  // Remove leading zero if it exists
+  let normalized = digits;
+  if (digits.startsWith("0")) {
+    normalized = "234" + digits.slice(1);
+  } else if (!digits.startsWith("234")) {
+    normalized = "234" + digits;
+  }
+
+  // Make sure it's exactly 13 digits (234 + 10-digit number)
+  if (normalized.length !== 13) return null;
+
+  // Format as +234 811 951 1582
+  const countryCode = "+234";
+  const line = normalized.slice(3); // remove 234
+  return `${countryCode} ${line.slice(0, 3)} ${line.slice(3, 6)} ${line.slice(
+    6,
+    10
+  )}`;
+};

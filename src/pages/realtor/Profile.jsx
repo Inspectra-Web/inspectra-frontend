@@ -29,7 +29,10 @@ import {
 } from "../../hooks/useAuth";
 import { LoaderMd, LoaderSm } from "../../static/Loaders";
 import { TbFingerprintOff } from "react-icons/tb";
-import { defaultAvatar } from "../../helpers/helpers";
+import {
+  defaultAvatar,
+  formatNigerianPhoneNumber,
+} from "../../helpers/helpers";
 import GoBackBtn from "../../components/GoBackBtn";
 import moment from "moment";
 import { HiMiniXMark } from "react-icons/hi2";
@@ -144,7 +147,10 @@ export default function Profile() {
             </div>
             <div className="flex gap-4 text-slate-600 items-center">
               <HiOutlinePhoneOutgoing size={24} className="text-blue-500" />
-              <p>{telephone || "Add your phone number here"}</p>
+              <p>
+                {formatNigerianPhoneNumber(telephone) ||
+                  "Add your phone number here"}
+              </p>
             </div>
             {/* <div className="flex gap-4 text-slate-600 items-center">
               <CiGlobe size={24} className="text-blue-500" />

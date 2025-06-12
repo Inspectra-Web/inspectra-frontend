@@ -7,7 +7,7 @@ import { HiOutlinePaperAirplane } from "react-icons/hi2";
 import Button from "../../components/Button";
 import { useUser } from "../../hooks/useAuth";
 
-function NavList({ className }) {
+function NavList({ className, onShow }) {
   return (
     <ul className={className}>
       <li>
@@ -24,11 +24,12 @@ function NavList({ className }) {
       </li>
       <li>
         <NavLink
+          onClick={() => onShow(false)}
           to="/listings"
           className={({ isActive }) =>
             `hover:bg-blue-50 transition-all ease-linear hover:text-blue-500 py-5 px-8 rounded-full
           
-          ${isActive ? "hover:bg-blue-50 hover:text-blue-500" : ""}`
+          ${isActive ? "bg-blue-50 text-blue-500" : ""}`
           }
         >
           Listings
@@ -36,11 +37,12 @@ function NavList({ className }) {
       </li>
       <li>
         <NavLink
+          onClick={() => onShow(false)}
           to="/top-listings"
           className={({ isActive }) =>
             `hover:bg-blue-50 transition-all ease-linear hover:text-blue-500 py-5 px-14 rounded-full
           
-          ${isActive ? "hover:bg-blue-50 hover:text-blue-500" : ""}`
+          ${isActive ? "bg-blue-50 text-blue-500" : ""}`
           }
         >
           Top Listings
@@ -49,11 +51,12 @@ function NavList({ className }) {
 
       <li>
         <NavLink
+          onClick={() => onShow(false)}
           to="/pricings"
           className={({ isActive }) =>
             `hover:bg-blue-50 transition-all ease-linear hover:text-blue-500 py-5 px-14 rounded-full
           
-          ${isActive ? "hover:bg-blue-50 hover:text-blue-500" : ""}`
+          ${isActive ? "bg-blue-50 text-blue-500" : ""}`
           }
         >
           Pricings
@@ -80,7 +83,10 @@ function MobileNav({ show, setShow }) {
           show ? "translate-x-0" : "-translate-x-full"
         } absolute top-0 left-0 w-[27rem] h-screen bg-slate-900 border-r border-slate-800 smtablet:flex flex-col pt-[5rem] transition-all ease-linear z-50`}
       >
-        <NavList className="flex items-center flex-col gap-20 capitalize" />
+        <NavList
+          className="flex items-center flex-col gap-20 capitalize"
+          onShow={handleToggleSidebar}
+        />
       </nav>
     </>
   );
@@ -103,7 +109,10 @@ export default function Header() {
           />
         </div>
         <nav className="smtablet:hidden">
-          <NavList className="flex items-center gap-5 capitalize" />
+          <NavList
+            className="flex items-center gap-5 capitalize"
+            onShow={setShow}
+          />
         </nav>
       </div>
       <div className="flex items-center gap-10 midmobile:flex-col-reverse">

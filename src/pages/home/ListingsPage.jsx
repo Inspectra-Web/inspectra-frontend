@@ -79,6 +79,10 @@ export default function ListingsPage() {
           />
         }
       />
+      <div className="bg-yellow-50 rounded-2xl mt-5 border-t border-yellow-200 text-yellow-800 text-3xl p-2 text-center">
+        Note: All properties currently listed on Inspectra are demo listings as
+        part of our MVP launch. Real listings will be available soon!
+      </div>
 
       {isPending && <LoaderMd />}
       <div className="grid grid-cols-3 gap-16 mt-20 midtablet:grid-cols-2 bigmobile:grid-cols-1">
@@ -95,6 +99,7 @@ export default function ListingsPage() {
             </Button>
           </div>
         )}
+
         {data &&
           data?.pages.map((group, index) => {
             return group.properties.map((property, propertyIndex) => {

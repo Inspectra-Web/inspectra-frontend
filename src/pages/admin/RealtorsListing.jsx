@@ -5,7 +5,10 @@ import { useAllRealtors } from "../../hooks/useRealtor";
 import { LoaderMd } from "../../static/Loaders";
 import { HiOutlineEye, HiFingerPrint } from "react-icons/hi";
 import { TbFingerprintOff } from "react-icons/tb";
-import { defaultAvatar } from "../../helpers/helpers";
+import {
+  defaultAvatar,
+  formatNigerianPhoneNumber,
+} from "../../helpers/helpers";
 import { Link } from "react-router-dom";
 import { NoMessage } from "../../components/NoDataMsg";
 import {
@@ -119,7 +122,9 @@ export default function RealtorsListing() {
                         </div>
                       </td>
                       <td className="capitalize">{el.gender || "NIL"}</td>
-                      <td className="capitalize">{el.telephone || "NIL"}</td>
+                      <td className="capitalize">
+                        {formatNigerianPhoneNumber(el.telephone) || "NIL"}
+                      </td>
                       <td className="capitalize">{el.experience || "NIL"}</td>
                       <td className="capitalize">
                         <div className="flex justify-center">
