@@ -5,8 +5,10 @@ import { useGetPropertyListingsInfinite } from "../../hooks/useProperty";
 import { LoaderMd } from "../../static/Loaders";
 import { NoMessage } from "../../components/NoDataMsg";
 import Button from "../../components/Button";
+import { CiSearch } from "react-icons/ci";
 
 export default function ListingsPage() {
+  const [showListingSearch, setShowListingSearch] = useState(false);
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
   const defaultFilters = {
@@ -66,22 +68,49 @@ export default function ListingsPage() {
 
   return (
     <div className="px-10 pb-20 min-h-[50rem]">
-      <ListingsSearch
-        onSearch={handleSearch}
-        searchInput={
-          <input
-            type="text"
-            id="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search By Title, Property ID, Address"
-            className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 text-slate-700 w-[300px] placeholder:text-slate-500"
-          />
-        }
-      />
-      <div className="bg-yellow-50 rounded-2xl mt-5 border-t border-yellow-200 text-yellow-800 text-3xl p-2 text-center">
+      <div className="bg-yellow-50 rounded-2xl my-5 border-t border-yellow-200 text-yellow-800 text-3xl p-2 text-center">
         Note: All properties currently listed on Inspectra are demo listings as
         part of our MVP launch. Real listings will be available soon!
+      </div>
+      {!showListingSearch && (
+        <div
+          className={`transition-all duration-500 ease-in-out ${
+            showListingSearch
+              ? "opacity-0 scale-95 pointer-events-none absolute"
+              : "opacity-100 scale-100 relative"
+          } flex justify-center`}
+        >
+          <button
+            className="flex focus:ring-4 ring-offset-2 items-center gap-3 px-16 py-10 rounded-full text-white bg-gradient-to-tr bg-[length:200%] bg-left hover:bg-right transition-all duration-500 ease justify-center cursor-pointer from-blue-500 to-blue-700 ring-blue-300"
+            onClick={() => setShowListingSearch(!showListingSearch)}
+          >
+            <span>Search</span> <CiSearch size={24} />
+          </button>
+        </div>
+      )}
+      <div
+        className={`transition-all duration-500 ease-in-out ${
+          showListingSearch
+            ? "opacity-100 scale-100 relative"
+            : "opacity-0 scale-95 pointer-events-none absolute"
+        } flex justify-center mt-10`}
+      >
+        {showListingSearch && (
+          <ListingsSearch
+            onCloseSearch={setShowListingSearch}
+            onSearch={handleSearch}
+            searchInput={
+              <input
+                type="text"
+                id="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search By Title, Property ID, Address"
+                className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 text-slate-700 w-[300px] placeholder:text-slate-500"
+              />
+            }
+          />
+        )}
       </div>
 
       {isPending && <LoaderMd />}

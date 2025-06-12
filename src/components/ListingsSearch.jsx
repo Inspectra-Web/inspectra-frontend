@@ -1,8 +1,13 @@
 import { CiSearch } from "react-icons/ci";
 import Button from "./Button";
 import { useState } from "react";
+import { SlClose } from "react-icons/sl";
 
-export default function ListingsSearch({ onSearch, searchInput }) {
+export default function ListingsSearch({
+  onSearch,
+  searchInput,
+  onCloseSearch,
+}) {
   const [filters, setFilters] = useState({
     type: "",
     listingStatus: "",
@@ -17,7 +22,13 @@ export default function ListingsSearch({ onSearch, searchInput }) {
   const handleSearch = () => onSearch(filters);
 
   return (
-    <div className="from-sky-500 to-blue-500 bg-gradient-to-tr p-10 rounded-3xl flex max-w-full flex-wrap justify-center items-center gap-10 mx-auto">
+    <div className="from-sky-500 to-blue-500 bg-gradient-to-tr p-10 rounded-3xl flex max-w-full flex-wrap justify-center items-center gap-10 mx-auto relative">
+      <button
+        onClick={() => onCloseSearch(false)}
+        className="text-white absolute top-10 right-10"
+      >
+        <SlClose size={24} />
+      </button>
       {searchInput}
       <select
         id="type"
