@@ -36,18 +36,18 @@ export default function PropertyList({
                 <p className="text-slate-500 italic">
                   {chatRoom.property.address.city}
                 </p>
-                {typeof chatRoom.realtor === "string" ? null : (
+                {typeof chatRoom?.realtor === "string" ? null : (
                   <p className="uppercase font-semibold">
-                    {chatRoom.realtor.fullname?.split(" ")[0] +
+                    {chatRoom.realtor?.fullname?.split(" ")[0] +
                       " " +
-                      chatRoom.realtor.fullname?.split(" ")?.[1]}
+                      chatRoom.realtor?.fullname?.split(" ")?.[1]}
                   </p>
                 )}
                 {typeof chatRoom.client === "string" ? null : (
                   <p className="uppercase font-semibold">
-                    {chatRoom.client.name?.split(" ")[0] +
+                    {chatRoom.client?.name?.split(" ")[0] +
                       " " +
-                      chatRoom.client.name?.split(" ")?.[1]}
+                      chatRoom.client?.name?.split(" ")?.[1]}
                   </p>
                 )}
               </div>

@@ -39,7 +39,7 @@ export default function ChatHeader({
                 : selectedChatRoom?.realtor.fullname}
               {typeof selectedChatRoom?.client === "string"
                 ? null
-                : selectedChatRoom?.client.name}
+                : selectedChatRoom?.client?.name}
             </h2>
           </div>
 
@@ -50,7 +50,7 @@ export default function ChatHeader({
                 : selectedChatRoom?.realtor.role}
               {typeof selectedChatRoom?.client === "string" ? null : (
                 <span className="lowercase">
-                  {selectedChatRoom?.client.email}
+                  {selectedChatRoom?.client?.email}
                 </span>
               )}
             </span>
