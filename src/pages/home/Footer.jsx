@@ -37,7 +37,7 @@ export default function Footer() {
 
               <li>
                 <Link
-                  to="/contact"
+                  to="/top-listings"
                   className="hover:text-blue-500 transition-all ease-linear"
                 >
                   Top Listings
