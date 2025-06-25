@@ -1,6 +1,7 @@
 import Logo from "../../components/Logo";
 import { Link } from "react-router-dom";
-import { HiOutlineEnvelopeOpen } from "react-icons/hi2";
+import { FaSquareFacebook } from "react-icons/fa6";
+import { IoIosMailOpen } from "react-icons/io";
 // import { FaWhatsapp } from "react-icons/fa6";
 
 export default function Footer() {
@@ -125,8 +126,16 @@ export default function Footer() {
               to="mailto:support@inspectraweb.com"
               className="flex items-center gap-3 hover:text-blue-500 transition-all ease-linear"
             >
-              <HiOutlineEnvelopeOpen size={24} className="text-blue-500" />{" "}
+              <IoIosMailOpen size={24} className="text-blue-500" />{" "}
               <span>support@inspectraweb.com</span>
+            </Link>
+            <Link
+              target="_blank"
+              to="https://web.facebook.com/inspectraafrica"
+              className="flex items-center gap-3 hover:text-blue-500 transition-all ease-linear"
+            >
+              <FaSquareFacebook size={24} className="text-blue-500" />{" "}
+              <span>Facebook Page</span>
             </Link>
           </div>
         </div>

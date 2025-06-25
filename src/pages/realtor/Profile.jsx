@@ -40,11 +40,13 @@ import RejectReason from "../../components/RejectReason";
 import { useState } from "react";
 import { GiRadioactive } from "react-icons/gi";
 import { HandleConfirmation } from "../../ui/ConfirmationPrompt";
+import { useGetRealtorListingsMain } from "../../hooks/useProperty";
 
 export default function Profile() {
   const { id } = useParams();
   const { user } = useUser();
   const { isPending, profile } = useReadProfile(id || user?.profile);
+  const { properties } = useGetRealtorListingsMain(profile?.user);
   const { manageDoc, isPending: isLoading } = useManageVerificationDoc();
   const { deactivate, isDeactivating } = useDeactivateAccount();
   const { activate, isActivating } = useActivateAccount();
@@ -74,12 +76,11 @@ export default function Profile() {
     houseAddress,
     whatsapp,
     socialLinks: { facebook, twitter, linkedIn, instagram },
-    license,
     experience,
     agency,
     agencyAddress,
     region,
-    qualifications,
+    // qualifications,
     language,
     avatar,
     verificationImages,
@@ -95,7 +96,7 @@ export default function Profile() {
       <GoBackBtn />
       <IntroHeading label="Profile Overview" />
       <div className="mx-auto bg-white shadow shadow-slate-200 rounded-2xl p-10 midmobile:p-5">
-        <div className="flex items-center gap-10 mb-10 flex-wrap smmobile:justify-center">
+        <div className="flex justify-center items-center gap-10 flex-wrap smmobile:justify-center">
           <div className="relative">
             <img
               src={avatar || defaultAvatar(gender)}
@@ -139,9 +140,9 @@ export default function Profile() {
           </div>
 
           <div className="mx-10 flex flex-col gap-5 smtablet:mx-0">
-            <div className="flex gap-4 text-slate-600 items-center">
+            <div className="flex gap-4 text-slate-600 items-start">
               <MdOutlineMyLocation size={24} className="text-blue-500" />
-              <address className="not-italic truncate">
+              <address className="not-italic">
                 {houseAddress || "Add residential address here"}
               </address>
             </div>
@@ -166,7 +167,7 @@ export default function Profile() {
             </div> */}
           </div>
 
-          <div className="flex flex-col gap-5 ml-10 midtablet:ml-0 midtablet:flex-row midtablet:mt-10">
+          <div className="flex flex-wrap gap-5 ml-10 midtablet:ml-0 midtablet:flex-row">
             <Button
               variation="link"
               link={`/app/profile-settings/${_id}/${userId}`}
@@ -228,7 +229,7 @@ export default function Profile() {
             )}
           </div>
         </div>
-        <h2 className="mt-20 mb-5 heading-2">Social Media</h2>
+        <h2 className="mt-20 mb-5 heading-2">Additional Contact</h2>
         <div className="flex gap-7">
           {facebook ? (
             <Link to={facebook} target="_blank">
@@ -273,29 +274,21 @@ export default function Profile() {
         </p>
         <h2 className="mt-20 mb-5 heading-2">Professional Details</h2>
         <ul className="list mb-16">
-          {/* <ListDetails title="Gender" details="Male" />
-          <ListDetails title="D.O.B" details="12th January 1990" /> */}
-          <ListDetails
+          {/* <ListDetails
             title="License Number"
             details={license || "Add your license number"}
-          />
+          /> */}
           <ListDetails
             title="Experience"
             details={
-              !experience ? (
-                "Add your years of experience"
-              ) : (
-                <p className="lowercase">{experience + " years (s)"}</p>
-              )
+              !experience
+                ? "Add your years of experience"
+                : experience + " year(s)"
             }
           />
           <ListDetails
             title="Specialization"
-            details={
-              <p className="capitalize">
-                {specialization || "Add your area of speciality"}
-              </p>
-            }
+            details={specialization || "Add your area of speciality"}
           />
           <ListDetails
             title="Agency"
@@ -311,17 +304,13 @@ export default function Profile() {
           />
           <ListDetails
             title="Property Listed"
-            details={
-              user?.property.length || "Add number of properties managed"
-            }
+            details={id ? properties?.length : user?.property.length}
           />
         </ul>
-        <h2 className="mt-20 mb-5 heading-2">
+        {/* <h2 className="mt-20 mb-5 heading-2">
           Qualifications & Certifications
         </h2>
         <ul className="list mb-16">
-          {/* <ListDetails title="Gender" details="Male" />
-          <ListDetails title="D.O.B" details="12th January 1990" /> */}
           <ListDetails
             title="Certification"
             details={qualifications?.certification || "NIL"}
@@ -330,7 +319,7 @@ export default function Profile() {
             title="Edu. Background"
             details={qualifications?.education || "NIL"}
           />
-        </ul>
+        </ul> */}
         <h2 className="mt-20 mb-5 heading-2">Additional Details</h2>
         <ul className="list mb-16">
           <ListDetails
@@ -431,12 +420,22 @@ export default function Profile() {
                         : "text-rose-500"
                     }  text-bt`}
                   >
-                    {data.type?.replace(/-/g, " ")}
+                    <p
+                      className={
+                        data.type === "government-issued-id"
+                          ? "sm:truncate sm:w-3/4"
+                          : ""
+                      }
+                    >
+                      {data.type?.replace(/-/g, " ")}
+                    </p>
                   </Link>
                   <p>
-                    Docs Attachment sent for review is{" "}
+                    <span className="midmobile:hidden">
+                      Docs Attachment sent for review is
+                    </span>{" "}
                     <span
-                      className={`inline-block ${
+                      className={`inline-block uppercase ${
                         data.status === "pending"
                           ? "text-blue-500 bg-blue-50"
                           : data.status === "verified"
@@ -446,7 +445,7 @@ export default function Profile() {
                     >
                       {data.status}
                     </span>{" "}
-                    for verification.
+                    <span className="midmobile:hidden">for verification.</span>
                   </p>{" "}
                   <div className="text-[1.2rem] italic capitalize flex gap-6">
                     <span>{moment(data.uploadedAt).fromNow()}</span>

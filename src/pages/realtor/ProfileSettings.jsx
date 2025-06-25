@@ -65,14 +65,14 @@ export default function ProfileSettings() {
     bio,
     houseAddress,
     whatsapp,
-    socialLinks: { facebook, twitter, linkedIn, instagram },
-    license,
+    // socialLinks: { facebook, twitter, linkedIn, instagram },
+    // license,
     experience,
-    properties,
+    // properties,
     agency,
     agencyAddress,
     region,
-    qualifications,
+    // qualifications,
     language,
     avatar,
     role,
@@ -281,7 +281,7 @@ export default function ProfileSettings() {
             </FormFieldHolder>
           )}
         </div>
-        <h2 className="mt-20 mb-5 heading-2">Social Media</h2>
+        {/* <h2 className="mt-20 mb-5 heading-2">Social Media</h2>
         <div className="grid grid-cols-3 gap-10 midmobile:grid-cols-1">
           <FormFieldHolder label="Facebook">
             <FormInput
@@ -319,17 +319,17 @@ export default function ProfileSettings() {
               {...register("twitter")}
             />
           </FormFieldHolder>
-        </div>
+        </div> */}
         <h2 className="mt-20 mb-5 heading-2">Professional Details</h2>
         <div className="grid grid-cols-3 gap-10 mb-20 midmobile:grid-cols-1">
-          <FormFieldHolder label="License Number">
+          {/* <FormFieldHolder label="License Number">
             <FormInput
               id="license"
               defaultValue={license}
               placeholder="LC-5758-2048-3944"
               {...register("license")}
             />
-          </FormFieldHolder>
+          </FormFieldHolder> */}
           <FormFieldHolder label="Experience">
             <FormInput
               id="experience"
@@ -340,7 +340,7 @@ export default function ProfileSettings() {
               disabled={isPending}
             />
           </FormFieldHolder>
-          <FormFieldHolder label="Properties Managed">
+          {/* <FormFieldHolder label="Properties Managed">
             <FormInput
               id="x"
               type="number"
@@ -349,7 +349,7 @@ export default function ProfileSettings() {
               {...register("properties")}
               disabled
             />
-          </FormFieldHolder>
+          </FormFieldHolder> */}
           <FormFieldHolder label="Specialization">
             <select
               id="specialization"
@@ -432,7 +432,7 @@ export default function ProfileSettings() {
               <option value="any">Any</option>
             </select>
           </FormFieldHolder>
-          <FormFieldHolder label="Certification">
+          {/* <FormFieldHolder label="Certification">
             <FormInput
               id="certification"
               placeholder="Enter your qualification"
@@ -447,7 +447,7 @@ export default function ProfileSettings() {
               defaultValue={qualifications.education}
               {...register("education")}
             />
-          </FormFieldHolder>
+          </FormFieldHolder> */}
         </div>
         <Button>
           {isUpdating ? (
