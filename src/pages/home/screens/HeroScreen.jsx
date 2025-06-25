@@ -46,8 +46,8 @@ export default function Hero() {
                     index === currentIndex ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  <div className="px-10 py-5 bg-blue-500 text-white rounded-full ring-2 ring-offset-2 absolute flex items-center gap-5 -translate-x-2/4 left-2/4 top-10 cursor-default">
-                    <LuMousePointer2 size={28} />
+                  <div className="px-10 py-5 smmobile:px-5 smmobile:gap-3 bg-blue-500 text-white rounded-full ring-2 ring-offset-2 absolute flex items-center gap-5 -translate-x-2/4 left-2/4 top-10 cursor-default">
+                    <LuMousePointer2 className="text-[2.8rem] smmobile:text-[2rem]" />
                     <span>
                       {currentProperty.variations.includes("Featured") &&
                         "Featured Listings"}

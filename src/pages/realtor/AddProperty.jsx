@@ -319,7 +319,7 @@ export default function AddProperty() {
 
               <div className="col-span-2 midmobile:col-span-1">
                 <FormFieldHolder
-                  label="Full Address"
+                  label="Landmark"
                   error={errors?.fullAddress?.message}
                 >
                   <FormInput
@@ -328,7 +328,7 @@ export default function AddProperty() {
                       required: "Full address is?",
                     })}
                     id="full-address"
-                    placeholder="Enter property address"
+                    placeholder="E.g: Off Takwabay Crescent, Apapa, Lagos"
                     defaultValue={property?.address?.fullAddress}
                   />
                 </FormFieldHolder>

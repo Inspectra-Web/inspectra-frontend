@@ -25,7 +25,7 @@ export default function ListingsSearch({
     <div className="from-sky-500 to-blue-500 bg-gradient-to-tr p-10 rounded-3xl flex max-w-full flex-wrap justify-center items-center gap-10 mx-auto relative">
       <button
         onClick={() => onCloseSearch(false)}
-        className="text-white absolute top-10 right-10"
+        className="text-white absolute top-5 right-5 smmobile:relative smmobile:top-0 smmobile:right-0"
       >
         <SlClose size={24} />
       </button>
@@ -34,7 +34,7 @@ export default function ListingsSearch({
         id="type"
         value={filters.type}
         onChange={handleChange}
-        className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 text-slate-700 placeholder:text-slate-500 capitalize"
+        className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 text-slate-700 placeholder:text-slate-500 capitalize midmobile:w-full"
       >
         <option disabled>Search property type</option>
         <option value="">All type</option>
@@ -74,7 +74,7 @@ export default function ListingsSearch({
         id="listingStatus"
         value={filters.listingStatus}
         onChange={handleChange}
-        className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 placeholder:text-slate-500 text-slate-700 capitalize"
+        className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 placeholder:text-slate-500 text-slate-700 capitalize midmobile:w-full"
       >
         <option disabled>Search property status</option>
         <option value="">All Status</option>
@@ -87,7 +87,7 @@ export default function ListingsSearch({
         value={filters.category}
         onChange={handleChange}
         id="category"
-        className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 text-slate-700 placeholder:text-slate-500 capitalize"
+        className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 text-slate-700 placeholder:text-slate-500 capitalize midmobile:w-full"
       >
         <option disabled>Search property category</option>
         <option value="">All Category</option>
@@ -112,7 +112,7 @@ export default function ListingsSearch({
         value={filters.location}
         onChange={handleChange}
         id="location"
-        className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 placeholder:text-slate-500 text-slate-700 capitalize"
+        className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 placeholder:text-slate-500 text-slate-700 capitalize midmobile:w-full"
       >
         <option disabled>Search property location</option>
         <option value="">All Locations</option>

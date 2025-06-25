@@ -212,7 +212,7 @@ function SubscribeButton({ plan, user, active, navigate, isAuthenticated }) {
       {
         onError: (error) => {
           toast.error("Failed to initiate payment. Please try again.");
-          console.error(error);
+          return error;
         },
       }
     );

@@ -67,7 +67,7 @@ export default function ListingsPage() {
     (!data?.pages || data.pages.every((page) => page.properties.length === 0));
 
   return (
-    <div className="px-10 pb-20 min-h-[50rem]">
+    <div className="px-10 smmobile:px-3 pb-20 min-h-[50rem]">
       <div className="bg-yellow-50 rounded-2xl my-5 border-t border-yellow-200 text-yellow-800 text-3xl p-2 text-center">
         Note: All properties currently listed on Inspectra are demo listings as
         part of our MVP launch. Real listings will be available soon!
@@ -106,7 +106,7 @@ export default function ListingsPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search By Title, Property ID, Address"
-                className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 text-slate-700 w-[300px] placeholder:text-slate-500"
+                className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 text-slate-700 w-[300px] placeholder:text-slate-500 smmobile:w-full"
               />
             }
           />

@@ -64,7 +64,6 @@ export default function ListingDetailPage() {
     inspectionCost,
   } = property;
 
-  console.log(variations);
   const videoJsOptions = {
     autoplay: false,
     controls: true,
@@ -106,7 +105,7 @@ export default function ListingDetailPage() {
               </strong>
             ) : (
               <span className="text-slate-500 italic">
-                You charge{" "}
+                {" "}
                 <strong className="text-sky-500">
                   ₦{inspectionCost.toLocaleString()}
                 </strong>{" "}
