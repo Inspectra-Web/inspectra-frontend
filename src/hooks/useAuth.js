@@ -74,7 +74,9 @@ export function useLogin() {
   const { mutate: login, isPending } = useMutation({
     mutationFn: loginApi,
     onSuccess: (user) => {
-      toast.success(`You are welcome, ${user.fullname.split(" ")[0]}`);
+      toast.success(
+        `You are welcome, ${user.fullname.toUpperCase().split(" ")[0]}`
+      );
       queryClient.setQueryData(["userKey"], user);
     },
     onError: errData,

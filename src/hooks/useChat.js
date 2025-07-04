@@ -1,19 +1,19 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   createChatRoom as createChatRoomApi,
-  getGuestChatRoom as getGuestChatRoomApi,
+  getClientChatRoom as getClientChatRoomApi,
   getRealtorChatRoom as getRealtorChatRoomApi,
 } from "../services/apiChat";
 import { errData } from "../helpers/apiHelpers";
 import { toast } from "react-toastify";
 
-export function useGetGuestChatRoom(token) {
+export function useGetClientChatRoom() {
   const { isPending, isError, data } = useQuery({
-    queryKey: ["guest-chat"],
-    queryFn: () => getGuestChatRoomApi(token),
+    queryKey: ["client-chat"],
+    queryFn: getClientChatRoomApi,
   });
 
-  return { isPending, isError, guestChatRoom: data };
+  return { isPending, isError, clientChatRoom: data };
 }
 
 export function useGetRealtorChatRoom() {

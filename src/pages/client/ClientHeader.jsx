@@ -1,12 +1,13 @@
 import { HiMenuAlt1 } from "react-icons/hi";
-import { HiArrowUturnLeft, HiOutlinePaperAirplane } from "react-icons/hi2";
+import { HiArrowUturnLeft } from "react-icons/hi2";
 import Button from "../../components/Button";
 import { useLogout, useUser } from "../../hooks/useAuth";
 import { useReadProfile } from "../../hooks/useProfile";
 import { Link } from "react-router-dom";
 import { defaultAvatar } from "../../helpers/helpers";
+import { CiSearch } from "react-icons/ci";
 
-export default function RealtorHeader({ onToggleSidebar }) {
+export default function ClientHeader({ onToggleSidebar }) {
   const { user } = useUser();
   const { profile } = useReadProfile(user?.profile);
   const { logout, isPending } = useLogout();
@@ -15,10 +16,7 @@ export default function RealtorHeader({ onToggleSidebar }) {
   return (
     <header className="sticky top-0 left-0 bg-white shadow-md shadow-slate-200 h-36 px-16 py-7 flex items-center justify-between z-[999] bigmobile:px-5">
       <div className="flex items-center gap-10">
-        <HiMenuAlt1
-          className="icon smtablet:block hidden"
-          onClick={onToggleSidebar}
-        />
+        <HiMenuAlt1 className="icon" onClick={onToggleSidebar} />
         <h2 className="heading-2 midmobile:hidden capitalize">
           Welcome {name?.[0]}!
         </h2>
@@ -32,9 +30,9 @@ export default function RealtorHeader({ onToggleSidebar }) {
           />
           <HiOutlineMagnifyingGlass className="text-lg text-slate-500 cursor-pointer" />
         </div> */}
-        <Button variation="link" link="/app/add-property">
-          <span className="smtablet:hidden">Add Listing</span>
-          <HiOutlinePaperAirplane size={24} className="bigmobile:-rotate-90" />
+        <Button variation="link" link="/listings">
+          <span className="bigmobile:hidden">Listings</span>
+          <CiSearch size={24} className="bigmobile:-rotate-90" />
         </Button>
         {/* <BiFullscreen className="icon" /> */}
         {/* <div className="relative">
@@ -43,7 +41,7 @@ export default function RealtorHeader({ onToggleSidebar }) {
             12
           </span>
         </div> */}
-        <Link to="/app/profile" className="flex items-center gap-5">
+        <Link to="/client/settings" className="flex items-center gap-5">
           <img
             src={profile?.avatar || defaultAvatar(profile?.gender)}
             className="w-[7rem] h-[7rem] rounded-full cursor-pointer"

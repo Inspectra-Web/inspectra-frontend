@@ -28,9 +28,9 @@ export default function ChatInterface({ apiData, currentUserRole }) {
       if (userId) socket.emit("user_online", userId);
     }
 
-    return () => {
-      socket.disconnect();
-    };
+    // return () => {
+    //   socket.disconnect();
+    // };
   }, [apiData, currentUserRole, selectedChatRoom]);
 
   useEffect(() => {
@@ -185,6 +185,7 @@ export default function ChatInterface({ apiData, currentUserRole }) {
       </div>
       <div className="flex flex-1 flex-col">
         <ChatHeader
+          currentUserRole={currentUserRole}
           selectedChatRoom={selectedChatRoom}
           onOpen={onOpen}
           isOpen={isOpen}

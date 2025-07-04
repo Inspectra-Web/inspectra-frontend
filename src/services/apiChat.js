@@ -1,8 +1,8 @@
 import { apiClient, handleError, handleResponse } from "../helpers/apiHelpers";
 
-export async function getGuestChatRoom(token) {
+export async function getClientChatRoom() {
   try {
-    const response = await apiClient.get(`/chat/guest/${token}`);
+    const response = await apiClient.get(`/chat/client-chat`);
 
     return handleResponse(response);
   } catch (error) {

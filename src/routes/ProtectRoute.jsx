@@ -2,15 +2,9 @@ import { Navigate, useLocation } from "react-router-dom";
 import { useUser } from "../hooks/useAuth";
 import { LoaderLg } from "../static/Loaders";
 
-export default function ProtectRoute({ children }) {
+export default function ProtectRoute({ children, allowedRoles = [] }) {
   const location = useLocation();
-  const { isPending, isError, isAuthenticated } = useUser();
-  // useEffect(
-  //   function () {
-  //     if (!user && !isPending) navigate("/sign-in", { replace: true });
-  //   },
-  //   [user, isPending, navigate]
-  // );
+  const { isPending, isError, isAuthenticated, user } = useUser();
 
   if (isPending) return <LoaderLg />;
 
@@ -21,6 +15,9 @@ export default function ProtectRoute({ children }) {
   if (!isAuthenticated) {
     return <Navigate to="/sign-in" state={{ from: location }} replace />;
   }
+
+  if (allowedRoles.length > 0 && !allowedRoles.includes(user?.role))
+    return <Navigate to="/unauthorized" replace />;
 
   return children;
 }

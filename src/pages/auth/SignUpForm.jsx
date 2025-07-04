@@ -73,7 +73,7 @@ export default function SignUpForm() {
                   Choose your role
                 </option>
                 <option value="realtor">Realtor / Agent</option>
-                {/* <option value="client">User / Client</option> */}
+                <option value="client">User / Client</option>
               </>
             }
             selectOption={true}

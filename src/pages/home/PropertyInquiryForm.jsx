@@ -12,14 +12,17 @@ import { FormFieldHolder } from "../../ui/FormFieldHolder";
 import { FormInput } from "../../ui/FormInput";
 import GoBackBtn from "../../components/GoBackBtn";
 import { TbFileDescription, TbUrgent } from "react-icons/tb";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useOnePropertyListing } from "../../hooks/useProperty";
 import { LoaderLg, LoaderSm } from "../../static/Loaders";
 import { useForm } from "react-hook-form";
 import { useSendInquiryMessage } from "../../hooks/useInquiry";
 import { IoCallOutline } from "react-icons/io5";
+import { useUser } from "../../hooks/useAuth";
 
 export default function PropertyInquiryForm() {
+  const navigate = useNavigate();
+  const { user } = useUser();
   const { id } = useParams();
   const { isPending, property, realtor } = useOnePropertyListing(id);
   const { isSending, sendInquiry } = useSendInquiryMessage();
@@ -30,27 +33,23 @@ export default function PropertyInquiryForm() {
     reset,
   } = useForm();
 
-  function onSubmit({
-    clientName,
-    clientEmail,
-    message,
-    urgencyLevel,
-    preferredContactMethod,
-  }) {
+  function onSubmit({ message, urgencyLevel, preferredContactMethod }) {
     sendInquiry(
       {
         property: id,
-        clientName,
-        clientEmail,
         message,
         urgencyLevel,
         preferredContactMethod,
       },
-      { onSuccess: () => reset() }
+      {
+        onSuccess: () => {
+          reset();
+          navigate("/client/inquiries");
+        },
+      }
     );
   }
   if (!property || isPending) return <LoaderLg />;
-
   return (
     <Container>
       <ParticlesBg />
@@ -75,10 +74,11 @@ export default function PropertyInquiryForm() {
             id="full-name"
             type="text"
             placeholder="Enter full name"
+            defaultValue={user?.fullname.toUpperCase()}
+            disabled
             icon={
               <HiOutlineFaceSmile className="text-xlg text-blue-500 cursor-default" />
             }
-            {...register("clientName", { required: "Enter your full name" })}
           />
         </FormFieldHolder>
         <FormFieldHolder label="email" error={errors?.clientEmail?.message}>
@@ -86,12 +86,11 @@ export default function PropertyInquiryForm() {
             id="email"
             type="email"
             placeholder="Enter email address"
+            defaultValue={user?.email}
+            disabled
             icon={
               <HiOutlineEnvelope className="text-xlg text-blue-500 cursor-default" />
             }
-            {...register("clientEmail", {
-              required: "Enter your email address",
-            })}
           />
         </FormFieldHolder>
         <FormFieldHolder
@@ -111,7 +110,6 @@ export default function PropertyInquiryForm() {
                 </option>
                 <option value="whatsapp">whatsapp</option>
                 <option value="facebook">facebook</option>
-                <option value="call">call</option>
                 <option value="email">email</option>
                 <option value="any">any</option>
               </>

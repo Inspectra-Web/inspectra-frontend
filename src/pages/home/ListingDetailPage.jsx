@@ -26,6 +26,7 @@ import { LuAlarmClock, LuMousePointer2 } from "react-icons/lu";
 import { useState } from "react";
 import SafetyPopup from "../../ui/SafetyPopup";
 import VideoJS from "../../components/VideoJS";
+import { calculateCommissionedInspection } from "../../helpers/helpers";
 
 export default function ListingDetailPage() {
   const [showPopup, setShowPopup] = useState(false);
@@ -107,7 +108,10 @@ export default function ListingDetailPage() {
               <span className="text-slate-500 italic">
                 {" "}
                 <strong className="text-sky-500">
-                  ₦{inspectionCost.toLocaleString()}
+                  ₦
+                  {calculateCommissionedInspection(
+                    inspectionCost
+                  ).totalPay.toLocaleString()}
                 </strong>{" "}
                 for Inspection
               </span>

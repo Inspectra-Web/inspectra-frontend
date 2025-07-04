@@ -3,6 +3,7 @@ import {
   sendInquiryMessage as sendInquiryMessageApi,
   viewInquiries as viewInquiriesApi,
   viewRealtorInquiries as viewRealtorInquiriesApi,
+  viewClientInquiries as viewClientInquiriesApi,
 } from "../services/apiInquiry";
 import { toast } from "react-toastify";
 import { errData } from "../helpers/apiHelpers";
@@ -25,6 +26,24 @@ export function useViewRealtorInquiries({ sort, search, page, limit = 10 }) {
   } = useQuery({
     queryKey: ["inquiryKey", { sort, search, page, limit }],
     queryFn: () => viewRealtorInquiriesApi({ sort, search, page, limit }),
+  });
+
+  return {
+    isPending,
+    isError,
+    inquiries: inquiries?.inquiries,
+    totalCount: inquiries?.totalCount,
+  };
+}
+
+export function useViewClientInquiries({ sort, search, page, limit = 10 }) {
+  const {
+    isPending,
+    isError,
+    data: inquiries,
+  } = useQuery({
+    queryKey: ["inquiryClientKey", { sort, search, page, limit }],
+    queryFn: () => viewClientInquiriesApi({ sort, search, page, limit }),
   });
 
   return {

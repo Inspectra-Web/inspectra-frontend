@@ -56,6 +56,7 @@ export const FormInput = React.forwardRef(
                 className="bg-transparent h-full flex-1 outline-none text-slate-500"
                 placeholder={placeholder}
                 disabled={disabled}
+                defaultValue={defaultValue}
                 {...rest}
               />
             )}

@@ -3,15 +3,16 @@ import { useReadProfile } from "../../hooks/useProfile";
 import { defaultAvatar } from "../../helpers/helpers";
 
 export default function ChatHeader({
+  currentUserRole,
   selectedChatRoom,
   onOpen,
   isOpen,
   onlineUsers,
 }) {
-  const realtorProfileId = selectedChatRoom?.realtor.profile;
-  const { isPending, profile } = useReadProfile(
-    realtorProfileId ? realtorProfileId : null
-  );
+  const profileId =
+    selectedChatRoom?.[currentUserRole === "GuestUser" ? "realtor" : "client"]
+      .profile;
+  const { isPending, profile } = useReadProfile(profileId ? profileId : null);
 
   const targetUserId =
     typeof selectedChatRoom?.realtor === "object"
@@ -33,24 +34,26 @@ export default function ChatHeader({
         </div>
         <div>
           <div className="smmobile:w-5/6">
-            <h2 className="text-4xl font-semibold  smmobile:text-3xl smmobile:truncate">
+            <h2 className="text-4xl font-semibold capitalize smmobile:text-3xl truncate">
               {typeof selectedChatRoom?.realtor === "string"
                 ? null
                 : selectedChatRoom?.realtor.fullname}
               {typeof selectedChatRoom?.client === "string"
                 ? null
-                : selectedChatRoom?.client?.name}
+                : selectedChatRoom?.client?.fullname}
             </h2>
           </div>
 
           <div className="flex items-center gap-3 smmobile:flex-col smmobile:gap-0 smmobile:items-start">
             <span className="text-2xl text-gray-600 uppercase">
-              {typeof selectedChatRoom?.realtor === "string"
-                ? null
-                : selectedChatRoom?.realtor.role}
+              {typeof selectedChatRoom?.realtor === "string" ? null : (
+                <span className="uppercase text-blue-500 font-bold">
+                  {selectedChatRoom?.realtor.role}
+                </span>
+              )}
               {typeof selectedChatRoom?.client === "string" ? null : (
-                <span className="lowercase">
-                  {selectedChatRoom?.client?.email}
+                <span className="uppercase text-blue-500 font-bold">
+                  {selectedChatRoom?.client?.role}
                 </span>
               )}
             </span>

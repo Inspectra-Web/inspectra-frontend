@@ -96,6 +96,7 @@ export default function Header() {
   const [show, setShow] = useState(false);
   const { user } = useUser();
 
+
   return (
     <header className="px-32 midtablet:px-10 flex items-center justify-between font-medium py-5 bigmobile:flex-col gap-7">
       <MobileNav show={show} setShow={setShow} />
@@ -124,7 +125,10 @@ export default function Header() {
           <span>234-916-581-2629</span>
         </Link> */}
         {user ? (
-          <Button link="/app" variation="link">
+          <Button
+            link={user.role === "client" ? "/client/dashboard" : "/app"}
+            variation="link"
+          >
             <span>View Dashboard</span>
             <HiOutlinePaperAirplane size={24} />
           </Button>

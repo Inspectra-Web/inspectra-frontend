@@ -30,8 +30,6 @@ export default function ClientsInspection() {
       search: activeSearch,
       page: currentPage,
     });
-
-
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     setActiveSearch(search);
@@ -45,8 +43,8 @@ export default function ClientsInspection() {
   const sortOptions = [
     { value: "clientName", label: "Client Name (A - Z)" },
     { value: "-clientName", label: "Client Name (Z - A)" },
-    { value: "clientEmail", label: "Client Email (A - Z)" },
-    { value: "-clientEmail", label: "Client Email (Z - A)" },
+    { value: "status", label: "Inspection Status (+)" },
+    { value: "-status", label: "Inspection Status (-)" },
     { value: "createdAt", label: "Time of Inquiry (+)" },
     { value: "-createdAt", label: "Time of Inquiry (-)" },
     { value: "scheduleDate", label: "Schedule Date (A - Z)" },
@@ -92,9 +90,10 @@ export default function ClientsInspection() {
                 <tr>
                   <th>S/N</th>
                   <th>Client Name</th>
-                  <th>Client Email</th>
+                  <th>Inspection Status</th>
                   <th>Schedule Date</th>
                   <th>Time Sent</th>
+                  <th>Inspection Cost</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -104,9 +103,26 @@ export default function ClientsInspection() {
                     <tr key={idx}>
                       <td>{idx + 1}</td>
                       <td>{el.clientName}</td>
-                      <td className="lowercase">{el.clientEmail}</td>
+                      <td>
+                        <div
+                          className={`py-2 px-5 bg-gradient-to-b ${
+                            el.status === "pending"
+                              ? "from-yellow-100 to-yellow-200 text-yellow-700"
+                              : el.status === "completed"
+                              ? "from-green-100 to-green-200 text-green-700"
+                              : el.status === "accepted"
+                              ? "from-sky-100 to-sky-200 text-sky-700"
+                              : el.status === "rescheduled"
+                              ? "from-stone-100 to-stone-200 text-stone-700"
+                              : "from-red-100 to-red-200 text-red-700"
+                          } rounded-xl flex justify-center capitalize`}
+                        >
+                          {el.status}
+                        </div>
+                      </td>
                       <td>{moment(el.scheduleDate).format("LLL")}</td>
                       <td>{moment(el.createdAt).fromNow()}</td>
+                      <td>₦{el.totalPaid.toLocaleString()}</td>
                       <td>
                         <div className="flex items-center gap-4">
                           <Link to={`/app/manage-property/${el.property._id}`}>

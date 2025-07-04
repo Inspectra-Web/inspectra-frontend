@@ -10,14 +10,13 @@ import {
   Pagination,
   SearchAndSort,
 } from "../../components/TableActions";
-import { useViewRealtorInquiries } from "../../hooks/useInquiry";
 import moment from "moment";
 import { LuMessageCircle } from "react-icons/lu";
 import { SlClose } from "react-icons/sl";
-import { IoChatbubblesOutline } from "react-icons/io5";
+import { useViewClientInspectionSchedules } from "../../hooks/useSchedule";
 import { HiMiniLink } from "react-icons/hi2";
 
-export default function ClientsInquiry() {
+export default function ClientInspections() {
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
@@ -26,9 +25,12 @@ export default function ClientsInquiry() {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState("");
 
-  const { isPending, inquiries, isError, totalCount } = useViewRealtorInquiries(
-    { sort, search: activeSearch, page: currentPage }
-  );
+  const { isPending, schedules, isError, totalCount } =
+    useViewClientInspectionSchedules({
+      sort,
+      search: activeSearch,
+      page: currentPage,
+    });
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -41,12 +43,12 @@ export default function ClientsInquiry() {
   };
 
   const sortOptions = [
-    { value: "clientName", label: "Client Name (A - Z)" },
-    { value: "-clientName", label: "Client Name (Z - A)" },
+    { value: "status", label: "Inspection Status (+)" },
+    { value: "-status", label: "Inspection Status (-)" },
     { value: "createdAt", label: "Time of Inquiry (+)" },
     { value: "-createdAt", label: "Time of Inquiry (-)" },
-    { value: "urgencyLevel", label: "Urgency Level (A - Z)" },
-    { value: "-urgencyLevel", label: "Urgency Level (Z - A)" },
+    { value: "scheduleDate", label: "Schedule Date (A - Z)" },
+    { value: "-scheduleDate", label: "Schedule Date (Z - A)" },
   ];
 
   const handleOpenPopup = (message) => {
@@ -62,11 +64,13 @@ export default function ClientsInquiry() {
   return (
     <>
       {showPopup && (
-        <InquiryPopup message={selectedMessage} onClose={handleClosePopup} />
+        <InspectionPopup message={selectedMessage} onClose={handleClosePopup} />
       )}
 
       <GoBackBtn />
-      <IntroHeading label={`See your prospects (${inquiries?.length || 0})`} />
+      <IntroHeading
+        label={`Inspection Schedules (${schedules?.length || 0})`}
+      />
       <SearchAndSort
         search={search}
         onSearchChange={(e) => setSearch(e.target.value)}
@@ -85,47 +89,50 @@ export default function ClientsInquiry() {
               <thead>
                 <tr>
                   <th>S/N</th>
-                  <th>Client Name</th>
-                  <th>Property ID</th>
-                  <th>Urgency Level</th>
-                  <th>Date Sent</th>
+                  <th>Realtor Name</th>
+                  <th>Inspection Status</th>
+                  <th>Schedule Date</th>
+                  <th>Time Sent</th>
+                  <th>Inspection Cost</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {inquiries &&
-                  inquiries.map((el, idx) => (
+                {schedules &&
+                  schedules.map((el, idx) => (
                     <tr key={idx}>
                       <td>{idx + 1}</td>
                       <td>
                         <Link
-                          to="/app/live-chat"
-                          className="hover:text-blue-500 transition-all duration-300"
+                          to={`/realtor-detail/${el.realtor.profile}`}
+                          className="hover:text-blue-500 transition-all duration-300 flex items-center gap-3"
                         >
-                          {el.clientName}
-                          <HiMiniLink size={16} />
+                          {el.realtor.fullname} <HiMiniLink size={16} />
                         </Link>
                       </td>
-                      <td className="uppercase">{el.property.propertyId}</td>
                       <td>
                         <div
                           className={`py-2 px-5 bg-gradient-to-b ${
-                            el.urgencyLevel === "immediately (within a week)"
-                              ? "from-red-100 to-red-200 text-red-700"
-                              : el.urgencyLevel === "soon (within a month)"
-                              ? "from-orange-100 to-orange-200 text-orange-700"
-                              : el.urgencyLevel === "flexible (1 - 3 months)"
+                            el.status === "pending"
+                              ? "from-yellow-100 to-yellow-200 text-yellow-700"
+                              : el.status === "completed"
                               ? "from-green-100 to-green-200 text-green-700"
-                              : "from-sky-100 to-sky-200 text-sky-700"
+                              : el.status === "accepted"
+                              ? "from-sky-100 to-sky-200 text-sky-700"
+                              : el.status === "rescheduled"
+                              ? "from-stone-100 to-stone-200 text-stone-700"
+                              : "from-red-100 to-red-200 text-red-700"
                           } rounded-xl flex justify-center capitalize`}
                         >
-                          {el.urgencyLevel}
+                          {el.status}
                         </div>
                       </td>
-                      <td>{moment(el.createdAt).format("L")}</td>
+                      <td>{moment(el.scheduleDate).format("LLL")}</td>
+                      <td>{moment(el.createdAt).fromNow()}</td>
+                      <td>₦{el.totalPaid.toLocaleString()}</td>
                       <td>
                         <div className="flex items-center gap-4">
-                          <Link to={`/app/manage-property/${el.property._id}`}>
+                          <Link to={`/listing-detail/${el.property._id}`}>
                             <BtnAction
                               title="View property details"
                               clr="from-slate-100 to-slate-200 text-slate-600"
@@ -141,14 +148,6 @@ export default function ClientsInquiry() {
                               icon={<LuMessageCircle />}
                             />
                           </button>
-                          <Link
-                            title={`Chat with ${el.clientName}`}
-                            to={`/app/live-chat`}
-                            className="flex items-center gap-3 text-white bg-blue-500 px-5 py-2 rounded-md"
-                          >
-                            <IoChatbubblesOutline />
-                            Chat
-                          </Link>
                           {/* <BtnAction
                             clr="from-indigo-100 to-indigo-200 text-indigo-600"
                             hoverClr="hover:from-indigo-500 hover:to-indigo-500 hover:text-indigo-50"
@@ -166,8 +165,8 @@ export default function ClientsInquiry() {
               </tbody>
             </table>
           </div>
-          {(isError || inquiries?.length === 0) && (
-            <NoMessage model="inquiries" />
+          {(isError || schedules?.length === 0) && (
+            <NoMessage model="schedules" />
           )}
           <Pagination
             currentPage={currentPage}
@@ -180,7 +179,7 @@ export default function ClientsInquiry() {
   );
 }
 
-function InquiryPopup({ message, onClose }) {
+function InspectionPopup({ message, onClose }) {
   return (
     <div className="fixed w-[calc(100vw-26rem)] h-full top-0 left-[27rem] smtablet:left-0 smtablet:w-full flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50 p-6">
       <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-[80rem] relative">
@@ -194,7 +193,7 @@ function InquiryPopup({ message, onClose }) {
 
         {/* Title */}
         <h2 className="text-5xl font-semibold text-blue-500 mb-4">
-          Inquiry Message
+          Additional Message
         </h2>
 
         {/* Message Content */}

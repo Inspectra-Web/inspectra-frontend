@@ -198,6 +198,11 @@ function SubscribeButton({ plan, user, active, navigate, isAuthenticated }) {
       return;
     }
 
+    if (user?.role === "client") {
+      toast.info("You are not qualified to make this payment.");
+      return;
+    }
+
     mutate(
       {
         planId: plan[active].planId,

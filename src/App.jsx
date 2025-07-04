@@ -40,13 +40,22 @@ import PricingsPage from "./pages/home/PricingsPage";
 import PropertyInspectionForm from "./pages/home/PropertyInspectionForm";
 import ClientsInspection from "./pages/realtor/ClientsInspection";
 import LiveChatPage from "./pages/chat/LiveChatPage";
-import GuestChatPage from "./pages/chat/GuestChatPage";
 import TermsOfUse from "./ui/TermsOfUse";
 import PrivacyPolicy from "./ui/PrivacyPolicy";
 import AllClientsInquiry from "./pages/realtor/AllClientsInquiry";
 import AllClientsInspection from "./pages/realtor/AllClientsInspection";
 import SubscriptionHistory from "./pages/realtor/SubscriptionHistory";
 import AllSubscriptions from "./pages/realtor/AllSubscriptions";
+import ClientDashboard from "./pages/client/ClientDashboard";
+import ClientOverview from "./pages/client/ClientOverview";
+import ClientSettings from "./pages/client/ClientSettings";
+import ClientReviews from "./pages/client/ClientReviews";
+import ClientInspections from "./pages/client/ClientInspections";
+import ClientSavedProperties from "./pages/client/ClientSavedProperties";
+import Unauthorized from "./routes/Unauthorized";
+import ClientInquiries from "./pages/client/ClientInquiries";
+import ClientChatPage from "./pages/chat/ClientChatPage";
+import SocketProvider from "./context/SocketProvider";
 
 const Router = createBrowserRouter([
   {
@@ -69,10 +78,21 @@ const Router = createBrowserRouter([
       { path: "/privacy", element: <PrivacyPolicy /> },
     ],
   },
-  { path: "/property-inquiry-form/:id", element: <PropertyInquiryForm /> },
+  {
+    path: "/property-inquiry-form/:id",
+    element: (
+      <ProtectRoute allowedRoles={["client"]}>
+        <PropertyInquiryForm />
+      </ProtectRoute>
+    ),
+  },
   {
     path: "/property-inspection-form/:id",
-    element: <PropertyInspectionForm />,
+    element: (
+      <ProtectRoute allowedRoles={["client"]}>
+        <PropertyInspectionForm />
+      </ProtectRoute>
+    ),
   },
   {
     path: "/sign-up",
@@ -90,13 +110,31 @@ const Router = createBrowserRouter([
   { path: "/reset-password/:token", element: <ResetPassword /> },
   { path: "/verify/:token", element: <SuccessPage /> },
   { path: "/session-expire", element: <SessionExpiredPage /> },
-
-  { path: "/guest-chat/:token", element: <GuestChatPage /> },
+  { path: "/unauthorized", element: <Unauthorized /> },
+  { path: "/client", element: <Navigate to="/client/dashboard" /> },
+  {
+    path: "/client",
+    element: (
+      <ProtectRoute allowedRoles={["client", "admin"]}>
+        <ClientDashboard />
+        <ScrollToTopClick containerSelector=".client-dashboard" />
+      </ProtectRoute>
+    ),
+    children: [
+      { index: true, path: "/client/dashboard", element: <ClientOverview /> },
+      { path: "/client/settings", element: <ClientSettings /> },
+      { path: "/client/reviews", element: <ClientReviews /> },
+      { path: "/client/schedules", element: <ClientInspections /> },
+      { path: "/client/favourites", element: <ClientSavedProperties /> },
+      { path: "/client/live-chat", element: <ClientChatPage /> },
+      { path: "/client/inquiries", element: <ClientInquiries /> },
+    ],
+  },
   { path: "/app", element: <Navigate to="/app/overview" /> },
   {
     path: "/app",
     element: (
-      <ProtectRoute>
+      <ProtectRoute allowedRoles={["realtor", "admin"]}>
         <RealtorDashboard />
         <ScrollToTopClick containerSelector=".realtor-dashboard" />
       </ProtectRoute>
@@ -171,13 +209,15 @@ export default function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        {/* <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-left" /> */}
-        <ToastContainer
-          theme="colored"
-          position="top-center"
-          toastClassName="!font-sans"
-        />
-        <RouterProvider router={Router} />
+        <SocketProvider>
+          {/* <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-left" /> */}
+          <ToastContainer
+            theme="colored"
+            position="top-center"
+            toastClassName="!font-sans"
+          />
+          <RouterProvider router={Router} />
+        </SocketProvider>
       </QueryClientProvider>
     </>
   );

@@ -27,9 +27,7 @@ export default function SessionExpiredPage() {
         label="Sign up"
       />
       <div className="bg-slate-950 p-10 bg-opacity-25 mx-auto mt-20 max-w-[65rem] min-h-20 rounded-3xl shadow-sm text-white text-center">
-        <h1 className="font-bold text-6xl text-red-500 mb-5">
-          Unexpected Error
-        </h1>
+        <h1 className="font-bold text-6xl text-red-500 mb-5">Session Closed</h1>
         <div className="text-lg mb-10">
           <p>Problem might be as a result of the following: </p>
           <ul>

@@ -262,3 +262,15 @@ export const formatNigerianPhoneNumber = (input) => {
     10
   )}`;
 };
+
+export const calculateCommissionedInspection = (
+  inspectionFee,
+  commissionPercent = 10
+) => {
+  const platformCommission = Math.round(
+    (commissionPercent / 100) * inspectionFee
+  );
+  const totalPay = inspectionFee + platformCommission;
+
+  return { inspectionFee, platformCommission, totalPay };
+};

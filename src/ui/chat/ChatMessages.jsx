@@ -3,9 +3,8 @@ import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { LoaderMd } from "../../static/Loaders";
 import { memo, useEffect, useRef, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { NoMessage } from "../../components/NoDataMsg";
 import socket from "../../utils/socket";
-
+import nodataImg from "../../assets/live-chat.svg";
 const MemoizedMessage = memo(({ message, isCurrentUserSender }) => (
   <div
     className={`flex ${isCurrentUserSender ? "justify-end" : "justify-start"}`}
@@ -18,7 +17,7 @@ const MemoizedMessage = memo(({ message, isCurrentUserSender }) => (
             : " from-sky-400 to-blue-500 text-white"
         } `}
       >
-        <p className="text-[1.7rem]">{message.content}</p>
+        <p className="text-[1.7rem] text-left">{message.content}</p>
       </div>
       <span
         className={`mt-1 flex items-center gap-3 text-gray-500 text-sm ${
@@ -79,11 +78,19 @@ export default function ChatMessages({ loading, messages, currentUserRole }) {
   }, [messages]);
   return (
     <>
-      {loading ? (
+      {loading || messages.length === 0 ? (
         <LoaderMd />
       ) : messages.length === 0 ? (
         <div className="flex-1 h-full overflow-y-auto p-8">
-          <NoMessage model="message" option={false} />
+          <div className="text-center mt-10 flex flex-col items-center">
+            <img src={nodataImg} className="w-96" />
+            <h2 className="heading-2 mt-5 capitalize">Start chatting</h2>
+            <p className="text-slate-500">
+              {currentUserRole === "User"
+                ? "Initiate a chat with your CLIENT"
+                : "Send a message to the PROPERTY MANAGER"}
+            </p>
+          </div>
         </div>
       ) : (
         <div
@@ -103,7 +110,7 @@ export default function ChatMessages({ loading, messages, currentUserRole }) {
               );
             })}
             {typingUser && (
-              <div className="text-gray-400 italic text-sm m-4">
+              <div className="text-gray-400 italic text-sm m-4 mb-10">
                 🟡{" "}
                 {typingUser?.senderModel === "GuestUser" ? "Client" : "Realtor"}{" "}
                 is typing...

@@ -21,8 +21,7 @@ export default function SignInForm() {
 
   const from =
     location.state?.from?.pathname ||
-    localStorage.getItem("redirectAfterLogin") ||
-    "/app/overview";
+    localStorage.getItem("redirectAfterLogin");
   const { login, isPending } = useLogin();
   const {
     register,
@@ -35,10 +34,19 @@ export default function SignInForm() {
     login(
       { email, password },
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
           reset();
+
+          const role = data.role;
+
+          const destination = from
+            ? from
+            : role === "client"
+            ? "/client/dashboard"
+            : "/app/overview";
+
+          navigate(destination, { replace: true });
           localStorage.removeItem("redirectAfterLogin");
-          navigate(from, { replace: true });
         },
       }
     );

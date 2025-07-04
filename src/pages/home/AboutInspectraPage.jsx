@@ -633,17 +633,17 @@ export function FAQsSection({ FAQs }) {
 // CTA Section
 function CTASection() {
   return (
-    <section className="py-20 bg-gradient-to-tr from-sky-300 to-cyan-500">
+    <section className="py-20 smmobile:px-8 bg-gradient-to-tr from-sky-300 to-cyan-500">
       <div className="container">
         <div className="max-w-9xl mx-auto text-center text-white">
-          <h2 className="text-7xl font-bold mb-4">
+          <h2 className="text-7xl smmobile:text-6xl font-bold mb-4">
             Ready to Find Your Perfect Property?
           </h2>
           <p className="text-blue-50 mb-8">
             Join thousands of satisfied users who have found their dream
             properties through Inspectra.
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center">
             <Button variation="link" link="/listings">
               Browse Properties
             </Button>

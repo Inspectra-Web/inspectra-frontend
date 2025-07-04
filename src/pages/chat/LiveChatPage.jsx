@@ -9,7 +9,6 @@ import { useUser } from "../../hooks/useAuth";
 export default function LiveChatPage() {
   const { isPending, realtorChatRoom, isError } = useGetRealtorChatRoom();
   const { user } = useUser();
-
   return (
     <>
       {isPending ? (

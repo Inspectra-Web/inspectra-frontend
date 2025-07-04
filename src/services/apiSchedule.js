@@ -6,7 +6,6 @@ export async function sendInsectionSchedule(data) {
       `/schedule/schedule-inspection`,
       data
     );
-
     return handleResponse(response);
   } catch (error) {
     return handleError(error);
@@ -28,7 +27,30 @@ export async function viewRealtorInspectionSchedules({
     query.append("limit", limit);
 
     const response = await apiClient.get(
-      `/schedule/realtor-schedule-list?${query.toString()}&fields=_id,clientEmail,clientName,message,property,createdAt,scheduleDate`
+      `/schedule/realtor-schedule-list?${query.toString()}&fields=_id,clientEmail,clientName,message,property,createdAt,scheduleDate,status,totalPaid`
+    );
+    return handleResponse(response);
+  } catch (error) {
+    return handleError(error);
+  }
+}
+
+export async function viewClientInspectionSchedules({
+  sort = "",
+  search = "",
+  page = 1,
+  limit = 10,
+}) {
+  try {
+    const query = new URLSearchParams();
+
+    if (search.trim() !== "") query.append("search", search);
+    if (sort) query.append("sort", sort);
+    query.append("page", page);
+    query.append("limit", limit);
+
+    const response = await apiClient.get(
+      `/schedule/client-schedule-list?${query.toString()}&fields=_id,message,property,createdAt,scheduleDate,status,totalPaid`
     );
     return handleResponse(response);
   } catch (error) {

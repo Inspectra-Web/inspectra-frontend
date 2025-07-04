@@ -10,14 +10,14 @@ import {
   Pagination,
   SearchAndSort,
 } from "../../components/TableActions";
-import { useViewRealtorInquiries } from "../../hooks/useInquiry";
+import { useViewClientInquiries } from "../../hooks/useInquiry";
 import moment from "moment";
 import { LuMessageCircle } from "react-icons/lu";
 import { SlClose } from "react-icons/sl";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { HiMiniLink } from "react-icons/hi2";
 
-export default function ClientsInquiry() {
+export default function ClientsInquiries() {
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
@@ -26,9 +26,11 @@ export default function ClientsInquiry() {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState("");
 
-  const { isPending, inquiries, isError, totalCount } = useViewRealtorInquiries(
-    { sort, search: activeSearch, page: currentPage }
-  );
+  const { isPending, inquiries, isError, totalCount } = useViewClientInquiries({
+    sort,
+    search: activeSearch,
+    page: currentPage,
+  });
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -41,8 +43,6 @@ export default function ClientsInquiry() {
   };
 
   const sortOptions = [
-    { value: "clientName", label: "Client Name (A - Z)" },
-    { value: "-clientName", label: "Client Name (Z - A)" },
     { value: "createdAt", label: "Time of Inquiry (+)" },
     { value: "-createdAt", label: "Time of Inquiry (-)" },
     { value: "urgencyLevel", label: "Urgency Level (A - Z)" },
@@ -85,8 +85,8 @@ export default function ClientsInquiry() {
               <thead>
                 <tr>
                   <th>S/N</th>
-                  <th>Client Name</th>
-                  <th>Property ID</th>
+                  <th>Agent Incharge</th>
+                  <th>PCM</th>
                   <th>Urgency Level</th>
                   <th>Date Sent</th>
                   <th>Action</th>
@@ -99,14 +99,14 @@ export default function ClientsInquiry() {
                       <td>{idx + 1}</td>
                       <td>
                         <Link
-                          to="/app/live-chat"
-                          className="hover:text-blue-500 transition-all duration-300"
+                          to={`/realtor-detail/${el.realtor.profile}`}
+                          className="hover:text-blue-500 transition-all duration-300 flex items-center gap-3"
                         >
-                          {el.clientName}
+                          {el.propertyManager}
                           <HiMiniLink size={16} />
                         </Link>
                       </td>
-                      <td className="uppercase">{el.property.propertyId}</td>
+                      <td>{el.preferredContactMethod?.toUpperCase()}</td>
                       <td>
                         <div
                           className={`py-2 px-5 bg-gradient-to-b ${
@@ -125,7 +125,7 @@ export default function ClientsInquiry() {
                       <td>{moment(el.createdAt).format("L")}</td>
                       <td>
                         <div className="flex items-center gap-4">
-                          <Link to={`/app/manage-property/${el.property._id}`}>
+                          <Link to={`/listing-detail/${el.property}`}>
                             <BtnAction
                               title="View property details"
                               clr="from-slate-100 to-slate-200 text-slate-600"
@@ -142,8 +142,8 @@ export default function ClientsInquiry() {
                             />
                           </button>
                           <Link
-                            title={`Chat with ${el.clientName}`}
-                            to={`/app/live-chat`}
+                            title={`Chat with ${el.propertyManager}`}
+                            to={`/client/live-chat`}
                             className="flex items-center gap-3 text-white bg-blue-500 px-5 py-2 rounded-md"
                           >
                             <IoChatbubblesOutline />

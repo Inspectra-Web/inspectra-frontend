@@ -20,8 +20,11 @@ import { useEffect } from "react";
 import { HiOutlineCalendar } from "react-icons/hi";
 import { useSendInspectionSchedule } from "../../hooks/useSchedule";
 import moment from "moment";
+import { calculateCommissionedInspection } from "../../helpers/helpers";
+import { useUser } from "../../hooks/useAuth";
 
 export default function PropertyInspectionForm() {
+  const { user } = useUser();
   const { id } = useParams();
   const { isPending, property, realtor } = useOnePropertyListing(id);
   const { isSending, sendSchedule } = useSendInspectionSchedule();
@@ -41,19 +44,16 @@ export default function PropertyInspectionForm() {
     setValue("scheduleDate", formattedNow);
   }, [setValue, formattedNow]);
 
-  function onSubmit({ clientName, clientEmail, message, scheduleDate }) {
+  function onSubmit({ message, scheduleDate }) {
     sendSchedule(
       {
         property: id,
-        clientName,
-        clientEmail,
         message,
         scheduleDate: moment(scheduleDate).format("LLL"),
       },
       {
         onSuccess: () => {
           reset();
-          setValue("scheduleDate", formattedNow);
         },
       }
     );
@@ -84,10 +84,11 @@ export default function PropertyInspectionForm() {
             id="full-name"
             type="text"
             placeholder="Enter full name"
+            defaultValue={user?.fullname.toUpperCase()}
+            disabled
             icon={
               <HiOutlineFaceSmile className="text-xlg text-blue-500 cursor-default" />
             }
-            {...register("clientName", { required: "Enter your full name" })}
           />
         </FormFieldHolder>
         <FormFieldHolder label="email" error={errors?.clientEmail?.message}>
@@ -95,12 +96,11 @@ export default function PropertyInspectionForm() {
             id="email"
             type="email"
             placeholder="Enter email address"
+            defaultValue={user?.email}
+            disabled
             icon={
               <HiOutlineEnvelope className="text-xlg text-blue-500 cursor-default" />
             }
-            {...register("clientEmail", {
-              required: "Enter your email address",
-            })}
           />
         </FormFieldHolder>
         <FormFieldHolder
@@ -133,13 +133,45 @@ export default function PropertyInspectionForm() {
             {...register("message", { required: "Enter your inquiry message" })}
           />
         </FormFieldHolder>
-        <div className="mt-20">
+        {/* <p className="text-yellow-500 text-center">
+          You pay{" "}
+          <strong>
+            ₦
+            {calculateCommissionedInspection(
+              property?.inspectionCost
+            ).totalPay.toLocaleString()}
+          </strong>
+          .{" "}
+          <strong>
+            ₦
+            {calculateCommissionedInspection(
+              property?.inspectionCost
+            ).inspectionFee.toLocaleString()}
+          </strong>{" "}
+          goes to the Realtor.{" "}
+          <strong>
+            ₦
+            {calculateCommissionedInspection(
+              property?.inspectionCost
+            ).platformCommission.toLocaleString()}
+          </strong>{" "}
+          is our platform fee.
+        </p> */}
+        <div className="mt-20 flex justify-center">
           <Button disabled={isSending}>
             {isSending ? (
               <LoaderSm />
             ) : (
               <>
-                <span>Schedule</span>
+                <span>
+                  Schedule{" "}
+                  <strong>
+                    ₦
+                    {calculateCommissionedInspection(
+                      property.inspectionCost
+                    ).totalPay.toLocaleString()}
+                  </strong>
+                </span>
                 <HiOutlinePaperAirplane size={24} />
               </>
             )}

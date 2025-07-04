@@ -32,6 +32,29 @@ export async function viewRealtorInquiries({
   }
 }
 
+export async function viewClientInquiries({
+  sort = "",
+  search = "",
+  page = 1,
+  limit = 10,
+}) {
+  try {
+    const query = new URLSearchParams();
+
+    if (search.trim() !== "") query.append("search", search);
+    if (sort) query.append("sort", sort);
+    query.append("page", page);
+    query.append("limit", limit);
+
+    const response = await apiClient.get(
+      `/inquiry/client-inquiry-list?${query.toString()}&fields=_id,preferredContactMethod,propertyManager,message,property,createdAt,urgencyLevel,realtor`
+    );
+    return handleResponse(response);
+  } catch (error) {
+    return handleError(error);
+  }
+}
+
 export async function viewInquiries({
   sort = "",
   search = "",
