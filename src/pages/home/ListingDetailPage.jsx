@@ -91,6 +91,12 @@ export default function ListingDetailPage() {
 
   return (
     <main className="py-10 px-32 midtablet:px-10">
+      {showPopup && (
+        <SafetyPopup
+          showPopup={showPopup}
+          onClose={() => setShowPopup(false)}
+        />
+      )}
       <GoBackBtn />
       <IntroHeading label="Property overview" />
       <div className="mx-auto rounded-2xl">
@@ -123,7 +129,6 @@ export default function ListingDetailPage() {
           >
             View Safety Info
           </button>
-          {showPopup && <SafetyPopup onClose={() => setShowPopup(false)} />}
         </p>
         <div className="flex justify-between items-center mb-8 midtablet:flex-col midtablet:items-start midtablet:gap-5">
           <div>

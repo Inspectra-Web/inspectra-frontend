@@ -1,11 +1,39 @@
+import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-export default function SafetyPopup({ onClose }) {
+export default function SafetyPopup({ showPopup, onClose }) {
+  const [shouldRender, setShouldRender] = useState(showPopup);
+
+  useEffect(() => {
+    if (showPopup) {
+      setShouldRender(true);
+    } else {
+      const timeout = setTimeout(() => setShouldRender(false), 300);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [showPopup]);
+
+  if (!shouldRender) return null;
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-8">
-      <div className="bg-white rounded-3xl shadow-xl max-w-7xl w-full p-12 space-y-8 relative">
-        <h2 className="text-5xl text-gray-800">🔐 Your Safety Matters</h2>
+    <div
+      className={`fixed inset-0 z-50 px-8 smmobile:px-0 smmobile:overflow-y-auto smmobile:flex-none flex items-center justify-center bg-black bg-opacity-50`}
+      onClick={onClose}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={`bg-white rounded-3xl shadow-xl max-w-7xl w-full p-12 space-y-8 smmobile:px-6 smmobile:py-12 smmobile:rounded-none`}
+      >
+        <h2 className="text-5xl text-gray-800 flex items-center justify-between gap-10 smmobile:mt-6">
+          🔐 Your Safety Matters{" "}
+          <button
+            onClick={onClose}
+            className="text-5xl text-gray-500 hover:text-red-500 transition-colors"
+          >
+            <IoClose />
+          </button>
+        </h2>
 
         <div className="space-y-2 text-3xl font-normal text-slate-500">
           <p className="mb-10 leading-10">
@@ -42,13 +70,6 @@ export default function SafetyPopup({ onClose }) {
             .
           </p>
         </div>
-
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-10 text-5xl text-gray-500 hover:text-red-500 transition-colors"
-        >
-          <IoClose />
-        </button>
       </div>
     </div>
   );
