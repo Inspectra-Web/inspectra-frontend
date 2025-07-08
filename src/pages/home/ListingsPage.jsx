@@ -68,10 +68,10 @@ export default function ListingsPage() {
 
   return (
     <div className="px-10 smmobile:px-3 pb-20 min-h-[50rem]">
-      <div className="bg-yellow-50 rounded-2xl my-5 border-t border-yellow-200 text-yellow-800 text-3xl p-2 text-center">
+      {/* <div className="bg-yellow-50 rounded-2xl my-5 border-t border-yellow-200 text-yellow-800 text-3xl p-2 text-center">
         Note: All properties currently listed on Inspectra are demo listings as
         part of our MVP launch. Real listings will be available soon!
-      </div>
+      </div> */}
       {!showListingSearch && (
         <div
           className={`transition-all duration-500 ease-in-out ${
