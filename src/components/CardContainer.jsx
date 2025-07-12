@@ -98,7 +98,7 @@ export const CardContainer = forwardRef(({ property }, ref) => {
                     ? "|| 2 Years"
                     : property?.rentalDuration === "3_year_plus"
                     ? "|| 3 Years +"
-                    : "|| NIL"}
+                    : ""}
                 </span>
               </p>
               <div className="flex items-center gap-5">
