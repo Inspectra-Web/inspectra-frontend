@@ -78,7 +78,9 @@ export default function PropertyImageCarousel({ images, listingStatus }) {
             src={mainImage.src}
             alt="Main Property Image"
             className={`object-cover ${
-              mainImage.isPortrait ? "h-full w-[50rem]" : "w-full h-full"
+              mainImage.isPortrait
+                ? "h-full w-[50rem] smmobile:w-[30rem]"
+                : "w-full h-full"
             }`}
           />
         </Link>
