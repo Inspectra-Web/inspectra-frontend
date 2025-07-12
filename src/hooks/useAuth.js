@@ -94,6 +94,7 @@ export function useUser() {
   } = useQuery({
     queryKey: ["userKey"],
     queryFn: getCurrentUser,
+    staleTime: 0,
   });
 
   return { isPending, isError, user, isAuthenticated: !!user };

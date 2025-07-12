@@ -160,9 +160,10 @@ export default function AddProperty() {
           </div>
         </>
       ) : !(
-          user.planActivatedAt &&
-          user.planExpiresAt &&
-          new Date(user.planExpiresAt) > new Date()
+          user?.hasLifeTimeAccess ||
+          (user.planActivatedAt &&
+            user.planExpiresAt &&
+            new Date(user.planExpiresAt) > new Date())
         ) && user.role !== "admin" ? (
         <div className="text-center my-20 flex flex-col items-center">
           <img src={nodataImg} className="w-96" />

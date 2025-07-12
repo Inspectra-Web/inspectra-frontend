@@ -34,7 +34,7 @@ export default function SignInForm() {
     login(
       { email, password },
       {
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
           reset();
 
           const role = data.role;
