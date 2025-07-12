@@ -91,15 +91,17 @@ export default function PendingListings() {
                       <td>{idx + 1}</td>
                       <td>
                         <div className="flex items-center gap-6">
-                          <img
-                            src={el.images[0].url}
-                            alt={el.title}
-                            className="w-24 h-24 object-cover rounded-xl ring-2 ring-offset-1"
-                          />
+                          <div className="w-24 h-24 rounded-xl ring-2 ring-offset-1 overflow-hidden">
+                            <img
+                              src={el.images[0].url}
+                              alt={el.title}
+                              className="object-cover w-full h-full"
+                            />
+                          </div>
                           <Link
                             title={el.title}
                             to={`/app/manage-property/${el._id}`}
-                            className="font-semibold text-slate-800 hover:text-blue-500 transition-all ease-linear  truncate"
+                            className="font-semibold text-slate-800 hover:text-blue-500 transition-all ease-linear w-3/4 truncate"
                           >
                             {el.title}
                           </Link>

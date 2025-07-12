@@ -67,9 +67,7 @@ export default function PropertyImageCarousel({ images, listingStatus }) {
   return (
     <>
       <div
-        className={`relative overflow-hidden bg-blue-950 rounded-2xl ${
-          mainImage.isPortrait ? "flex justify-center" : ""
-        } h-[55rem] smmobile:h-[30rem] ring-2 ring-blue-500 transition-opacity duration-300 ease-in-out ${
+        className={`relative overflow-hidden bg-blue-950 rounded-2xl h-[55rem] smmobile:h-[30rem] ring-2 ring-blue-500 transition-opacity duration-300 ease-in-out ${
           isFading ? "opacity-0" : "opacity-100"
         }`}
       >
@@ -77,11 +75,7 @@ export default function PropertyImageCarousel({ images, listingStatus }) {
           <img
             src={mainImage.src}
             alt="Main Property Image"
-            className={`object-cover ${
-              mainImage.isPortrait
-                ? "h-full w-[50rem] smmobile:w-[30rem]"
-                : "w-full h-full"
-            }`}
+            className={`object-cover w-full h-full`}
           />
         </Link>
         {mainImage.status && (
@@ -106,7 +100,7 @@ export default function PropertyImageCarousel({ images, listingStatus }) {
       >
         <div className="flex p-2 gap-5">
           {images.map((el, index) => {
-            const isPortrait = orientations[index];
+            // const isPortrait = orientations[index];
             return (
               <div
                 id={`carousel-item-${index}`}
@@ -119,9 +113,7 @@ export default function PropertyImageCarousel({ images, listingStatus }) {
                 <img
                   src={el.url}
                   alt={`Property Listing Image ${index + 1}`}
-                  className={`${
-                    isPortrait ? "w-32 h-full" : "w-full h-full"
-                  } object-cover shadow-md`}
+                  className={`w-full h-40 object-cover shadow-md`}
                 />
               </div>
             );
