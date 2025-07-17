@@ -56,6 +56,8 @@ import Unauthorized from "./routes/Unauthorized";
 import ClientInquiries from "./pages/client/ClientInquiries";
 import ClientChatPage from "./pages/chat/ClientChatPage";
 import SocketProvider from "./context/SocketProvider";
+import NotFoundPage from "./error/NotFoundPage";
+import ErrorFallback from "./error/ErrorFallBack";
 
 const Router = createBrowserRouter([
   {
@@ -66,6 +68,7 @@ const Router = createBrowserRouter([
         <ScrollToTopClick containerSelector=".mainpage" />
       </>
     ),
+    errorElement: <ErrorFallback />,
     children: [
       { index: true, element: <AboutInspectraPage /> },
       { path: "/listings", element: <ListingsPage /> },
@@ -111,6 +114,7 @@ const Router = createBrowserRouter([
   { path: "/verify/:token", element: <SuccessPage /> },
   { path: "/session-expire", element: <SessionExpiredPage /> },
   { path: "/unauthorized", element: <Unauthorized /> },
+  { path: "*", element: <NotFoundPage /> },
   { path: "/client", element: <Navigate to="/client/dashboard" /> },
   {
     path: "/client",
@@ -120,6 +124,7 @@ const Router = createBrowserRouter([
         <ScrollToTopClick containerSelector=".client-dashboard" />
       </ProtectRoute>
     ),
+    errorElement: <ErrorFallback />,
     children: [
       { index: true, path: "/client/dashboard", element: <ClientOverview /> },
       { path: "/client/settings", element: <ClientSettings /> },
@@ -139,6 +144,7 @@ const Router = createBrowserRouter([
         <ScrollToTopClick containerSelector=".realtor-dashboard" />
       </ProtectRoute>
     ),
+    errorElement: <ErrorFallback />,
     children: [
       {
         index: true,

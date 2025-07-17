@@ -34,7 +34,7 @@ export default function Hero() {
 
   return (
     <>
-      <section className="h-[65rem] midmobile:py-10 smtablet:h-[70vh] midmobile:h-[58vh]">
+      <section className="h-[65rem] smtablet:h-[70vh] midmobile:h-[58vh]">
         <div ref={carouselRef} className="h-full relative">
           {data &&
             data.map((_, index) => {

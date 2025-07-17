@@ -19,7 +19,10 @@ export default function ListingsSearch({
     setFilters((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleSearch = () => onSearch(filters);
+  const handleSearch = () => {
+    onCloseSearch(false);
+    onSearch(filters);
+  };
 
   return (
     <div className="from-sky-500 to-blue-500 bg-gradient-to-tr p-10 rounded-3xl flex max-w-full flex-wrap justify-center items-center gap-10 mx-auto relative">

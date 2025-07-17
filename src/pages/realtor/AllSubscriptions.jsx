@@ -69,6 +69,7 @@ export default function AllSubscriptions() {
                   <th>S/N</th>
                   <th>Plan</th>
                   <th>Amount (₦)</th>
+                  <th>subscriber</th>
                   <th>Interval</th>
                   <th>Status</th>
                   <th>Start Date</th>
@@ -84,6 +85,7 @@ export default function AllSubscriptions() {
                       <td>{idx + 1}</td>
                       <td>{sub.planName}</td>
                       <td>{sub.amount.toLocaleString()}</td>
+                      <td className="lowercase">{sub.userEmail}</td>
                       <td>{sub.interval}</td>
                       <td>
                         <div
@@ -101,7 +103,7 @@ export default function AllSubscriptions() {
                       <td>{moment(sub.subscriptionStartDate).format("ll")}</td>
                       <td>{moment(sub.subscriptionEndDate).format("ll")}</td>
                       <td className="uppercase">{sub.paymentType}</td>
-                      <td>{sub.txRef}</td>
+                      <td>{sub.txRef || "NIL"}</td>
                     </tr>
                   ))}
               </tbody>

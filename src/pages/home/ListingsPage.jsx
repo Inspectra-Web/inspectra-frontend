@@ -74,7 +74,7 @@ export default function ListingsPage() {
       </div> */}
       {!showListingSearch && (
         <div
-          className={`transition-all duration-500 ease-in-out ${
+          className={`transition-all py-5 bg-white sticky top-0 z-50 duration-500 ease-in-out ${
             showListingSearch
               ? "opacity-0 scale-95 pointer-events-none absolute"
               : "opacity-100 scale-100 relative"
@@ -89,7 +89,7 @@ export default function ListingsPage() {
         </div>
       )}
       <div
-        className={`transition-all duration-500 ease-in-out ${
+        className={`transition-all sticky top-0 z-50 duration-500 ease-in-out ${
           showListingSearch
             ? "opacity-100 scale-100 relative"
             : "opacity-0 scale-95 pointer-events-none absolute"
@@ -114,7 +114,11 @@ export default function ListingsPage() {
       </div>
 
       {isPending && <LoaderMd />}
-      <div className="grid grid-cols-3 gap-16 mt-20 midtablet:grid-cols-2 bigmobile:grid-cols-1">
+      <div
+        className={`grid grid-cols-3 gap-16 ${
+          showListingSearch ? "mt-5" : ""
+        } midtablet:grid-cols-2 bigmobile:grid-cols-1`}
+      >
         {noResults && (
           <div className="col-span-3 flex flex-col items-center">
             <NoMessage model="Listings" />
