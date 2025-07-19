@@ -165,6 +165,7 @@ export function useDeletePropertyListing(id) {
       toast.success(msg);
       navigate(`/app/property-listings`);
     },
+    onError: (error) => toast.error(error),
   });
 
   return { isPending, deleteListing };
