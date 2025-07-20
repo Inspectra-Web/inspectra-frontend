@@ -101,7 +101,7 @@ export default function Profile() {
             <img
               src={avatar || defaultAvatar(gender)}
               alt="Profile photo"
-              className="w-60 h-60 rounded-full ring-4 ring-white shadow-md shadow-black"
+              className="w-60 h-60 rounded-full object-cover ring-4 ring-white shadow-md shadow-black"
               loading="lazy"
             />
             <div

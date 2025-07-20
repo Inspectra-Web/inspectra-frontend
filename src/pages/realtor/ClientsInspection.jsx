@@ -125,7 +125,7 @@ export default function ClientsInspection() {
                       <td>₦{el.totalPaid.toLocaleString()}</td>
                       <td>
                         <div className="flex items-center gap-4">
-                          <Link to={`/app/manage-property/${el.property._id}`}>
+                          <Link to={`/app/manage-property/${el.property?._id}`}>
                             <BtnAction
                               title="View property details"
                               clr="from-slate-100 to-slate-200 text-slate-600"

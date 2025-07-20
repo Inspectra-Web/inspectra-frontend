@@ -46,7 +46,7 @@ export default function RealtorHeader({ onToggleSidebar }) {
         <Link to="/app/profile" className="flex items-center gap-5">
           <img
             src={profile?.avatar || defaultAvatar(profile?.gender)}
-            className="w-[7rem] h-[7rem] rounded-full cursor-pointer"
+            className="w-[7rem] h-[7rem] object-cover rounded-full cursor-pointer"
           />
           <div className="bigmobile:hidden">
             <p className="capitalize font-semibold text-slate-700">

@@ -14,14 +14,26 @@ import { FormFieldHolder } from "../../ui/FormFieldHolder";
 import { LoaderSm } from "../../static/Loaders";
 import { FormInput } from "../../ui/FormInput";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function SignInForm() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from =
+  useEffect(() => {
+    const redirect = localStorage.removeItem("redirectAfterLogin");
+    if (redirect && ["/session-expire", "/unauthorized"].includes(redirect))
+      localStorage.removeItem("redirectAfterLogin");
+  }, []);
+
+  const rawRedirect =
     location.state?.from?.pathname ||
     localStorage.getItem("redirectAfterLogin");
+
+  const from = ["/session-expire", "unauthorized"].includes(rawRedirect)
+    ? null
+    : rawRedirect;
+
   const { login, isPending } = useLogin();
   const {
     register,
