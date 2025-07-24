@@ -89,6 +89,12 @@ export const amenitiesList = [
   "24/7 Power Supply",
   "Luggage Room",
   "Study Room",
+  "Dinning Set / Dinning Room",
+  "Snooker Board",
+  "High Demand Location",
+  "Aesthetic Lightning",
+  "Fully Furnished",
+  "Fully Serviced",
 ];
 
 export const listingVariations = ["New", "Coming-soon", "Featured"];
