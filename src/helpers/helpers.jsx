@@ -95,6 +95,7 @@ export const amenitiesList = [
   "Aesthetic Lightning",
   "Fully Furnished",
   "Fully Serviced",
+  "Cinema",
 ];
 
 export const listingVariations = ["New", "Coming-soon", "Featured"];

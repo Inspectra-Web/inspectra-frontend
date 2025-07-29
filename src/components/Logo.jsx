@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoImg from "../assets/inspectra-logo-primary-lg.png";
+import logoImg from "../assets/inspectra-logo-primary-lg-svg.svg";
 
 export default function Logo() {
   return (

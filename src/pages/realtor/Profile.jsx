@@ -40,13 +40,12 @@ import RejectReason from "../../components/RejectReason";
 import { useState } from "react";
 import { GiRadioactive } from "react-icons/gi";
 import { HandleConfirmation } from "../../ui/ConfirmationPrompt";
-import { useGetRealtorListingsMain } from "../../hooks/useProperty";
 
 export default function Profile() {
   const { id } = useParams();
   const { user } = useUser();
   const { isPending, profile } = useReadProfile(id || user?.profile);
-  const { properties } = useGetRealtorListingsMain(profile?.user);
+  // const { properties } = useGetRealtorListingsMain(profile?.user._id);
   const { manageDoc, isPending: isLoading } = useManageVerificationDoc();
   const { deactivate, isDeactivating } = useDeactivateAccount();
   const { activate, isActivating } = useActivateAccount();
@@ -304,7 +303,7 @@ export default function Profile() {
           />
           <ListDetails
             title="Property Listed"
-            details={id ? properties?.length : user?.property.length}
+            details={id ? profile.user.property?.length : user?.property.length}
           />
         </ul>
         {/* <h2 className="mt-20 mb-5 heading-2">

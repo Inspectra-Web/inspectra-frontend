@@ -320,6 +320,7 @@ const prospects = [
     icon: <HiOutlineUsers className="h-12 w-12 text-sky-600" />,
     iconColor: "bg-sky-100",
     heading: "Realtors & Freelance Agents",
+    comingsoon: false,
     description:
       "Expand your client base, showcase your listings, and manage property viewings efficiently with our specialized tools designed specifically for real estate professionals.",
   },
@@ -329,6 +330,7 @@ const prospects = [
     heading: "Real Estate Agencies",
     description:
       "Manage your team of agents, track performance, and build your agency's brand with our comprehensive agency tools and analytics dashboard.",
+    comingsoon: true,
   },
   {
     icon: <CiSearch className="h-12 w-12 text-cyan-600" />,
@@ -341,6 +343,7 @@ const prospects = [
     icon: <BsHouseLock className="h-12 w-12 text-indigo-600" />,
     iconColor: "bg-indigo-100",
     heading: "Property Owners Wanting to List",
+    comingsoon: true,
     description:
       "List your property with ease, connect with verified realtors, and track interest from potential buyers or renters through our intuitive owner dashboard.",
   },
@@ -395,9 +398,18 @@ function WhoItsForSection() {
                     {prospect.icon}
                   </div>
                   <div>
-                    <h4 className="text-[2.2rem] text-[#333] font-semibold mb-2">
-                      {prospect.heading}
-                    </h4>
+                    <div className="flex items-center mb-2 gap-3">
+                      <h4
+                        className={`text-[2.2rem] relative text-[#333] font-semibold ${
+                          prospect.comingsoon
+                            ? 'before:content-["coming_soon"] before:absolute before:inline-block before:bg-yellow-200 before:px-2 before:py-0.5 before:text-[1rem] before:text-yellow-600 before:rounded-md before:text-center before:top-[-1rem]'
+                            : ""
+                        }`}
+                      >
+                        {prospect.heading}
+                      </h4>
+                    </div>
+
                     <p className="text-[1.7rem]">{prospect.description}</p>
                   </div>
                 </li>
@@ -640,8 +652,7 @@ function CTASection() {
             Ready to Find Your Perfect Property?
           </h2>
           <p className="text-blue-50 mb-8">
-            Join thousands of satisfied users who have found their dream
-            properties through Inspectra.
+            Experience the smarter way to find your next home with Inspectra.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Button variation="link" link="/listings">

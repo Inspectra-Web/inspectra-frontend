@@ -13,7 +13,7 @@ import {
 } from "react-icons/hi2";
 import SideNavItem from "./SideNavItem";
 import Logo from "./Logo";
-import { HiMenuAlt1, HiOutlineCalendar } from "react-icons/hi";
+import { HiMenuAlt1, HiOutlineCalendar, HiOutlineUsers } from "react-icons/hi";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useLogout, useUser } from "../hooks/useAuth";
 import { LoaderLg } from "../static/Loaders";
@@ -285,7 +285,7 @@ export default function Sidebar({ slideIn, onToggleSidebar }) {
                   label="All Subscriptions"
                   onClick={() => onToggleSidebar(false)}
                 />
-                <h4 className="heading-4">realtors</h4>
+                <h4 className="heading-4">users</h4>
                 {/* <SideNavItem
                 href="/add-a-realtor"
                 icon={<HiOutlineUserAdd />}
@@ -296,6 +296,12 @@ export default function Sidebar({ slideIn, onToggleSidebar }) {
                   href="/app/realtors-list"
                   icon={<HiOutlineUserGroup />}
                   label="Realtors"
+                  onClick={() => onToggleSidebar(false)}
+                />
+                <SideNavItem
+                  href="/app/clients-list"
+                  icon={<HiOutlineUsers />}
+                  label="Clients"
                   onClick={() => onToggleSidebar(false)}
                 />
                 {/* <SideNavItem

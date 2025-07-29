@@ -58,6 +58,7 @@ import ClientChatPage from "./pages/chat/ClientChatPage";
 import SocketProvider from "./context/SocketProvider";
 import NotFoundPage from "./error/NotFoundPage";
 import ErrorFallback from "./error/ErrorFallBack";
+import ClientsListing from "./pages/admin/ClientsListing";
 
 const Router = createBrowserRouter([
   {
@@ -139,6 +140,31 @@ const Router = createBrowserRouter([
   {
     path: "/app",
     element: (
+      <ProtectRoute allowedRoles={["admin"]}>
+        <RealtorDashboard />
+        <ScrollToTopClick containerSelector=".realtor-dashboard" />
+      </ProtectRoute>
+    ),
+    errorElement: <ErrorFallback />,
+    children: [
+      { path: "/app/subscription-history", element: <SubscriptionHistory /> },
+      { path: "/app/all-subscriptions", element: <AllSubscriptions /> },
+      // { path: "add-a-realtor", element: <AddRealtor /> },
+      { path: "/app/realtors-list", element: <RealtorsListing /> },
+      { path: "/app/clients-list", element: <ClientsListing /> },
+      // { path: "verification-requests", element: <VerificationRequests /> },
+      { path: "/app/pending-properties", element: <PendingListings /> },
+      { path: "/app/all-property-listings", element: <AllPropertyListings /> },
+      { path: "/app/all-inquiries", element: <AllClientsInquiry /> },
+      {
+        path: "/app/all-scheduled-inspections",
+        element: <AllClientsInspection />,
+      },
+    ],
+  },
+  {
+    path: "/app",
+    element: (
       <ProtectRoute allowedRoles={["realtor", "admin"]}>
         <RealtorDashboard />
         <ScrollToTopClick containerSelector=".realtor-dashboard" />
@@ -190,18 +216,6 @@ const Router = createBrowserRouter([
       {
         path: "/app/profile-verification",
         element: <ProfileVerification />,
-      },
-      { path: "/app/subscription-history", element: <SubscriptionHistory /> },
-      { path: "/app/all-subscriptions", element: <AllSubscriptions /> },
-      // { path: "add-a-realtor", element: <AddRealtor /> },
-      { path: "/app/realtors-list", element: <RealtorsListing /> },
-      // { path: "verification-requests", element: <VerificationRequests /> },
-      { path: "/app/pending-properties", element: <PendingListings /> },
-      { path: "/app/all-property-listings", element: <AllPropertyListings /> },
-      { path: "/app/all-inquiries", element: <AllClientsInquiry /> },
-      {
-        path: "/app/all-scheduled-inspections",
-        element: <AllClientsInspection />,
       },
     ],
   },

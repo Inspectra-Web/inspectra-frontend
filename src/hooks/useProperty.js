@@ -86,7 +86,7 @@ export function useGetPropertyListings({
     isError,
     isPending,
     properties: properties?.properties,
-    totalCount: properties?.totalCount,
+    counts: properties?.counts,
   };
 }
 

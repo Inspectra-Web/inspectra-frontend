@@ -98,13 +98,15 @@ export default function PropertyListing() {
                               className="object-cover w-full h-full"
                             />
                           </div>
-                          <Link
-                            title={el.title}
-                            to={`/app/manage-property/${el._id}`}
-                            className="font-semibold text-slate-800 hover:text-blue-500 transition-all ease-linear truncate w-3/4"
-                          >
-                            {el.title}
-                          </Link>
+                          <div className="max-w-[20rem] truncate">
+                            <Link
+                              title={el.title}
+                              to={`/app/manage-property/${el._id}`}
+                              className="font-semibold text-slate-800 hover:text-blue-500 transition-all ease-linear"
+                            >
+                              {el.title}
+                            </Link>
+                          </div>
                         </div>
                       </td>
                       <td>{el.features?.yearBuilt || "NIL"}</td>
@@ -167,11 +169,13 @@ export default function PropertyListing() {
           {(isError || properties?.length === 0) && (
             <NoMessage model="properties" />
           )}
-          <Pagination
-            currentPage={currentPage}
-            totalPages={Math.ceil(totalCount / 10)}
-            onPageChange={handlePageChange}
-          />
+          {properties?.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(totalCount / 10)}
+              onPageChange={handlePageChange}
+            />
+          )}
         </>
       )}
     </>

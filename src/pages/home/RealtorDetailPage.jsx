@@ -24,9 +24,8 @@ export default function RealtorDetailPage() {
   const { id } = useParams();
   const { isPending, profile } = useReadProfile(id);
   const { isError, isLoading, properties } = useGetRealtorListingsMain(
-    profile?.user
+    profile?.user._id
   );
-
   if (!profile) return <LoaderMd />;
 
   const {
@@ -54,13 +53,15 @@ export default function RealtorDetailPage() {
   } = profile;
 
   return (
-    <main className="p-10">
+    <main className="p-10 smtablet:p-0">
       {isPending && <LoaderMd />}
-      <GoBackBtn />
+      <div className="smtablet:pl-10">
+        <GoBackBtn />
+      </div>
       <div className="text-center">
         <IntroHeading label="Profile Overview" />
       </div>
-      <div className="mx-auto max-w-[80rem] bg-white shadow shadow-slate-300 rounded-2xl p-10 midmobile:p-5">
+      <div className="mx-auto max-w-[80rem] bg-white shadow shadow-slate-300 rounded-2xl p-10 midmobile:p-5 midmobile:shadow-slate-50">
         <div className="flex items-center gap-10 mb-10 flex-wrap smmobile:justify-center">
           <div className="relative">
             <img
@@ -115,7 +116,7 @@ export default function RealtorDetailPage() {
                 {(
                   <span className="flex items-center gap-2">
                     <strong className="text-[2rem] italic">
-                      {properties?.length}
+                      {profile.user.property?.length}
                     </strong>{" "}
                     Listing(s)
                   </span>
@@ -221,9 +222,9 @@ export default function RealtorDetailPage() {
           />
         </ul>
         <h2 className="mt-20 mb-5 heading-2">
-          My Listings ({properties?.length || 0})
+          My Listings ({profile.user.property.length || 0})
         </h2>
-        {properties?.length === 0 && (
+        {profile.user.property?.length === 0 && (
           <NoMessage model="Listings" option={false} />
         )}
         {isError && (
@@ -235,12 +236,16 @@ export default function RealtorDetailPage() {
         {isLoading ? (
           <LoaderMd />
         ) : (
-          <>
+          <div className="flex flex-col gap-10">
             {properties &&
               properties.map((property) => (
-                <CardContainer key={property._id} property={property} />
+                <CardContainer
+                  landscape={true}
+                  key={property._id}
+                  property={property}
+                />
               ))}
-          </>
+          </div>
         )}
       </div>
     </main>

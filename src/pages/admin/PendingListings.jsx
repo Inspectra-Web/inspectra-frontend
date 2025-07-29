@@ -18,14 +18,12 @@ export default function PendingListings() {
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const { isPending, isError, properties, totalCount } = useGetPropertyListings(
-    {
-      sort,
-      search: activeSearch,
-      page: currentPage,
-      reviewStatus: "pending",
-    }
-  );
+  const { isPending, isError, properties, counts } = useGetPropertyListings({
+    sort,
+    search: activeSearch,
+    page: currentPage,
+    reviewStatus: "pending",
+  });
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +31,7 @@ export default function PendingListings() {
   };
 
   const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= Math.ceil(totalCount / 10))
+    if (newPage >= 1 && newPage <= Math.ceil(counts?.pendingCount / 10))
       setCurrentPage(newPage);
   };
 
@@ -55,7 +53,7 @@ export default function PendingListings() {
   return (
     <>
       <GoBackBtn />
-      <IntroHeading label={`Pending Listings (${totalCount || 0})`} />
+      <IntroHeading label={`Pending Listings (${counts?.pendingCount || 0})`} />
       <SearchAndSort
         search={search}
         onSearchChange={(e) => setSearch(e.target.value)}
@@ -98,13 +96,15 @@ export default function PendingListings() {
                               className="object-cover w-full h-full"
                             />
                           </div>
-                          <Link
-                            title={el.title}
-                            to={`/app/manage-property/${el._id}`}
-                            className="font-semibold text-slate-800 hover:text-blue-500 transition-all ease-linear w-3/4 truncate"
-                          >
-                            {el.title}
-                          </Link>
+                          <div className="max-w-[20rem] truncate">
+                            <Link
+                              title={el.title}
+                              to={`/app/manage-property/${el._id}`}
+                              className="font-semibold text-slate-800 hover:text-blue-500 transition-all ease-linear"
+                            >
+                              {el.title}
+                            </Link>
+                          </div>
                         </div>
                       </td>
                       <td>{el.features?.yearBuilt || "NIL"}</td>
@@ -162,11 +162,13 @@ export default function PendingListings() {
           {(isError || properties?.length === 0) && (
             <NoMessage model="pending properties" />
           )}
-          <Pagination
-            currentPage={currentPage}
-            totalPages={Math.ceil(totalCount / 10)}
-            onPageChange={handlePageChange}
-          />
+          {properties?.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(counts?.pendingCount / 10)}
+              onPageChange={handlePageChange}
+            />
+          )}
         </>
       )}
     </>

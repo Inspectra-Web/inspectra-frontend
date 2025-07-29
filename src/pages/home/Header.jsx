@@ -121,7 +121,7 @@ export default function Header() {
   const { user } = useUser();
 
   return (
-    <header className="px-32 midtablet:px-10 flex items-center justify-between font-medium py-5 gap-7">
+    <header className="px-32 midtablet:px-10 smmobile:px-2 flex items-center justify-between font-medium py-5 gap-7">
       <MobileNav user={user} show={show} setShow={setShow} />
       <div className="flex items-center gap-16">
         <div className="flex items-center gap-14">

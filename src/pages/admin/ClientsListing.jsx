@@ -1,28 +1,22 @@
 import { useState } from "react";
 import IntroHeading from "../../components/IntroHeading";
 // import { realtors } from "../../data/realtors";
-import { useAllRealtors } from "../../hooks/useRealtor";
 import { LoaderMd } from "../../static/Loaders";
-import { HiOutlineEye, HiFingerPrint } from "react-icons/hi";
+import { HiFingerPrint } from "react-icons/hi";
 import { TbFingerprintOff } from "react-icons/tb";
-import {
-  defaultAvatar,
-  formatNigerianPhoneNumber,
-} from "../../helpers/helpers";
+import { defaultAvatar } from "../../helpers/helpers";
 import { Link } from "react-router-dom";
 import { NoMessage } from "../../components/NoDataMsg";
-import {
-  Pagination,
-  SearchAndSort,
-  BtnAction,
-} from "../../components/TableActions";
+import { Pagination, SearchAndSort } from "../../components/TableActions";
+import { useAllClients } from "../../hooks/useClient";
+import moment from "moment";
 
-export default function RealtorsListing() {
+export default function ClientsListing() {
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const { isPending, isError, realtors, totalCount } = useAllRealtors({
+  const { isPending, isError, clients, totalCount } = useAllClients({
     sort,
     search: activeSearch,
     page: currentPage,
@@ -39,22 +33,19 @@ export default function RealtorsListing() {
   };
 
   const sortOptions = [
-    { value: "firstname", label: "Firstname (A - Z)" },
-    { value: "-firstname", label: "Firstname (Z - A)" },
+    { value: "fullname", label: "Full Name (A - Z)" },
+    { value: "-fullname", label: "Full Name (Z - A)" },
     { value: "-createdAt", label: "Newest" },
     { value: "createdAt", label: "Oldest" },
-    { value: "-verified", label: "Verified" },
-    { value: "verified", label: "Not Verified" },
-    { value: "lastname", label: "Lastname (A - Z)" },
-    { value: "-lastname", label: "Lastname (Z - A)" },
-    { value: "middlename", label: "middlename (A - Z)" },
-    { value: "-middlename", label: "middlename (Z - A)" },
-    { value: "-deactivated", label: "deactivated" },
+    { value: "-emailVerified", label: "Verified" },
+    { value: "emailVerified", label: "Not Verified" },
+    { value: "referralCode", label: "Referral Code (A - Z)" },
+    { value: "-referralCode", label: "Referral Code (Z - A)" },
   ];
 
   return (
     <>
-      <IntroHeading label={`Realtors (${totalCount || 0})`} />
+      <IntroHeading label={`Clients (${totalCount || 0})`} />
       <SearchAndSort
         search={search}
         onSearchChange={(e) => setSearch(e.target.value)}
@@ -64,8 +55,7 @@ export default function RealtorsListing() {
         sortOptions={sortOptions}
       />
       <p className="text-slate-500 mt-2">
-        Search based on: First Name, Middle Name, Last Name, Specialization,
-        City, Telephone, State, Email.
+        Search based on: Full Name, Email, Referral Code.
       </p>
       {isPending ? (
         <>
@@ -86,24 +76,26 @@ export default function RealtorsListing() {
                   <th>S/N</th>
                   <th>Photo & Name</th>
                   <th>Gender</th>
-                  <th>Phone</th>
-                  <th>Experience</th>
-                  <th>Verified</th>
-                  <th>Specialty</th>
-                  <th>Action</th>
+                  <th>Email</th>
+                  <th>Referral Code</th>
+                  <th>Email Verified</th>
+                  <th>Reg. Date</th>
                 </tr>
               </thead>
               <tbody>
-                {realtors &&
-                  realtors.map((el, index) => (
+                {clients &&
+                  clients.map((el, index) => (
                     <tr key={el._id}>
                       <td>{index + 1}</td>
                       <td>
                         <div className="flex items-center gap-6 cursor-pointer">
                           <div className="relative">
                             <img
-                              src={el.avatar || defaultAvatar(el.gender)}
-                              alt={`${el.firstname} photo`}
+                              src={
+                                el.profile.avatar ||
+                                defaultAvatar(el.profile.gender)
+                              }
+                              alt={`${el.fullname} photo`}
                               className="w-24 h-24 object-cover rounded-xl ring-2 ring-offset-1"
                             />
                             {/* {el.isActive && (
@@ -117,56 +109,32 @@ export default function RealtorsListing() {
                             to={`/app/profile/${el._id}`}
                             className="font-semibold hover:text-blue-500 transition-all ease-linear text-slate-800 capitalize"
                           >
-                            {el.firstname} {el.middlename}
+                            {el.fullname}
                           </Link>
                         </div>
                       </td>
-                      <td className="capitalize">{el.gender || "NIL"}</td>
                       <td className="capitalize">
-                        {formatNigerianPhoneNumber(el.telephone) || "NIL"}
+                        {el.profile.gender || "NIL"}
                       </td>
-                      <td className="capitalize">{el.experience || "NIL"}</td>
+                      <td>{el.email}</td>
+                      <td>{el.referralCode || "NIL"}</td>
                       <td className="capitalize">
                         <div className="flex justify-center">
-                          {el.deactivated && <p className="text-4xl">☠️</p>}
-                          {el.verified ? (
+                          {/* {el.deactivated && <p className="text-4xl">☠️</p>} */}
+                          {el.emailVerified ? (
                             <HiFingerPrint className="text-blue-500 text-4xl" />
                           ) : (
                             <TbFingerprintOff className="text-stone-500 text-4xl" />
                           )}
                         </div>
                       </td>
-                      <td className="capitalize">{el.specialization}</td>
-                      <td>
-                        <Link
-                          to={`/app/profile/${el._id}`}
-                          className="flex items-center gap-4"
-                        >
-                          <BtnAction
-                            clr="from-slate-100 to-slate-200 text-slate-600"
-                            hoverClr=" hover:from-slate-500 hover:to-slate-500 hover:text-slate-50"
-                            icon={<HiOutlineEye size={20} />}
-                          />
-                          {/* <BtnAction
-                    clr="from-indigo-100 to-indigo-200 text-indigo-600"
-                    hoverClr="hover:from-indigo-500 hover:to-indigo-500 hover:text-indigo-50"
-                    icon={<CiEdit size={20} />}
-                  />
-                  <BtnAction
-                    clr=" from-red-100 to-red-200 text-red-600"
-                    hoverClr="hover:from-red-500 hover:to-red-500 hover:text-red-50"
-                    icon={<HiOutlineTrash size={20} />}
-                  /> */}
-                        </Link>
-                      </td>
+                      <td>{moment(el.createdAt).format("ll")}</td>
                     </tr>
                   ))}
               </tbody>
             </table>
           </div>
-          {(isError || realtors?.length === 0) && (
-            <NoMessage model="realtors" />
-          )}
+          {(isError || clients?.length === 0) && <NoMessage model="clients" />}
           <Pagination
             currentPage={currentPage}
             totalPages={Math.ceil(totalCount / 10)}

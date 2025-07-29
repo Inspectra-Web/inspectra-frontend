@@ -130,7 +130,7 @@ export default function ListingDetailPage() {
             View Safety Info
           </button>
         </p>
-        <div className="flex justify-between items-center mb-8 midtablet:flex-col midtablet:items-start midtablet:gap-5">
+        <div className="flex justify-between items-center mb-5 midtablet:flex-col midtablet:items-start midtablet:gap-5">
           <div>
             <h2 className="heading-2 text-6xl mb-5">{title}.</h2>
             <div className="flex items-center mt-5">
@@ -163,20 +163,8 @@ export default function ListingDetailPage() {
               <address className="not-italic">{fullAddress}</address>
             </div>
           </div>
-          <div className="flex flex-wrap gap-5">
-            <Button variation="link" link={`/property-inquiry-form/${id}`}>
-              <SiGitconnected size={24} />
-              <span>Make Inquiry</span>
-            </Button>
-            <Link to={`/property-inspection-form/${id}`}>
-              <Button variation="button" color="from-sky-300 to-sky-600">
-                <LuAlarmClock size={24} />
-                <span>Schedule Inspection</span>
-              </Button>
-            </Link>
-          </div>
         </div>
-        <div className="flex items-center gap-5 my-10">
+        <div className="flex items-center gap-5 mb-5">
           <HiOutlineWallet
             size={45}
             className="p-3 bg-gradient-to-br from-green-100 to-green-200 text-green-700 rounded-xl"
@@ -253,6 +241,18 @@ export default function ListingDetailPage() {
               icon={<PiResize size={28} className="text-blue-500" />}
             />
           )}
+        </div>
+        <div className="flex flex-wrap gap-5 mt-10">
+          <Button variation="link" link={`/property-inquiry-form/${id}`}>
+            <SiGitconnected size={24} />
+            <span>Make Inquiry</span>
+          </Button>
+          <Link to={`/property-inspection-form/${id}`}>
+            <Button variation="button" color="from-sky-300 to-sky-600">
+              <LuAlarmClock size={24} />
+              <span>Schedule Inspection</span>
+            </Button>
+          </Link>
         </div>
         <h3 className="heading-2 text-5xl mt-20 mb-5">Description</h3>
         <p className="text-slate-500 text-3xl leading-[1.7]">{description}</p>

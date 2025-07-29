@@ -18,13 +18,11 @@ export default function AllPropertyListings() {
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const { isPending, isError, properties, totalCount } = useGetPropertyListings(
-    {
-      sort,
-      search: activeSearch,
-      page: currentPage,
-    }
-  );
+  const { isPending, isError, properties, counts } = useGetPropertyListings({
+    sort,
+    search: activeSearch,
+    page: currentPage,
+  });
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +30,7 @@ export default function AllPropertyListings() {
   };
 
   const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= Math.ceil(totalCount / 10))
+    if (newPage >= 1 && newPage <= Math.ceil(counts?.all / 10))
       setCurrentPage(newPage);
   };
 
@@ -50,11 +48,11 @@ export default function AllPropertyListings() {
     { value: "price", label: "Price (Low to High)" },
     { value: "-price", label: "Price (High to Low)" },
   ];
-
+  console.log(counts);
   return (
     <>
       <GoBackBtn />
-      <IntroHeading label={`All Property Listings (${totalCount || 0})`} />
+      <IntroHeading label={`All Property Listings (${counts?.all || 0})`} />
       <SearchAndSort
         search={search}
         onSearchChange={(e) => setSearch(e.target.value)}
@@ -97,7 +95,7 @@ export default function AllPropertyListings() {
                               className="object-cover w-full h-full"
                             />
                           </div>
-                          <div className="w-full truncate">
+                          <div className="max-w-[20rem] truncate">
                             <Link
                               title={el.title}
                               to={`/app/manage-property/${el._id}`}
@@ -105,10 +103,8 @@ export default function AllPropertyListings() {
                             >
                               {el.title}
                             </Link>
-                            <p className="text-base italic">
-                              {el.reviewStatus}
-                            </p>
                           </div>
+                          <p className="text-base italic">{el.reviewStatus}</p>
                         </div>
                       </td>
                       <td>{el.features?.yearBuilt || "NIL"}</td>
@@ -166,11 +162,13 @@ export default function AllPropertyListings() {
           {(isError || properties?.length === 0) && (
             <NoMessage model="properties" />
           )}
-          <Pagination
-            currentPage={currentPage}
-            totalPages={Math.ceil(totalCount / 10)}
-            onPageChange={handlePageChange}
-          />
+          {properties?.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(counts?.all / 10)}
+              onPageChange={handlePageChange}
+            />
+          )}
         </>
       )}
     </>
