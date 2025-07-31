@@ -15,6 +15,7 @@ import {
   getRealtorListingsMain as getRealtorListingsMainApi,
   myPropertyListings as myPropertyListingsApi,
   onePropertyListing as onePropertyListingApi,
+  onePropertyListingBySlug as onePropertyListingBySlugApi,
   updateListingReviewStatus as updateListingReviewStatusApi,
 } from "../services/apiProperties";
 import { toast } from "react-toastify";
@@ -146,6 +147,22 @@ export function useOnePropertyListing(id) {
   const { isPending, isError, data } = useQuery({
     queryKey: ["propertyKey", id],
     queryFn: () => onePropertyListingApi(id),
+    enabled: isValid,
+  });
+
+  return {
+    isPending: isValid ? isPending : false,
+    isError,
+    property: data?.property,
+    realtor: data?.realtor,
+  };
+}
+
+export function useOnePropertyListingBySlug(slug) {
+  const isValid = Boolean(slug);
+  const { isPending, isError, data } = useQuery({
+    queryKey: ["propertySlugKey", slug],
+    queryFn: () => onePropertyListingBySlugApi(slug),
     enabled: isValid,
   });
 

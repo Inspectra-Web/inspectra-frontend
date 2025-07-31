@@ -230,13 +230,13 @@ const core = [
     icon: (
       <BsCreditCard className="text-indigo-600 text-[3.5rem] midmobile:text-[3rem]" />
     ),
-    heading: "Escrow System",
+    heading: "Secured Payments",
     description:
-      "Our secure payment and escrow system protects both buyers and sellers throughout the transaction process.",
+      "Easily pay for inspections through our trusted platform, with payment protection and automated receipts.",
     lists: [
-      "Encrypted transactions",
-      "Secure escrow services",
-      "Multiple payment options",
+      "Pay directly on Inspectra",
+      "Transaction protection",
+      "Instant email receipts",
     ],
     href: "#",
     hrefLabel: "Learn about payments",

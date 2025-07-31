@@ -10,7 +10,7 @@ import { PiBathtub, PiCookingPotLight, PiResize } from "react-icons/pi";
 import { TbZoomInArea } from "react-icons/tb";
 import IntroHeading from "../../components/IntroHeading";
 import GoBackBtn from "../../components/GoBackBtn";
-import { useOnePropertyListing } from "../../hooks/useProperty";
+import { useOnePropertyListingBySlug } from "../../hooks/useProperty";
 import { Link, useParams } from "react-router-dom";
 import { LoaderMd } from "../../static/Loaders";
 import moment from "moment";
@@ -30,8 +30,9 @@ import { calculateCommissionedInspection } from "../../helpers/helpers";
 
 export default function ListingDetailPage() {
   const [showPopup, setShowPopup] = useState(false);
-  const { propertyId: id } = useParams();
-  const { isPending, property, realtor } = useOnePropertyListing(id);
+  // const { propertyId: id } = useParams();
+  const { slug } = useParams();
+  const { isPending, property, realtor } = useOnePropertyListingBySlug(slug);
   if (!property || isPending) return <LoaderMd />;
 
   const {
@@ -243,11 +244,14 @@ export default function ListingDetailPage() {
           )}
         </div>
         <div className="flex flex-wrap gap-5 mt-10">
-          <Button variation="link" link={`/property-inquiry-form/${id}`}>
+          <Button
+            variation="link"
+            link={`/property-inquiry-form/${property._id}`}
+          >
             <SiGitconnected size={24} />
             <span>Make Inquiry</span>
           </Button>
-          <Link to={`/property-inspection-form/${id}`}>
+          <Link to={`/property-inspection-form/${property._id}`}>
             <Button variation="button" color="from-sky-300 to-sky-600">
               <LuAlarmClock size={24} />
               <span>Schedule Inspection</span>
