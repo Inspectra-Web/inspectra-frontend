@@ -53,7 +53,7 @@ export default function Hero() {
                         "Featured Listings"}
                     </span>
                   </div>
-                  <Link to={`/listing-detail/${currentProperty._id}`}>
+                  <Link to={`/listing/${currentProperty.slug}`}>
                     <img
                       title={currentProperty.title}
                       src={currentProperty.images[0].url}
