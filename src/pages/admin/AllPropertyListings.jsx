@@ -2,7 +2,7 @@ import { HiOutlineEye } from "react-icons/hi";
 import IntroHeading from "../../components/IntroHeading";
 import { formatUnit } from "../../helpers/helpers";
 import GoBackBtn from "../../components/GoBackBtn";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetPropertyListings } from "../../hooks/useProperty";
 import { LoaderMd } from "../../static/Loaders";
 import { Link } from "react-router-dom";
@@ -26,8 +26,23 @@ export default function AllPropertyListings() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    setActiveSearch(search);
+
+    if (search.trim() === "") {
+      setActiveSearch("");
+      setCurrentPage(1);
+    } else {
+      setActiveSearch(search);
+      setCurrentPage(1);
+    }
   };
+
+  useEffect(() => {
+    if (search.trim() === "") {
+      setActiveSearch("");
+      setSort("");
+      setCurrentPage(1);
+    }
+  }, [search]);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= Math.ceil(counts?.all / 10))
@@ -48,7 +63,7 @@ export default function AllPropertyListings() {
     { value: "price", label: "Price (Low to High)" },
     { value: "-price", label: "Price (High to Low)" },
   ];
-  console.log(counts);
+
   return (
     <>
       <GoBackBtn />
@@ -162,13 +177,11 @@ export default function AllPropertyListings() {
           {(isError || properties?.length === 0) && (
             <NoMessage model="properties" />
           )}
-          {properties?.length > 0 && (
-            <Pagination
-              currentPage={currentPage}
-              totalPages={Math.ceil(counts?.all / 10)}
-              onPageChange={handlePageChange}
-            />
-          )}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(counts?.all / 10)}
+            onPageChange={handlePageChange}
+          />
         </>
       )}
     </>

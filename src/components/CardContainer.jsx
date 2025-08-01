@@ -24,7 +24,7 @@ export const CardContainer = forwardRef(({ property, landscape }, ref) => {
     <>
       {property && (
         <Link
-          to={`/listing-detail/${property?.slug}`}
+          to={`/listing/${property?.slug}`}
           ref={ref}
           className={
             landscape ? "w-full grid grid-cols-3 gap-7 smmobile:gap-4" : ""

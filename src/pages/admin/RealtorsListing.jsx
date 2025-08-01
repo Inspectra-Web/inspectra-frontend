@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IntroHeading from "../../components/IntroHeading";
 // import { realtors } from "../../data/realtors";
 import { useAllRealtors } from "../../hooks/useRealtor";
@@ -30,8 +30,23 @@ export default function RealtorsListing() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    setActiveSearch(search);
+
+    if (search.trim() === "") {
+      setActiveSearch("");
+      setCurrentPage(1);
+    } else {
+      setActiveSearch(search);
+      setCurrentPage(1);
+    }
   };
+
+  useEffect(() => {
+    if (search.trim() === "") {
+      setActiveSearch("");
+      setSort("");
+      setCurrentPage(1);
+    }
+  }, [search]);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= Math.ceil(totalCount / 10))

@@ -2,7 +2,7 @@ import { HiOutlineEye } from "react-icons/hi";
 import IntroHeading from "../../components/IntroHeading";
 import { formatUnit } from "../../helpers/helpers";
 import GoBackBtn from "../../components/GoBackBtn";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMyPropertyListings } from "../../hooks/useProperty";
 import { LoaderMd } from "../../static/Loaders";
 import { Link } from "react-router-dom";
@@ -29,8 +29,23 @@ export default function PropertyListing() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    setActiveSearch(search);
+
+    if (search.trim() === "") {
+      setActiveSearch("");
+      setCurrentPage(1);
+    } else {
+      setActiveSearch(search);
+      setCurrentPage(1);
+    }
   };
+
+  useEffect(() => {
+    if (search.trim() === "") {
+      setActiveSearch("");
+      setSort("");
+      setCurrentPage(1);
+    }
+  }, [search]);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= Math.ceil(totalCount / 10))
@@ -61,7 +76,10 @@ export default function PropertyListing() {
         onSearchChange={(e) => setSearch(e.target.value)}
         onSearchSubmit={handleSearchSubmit}
         sort={sort}
-        onSortChange={(e) => setSort(e.target.value)}
+        onSortChange={(e) => {
+          setSort(e.target.value);
+          setCurrentPage(1);
+        }}
         sortOptions={sortOptions}
       />
       <br />
@@ -169,13 +187,11 @@ export default function PropertyListing() {
           {(isError || properties?.length === 0) && (
             <NoMessage model="properties" />
           )}
-          {properties?.length > 0 && (
-            <Pagination
-              currentPage={currentPage}
-              totalPages={Math.ceil(totalCount / 10)}
-              onPageChange={handlePageChange}
-            />
-          )}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(totalCount / 10)}
+            onPageChange={handlePageChange}
+          />
         </>
       )}
     </>

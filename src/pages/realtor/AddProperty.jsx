@@ -132,7 +132,9 @@ export default function AddProperty() {
           setSelectedImages([]);
           setImagesToKeep([]);
           reset();
-          navigate("/app/property-listings");
+
+          if (user?._id === property?.user) navigate("/app/property-listings");
+          else navigate(`/app/manage-property/${property?._id}`);
         },
       }
     );

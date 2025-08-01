@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { useUser } from "../hooks/useAuth";
 
 export default function ErrorFallback({ error, resetErrorBoundary }) {
-  console.log(error);
   const { user } = useUser();
 
   const homeLink =

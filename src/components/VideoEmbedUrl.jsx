@@ -18,6 +18,12 @@ export default function VideoEmbedUrl({ videos }) {
           ></iframe>
         </div>
       )}
+      <div className="bg-yellow-100 text-yellow-800 px-4 py-3 rounded-lg text-sm mb-4">
+        <strong>Note:</strong> Video rendering is currently optimized for{" "}
+        <span className="font-medium">landscape orientation</span>. Portrait
+        videos may appear cropped or not fully visible. We&apos;re working on
+        improving this soon.
+      </div>
     </>
   );
 }

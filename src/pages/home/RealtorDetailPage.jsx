@@ -52,6 +52,10 @@ export default function RealtorDetailPage() {
     specialization,
   } = profile;
 
+  const filteredProperties = properties?.filter(
+    (property) => property?.reviewStatus === "approved"
+  )?.length;
+
   return (
     <main className="p-10 smtablet:p-0">
       {isPending && <LoaderMd />}
@@ -116,7 +120,7 @@ export default function RealtorDetailPage() {
                 {(
                   <span className="flex items-center gap-2">
                     <strong className="text-[2rem] italic">
-                      {profile.user.property?.length}
+                      {filteredProperties}
                     </strong>{" "}
                     Listing(s)
                   </span>
@@ -222,9 +226,9 @@ export default function RealtorDetailPage() {
           />
         </ul>
         <h2 className="mt-20 mb-5 heading-2">
-          My Listings ({profile.user.property.length || 0})
+          My Listings ({filteredProperties || 0})
         </h2>
-        {profile.user.property?.length === 0 && (
+        {filteredProperties === 0 && (
           <NoMessage model="Listings" option={false} />
         )}
         {isError && (
@@ -238,13 +242,15 @@ export default function RealtorDetailPage() {
         ) : (
           <div className="flex flex-col gap-10">
             {properties &&
-              properties.map((property) => (
-                <CardContainer
-                  landscape={true}
-                  key={property._id}
-                  property={property}
-                />
-              ))}
+              properties
+                .filter((property) => property?.reviewStatus === "approved")
+                .map((property) => (
+                  <CardContainer
+                    landscape={true}
+                    key={property._id}
+                    property={property}
+                  />
+                ))}
           </div>
         )}
       </div>

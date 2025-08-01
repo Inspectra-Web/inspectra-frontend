@@ -55,10 +55,8 @@ export async function onePropertyListing(id) {
 export async function onePropertyListingBySlug(slug) {
   try {
     const response = await apiClient.get(`/property/slug/${slug}`);
-    console.log(response);
     return handleResponse(response);
   } catch (error) {
-    console.log(error);
     return handleError(error);
   }
 }

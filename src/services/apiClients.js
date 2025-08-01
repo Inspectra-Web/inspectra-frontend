@@ -18,7 +18,6 @@ export async function allClients({
       `/users/clients?${query.toString()}&fields=_id,fullname,email,emailVerified,profile,referralCode,createdAt`
     );
 
-    console.log(response);
     return handleResponse(response);
   } catch (error) {
     console.error(error);

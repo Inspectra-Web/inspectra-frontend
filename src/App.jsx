@@ -2,6 +2,7 @@ import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
+  useParams,
 } from "react-router-dom";
 import RealtorDashboard from "./pages/realtor/RealtorDashboard";
 import Overview from "./pages/realtor/Overview";
@@ -60,6 +61,11 @@ import NotFoundPage from "./error/NotFoundPage";
 import ErrorFallback from "./error/ErrorFallBack";
 import ClientsListing from "./pages/admin/ClientsListing";
 
+function RedirectToNewPath() {
+  const { slug } = useParams();
+  return <Navigate to={`/listing/${slug}`} replace />;
+}
+
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -74,8 +80,8 @@ const Router = createBrowserRouter([
       { index: true, element: <AboutInspectraPage /> },
       { path: "/listings", element: <ListingsPage /> },
       { path: "/realtors", element: <RealtorsPage /> },
-      // { path: "/listing-detail/:propertyId", element: <ListingDetailPage /> },
-      { path: "/listing-detail/:slug", element: <ListingDetailPage /> },
+      { path: "/listing-detail/:slug", element: <RedirectToNewPath /> },
+      { path: "/listing/:slug", element: <ListingDetailPage /> },
       { path: "/realtor-detail/:id", element: <RealtorDetailPage /> },
       { path: "/top-listings", element: <HomePage /> },
       { path: "/pricings", element: <PricingsPage /> },

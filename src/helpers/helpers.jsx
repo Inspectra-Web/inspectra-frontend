@@ -97,6 +97,8 @@ export const amenitiesList = [
   "Fully Serviced",
   "Cinema",
   "Office Space",
+  "Visitor's Toilet",
+  "Box Room",
 ];
 
 export const listingVariations = ["New", "Coming-soon", "Featured"];
