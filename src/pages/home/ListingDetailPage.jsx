@@ -6,7 +6,12 @@ import {
 } from "react-icons/hi2";
 import { IoBedOutline } from "react-icons/io5";
 import { GiHomeGarage } from "react-icons/gi";
-import { PiBathtub, PiCookingPotLight, PiResize } from "react-icons/pi";
+import {
+  PiBathtub,
+  PiCookingPotLight,
+  PiResize,
+  PiToilet,
+} from "react-icons/pi";
 import { TbZoomInArea } from "react-icons/tb";
 import IntroHeading from "../../components/IntroHeading";
 import GoBackBtn from "../../components/GoBackBtn";
@@ -36,7 +41,6 @@ export default function ListingDetailPage() {
   if (!property || isPending) return <LoaderMd />;
 
   const {
-    toilets,
     address: { fullAddress, city, state, country },
     amenities,
     category,
@@ -52,6 +56,7 @@ export default function ListingDetailPage() {
       floors,
       landSize,
       yearBuilt,
+      toilets,
     },
     images,
     listingStatus,
@@ -239,7 +244,7 @@ export default function ListingDetailPage() {
             <PropertyFeaturesBox
               featureText="Toilets"
               numberText={toilets}
-              icon={<PiResize size={28} className="text-blue-500" />}
+              icon={<PiToilet size={28} className="text-blue-500" />}
             />
           )}
         </div>

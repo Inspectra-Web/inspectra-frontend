@@ -132,9 +132,11 @@ export default function AddProperty() {
           setSelectedImages([]);
           setImagesToKeep([]);
           reset();
-
-          if (user?._id === property?.user) navigate("/app/property-listings");
-          else navigate(`/app/manage-property/${property?._id}`);
+          if (user?.role === "realtor") navigate("/app/property-listings");
+          else {
+            if (property) navigate(`/app/manage-property/${property?._id}`);
+            else navigate(`/app/all-property-listings`);
+          }
         },
       }
     );

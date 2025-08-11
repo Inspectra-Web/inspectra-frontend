@@ -3,7 +3,7 @@ import { MdOutlineMyLocation } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { MinFeaturesBox } from "./PropertyFeaturesBox";
 import { IoBedOutline } from "react-icons/io5";
-import { PiBathtub, PiCookingPotLight, PiResize } from "react-icons/pi";
+import { PiBathtub, PiCookingPotLight, PiToilet } from "react-icons/pi";
 import { formatAmount } from "../helpers/helpers";
 import { GiHomeGarage } from "react-icons/gi";
 import moment from "moment";
@@ -158,7 +158,7 @@ export const CardContainer = forwardRef(({ property, landscape }, ref) => {
                 )}
                 {property?.features?.toilets > 0 && (
                   <MinFeaturesBox
-                    icon={<PiResize size={24} className="text-blue-500" />}
+                    icon={<PiToilet size={24} className="text-blue-500" />}
                     label={property?.features?.toilets}
                   />
                 )}
