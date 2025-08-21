@@ -57,7 +57,7 @@ export default function Profile() {
 
   const {
     _id,
-    user: userId,
+    user: realtor,
     firstname,
     middlename,
     lastname,
@@ -88,7 +88,6 @@ export default function Profile() {
     consultationCost,
     // referralCode = "Franklin12345",
   } = profile;
-
   return (
     <>
       {isPending && <LoaderMd />}
@@ -169,7 +168,7 @@ export default function Profile() {
           <div className="flex flex-wrap gap-5 ml-10 midtablet:ml-0 midtablet:flex-row">
             <Button
               variation="link"
-              link={`/app/profile-settings/${_id}/${userId}`}
+              link={`/app/profile-settings/${_id}/${realtor?._id}`}
             >
               <CiEdit size={24} />
               <span>Update</span>

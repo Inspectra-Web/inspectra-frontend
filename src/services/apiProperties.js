@@ -160,12 +160,16 @@ export async function getRealtorListings() {
   }
 }
 
-export async function getRealtorListingsMain({ userId }) {
+export async function getRealtorListingsMain({
+  userId,
+  pageParam = 1,
+  limit = 10,
+}) {
   try {
     const response = await apiClient.get(
-      `/property/populate-my-listings/${userId}`
+      `/property/populate-my-listings/${userId}?page=${pageParam}&limit=${limit}`
     );
-    return handleResponse(response);
+    return response?.data;
   } catch (error) {
     return handleError(error);
   }

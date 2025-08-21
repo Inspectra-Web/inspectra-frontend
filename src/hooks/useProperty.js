@@ -220,15 +220,35 @@ export function useGetFeaturedListings() {
   return { isPending, isError, data };
 }
 
-export function useGetRealtorListingsMain(userId) {
+export function useGetRealtorListingsMain(userId, limit = 10) {
   const {
     isError,
     isPending: isLoading,
     data,
-  } = useQuery({
-    queryKey: ["myListingsMain"],
-    queryFn: () => getRealtorListingsMainApi({ userId }),
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ["realtorListings", userId],
+    queryFn: ({ pageParam = 1 }) =>
+      getRealtorListingsMainApi({ userId, pageParam, limit }),
+    getNextPageParam: (lastPage) => {
+      const { page, totalPages } = lastPage;
+      return page < totalPages ? page + 1 : undefined;
+    },
+    enabled: !!userId,
   });
-
-  return { isError, isLoading, properties: data?.properties };
+  const properties = data?.pages.flatMap((page) => page.data.properties) ?? [];
+  const totalCount = data?.pages.flatMap((page) => page.total) ?? [];
+  return {
+    isError,
+    isLoading,
+    totalProperties: totalCount[0],
+    properties,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  };
 }

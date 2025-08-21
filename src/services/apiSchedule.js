@@ -80,3 +80,23 @@ export async function viewInspectionSchedules({
     return handleError(error);
   }
 }
+
+export async function viewInspectionScheduleDetails(id) {
+  try {
+    const response = await apiClient.get(`/schedule/${id}`);
+    return handleResponse(response);
+  } catch (error) {
+    return handleError(error);
+  }
+}
+
+export async function updateInspectionScheduleStatus(scheduleId, status) {
+  try {
+    const response = await apiClient.patch(`/schedule/${scheduleId}/status`, {
+      status,
+    });
+    return handleResponse(response);
+  } catch (error) {
+    return handleError(error);
+  }
+}

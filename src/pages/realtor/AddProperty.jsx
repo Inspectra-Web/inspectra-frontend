@@ -416,6 +416,7 @@ export default function AddProperty() {
                     {listingStatus === "shortlet" && (
                       <>
                         <option value="per_day">Per Day</option>
+                        <option value="per_night">Per Night</option>
                         <option value="per_week">Per Week</option>
                       </>
                     )}

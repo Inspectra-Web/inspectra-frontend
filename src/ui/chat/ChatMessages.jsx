@@ -52,6 +52,11 @@ MemoizedMessage.displayName = "MemoizedMessage";
 export default function ChatMessages({ loading, messages, currentUserRole }) {
   const chatContainerRef = useRef(null);
   const [typingUser, setTypingUser] = useState(null);
+  const [hasFetched, setHasFetched] = useState(false);
+
+  useEffect(() => {
+    if (!loading) setHasFetched(true);
+  }, [loading]);
 
   useEffect(() => {
     const handleTyping = ({ user }) => {
@@ -78,7 +83,9 @@ export default function ChatMessages({ loading, messages, currentUserRole }) {
   }, [messages]);
   return (
     <>
-      {loading || messages.length === 0 ? (
+      {loading ? (
+        <LoaderMd />
+      ) : !hasFetched ? (
         <LoaderMd />
       ) : messages.length === 0 ? (
         <div className="flex-1 h-full overflow-y-auto p-8">

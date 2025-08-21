@@ -49,8 +49,16 @@ export default function ClientSettings() {
     updateData({ id: userId || user._id, data: updateProfile });
   }
 
-  const { firstname, middlename, lastname, email, gender, avatar, role } =
-    profile;
+  const {
+    firstname,
+    middlename,
+    lastname,
+    email,
+    gender,
+    avatar,
+    role,
+    telephone,
+  } = profile;
 
   return (
     <>
@@ -147,6 +155,15 @@ export default function ClientSettings() {
               <option value="male">Male</option>
               <option value="other">Other</option>
             </select>
+          </FormFieldHolder>
+          <FormFieldHolder label="Telephone">
+            <FormInput
+              type="number"
+              id="telephone"
+              defaultValue={telephone}
+              placeholder="Enter phone number"
+              {...register("telephone")}
+            />
           </FormFieldHolder>
           {user?.role === "admin" && (
             <FormFieldHolder label="Role">

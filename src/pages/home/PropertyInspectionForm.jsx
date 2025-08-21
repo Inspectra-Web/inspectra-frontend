@@ -12,7 +12,7 @@ import { FormFieldHolder } from "../../ui/FormFieldHolder";
 import { FormInput } from "../../ui/FormInput";
 import GoBackBtn from "../../components/GoBackBtn";
 import { TbFileDescription } from "react-icons/tb";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useOnePropertyListing } from "../../hooks/useProperty";
 import { LoaderLg, LoaderSm } from "../../static/Loaders";
 import { useForm } from "react-hook-form";
@@ -22,8 +22,10 @@ import { useSendInspectionSchedule } from "../../hooks/useSchedule";
 import moment from "moment";
 import { calculateCommissionedInspection } from "../../helpers/helpers";
 import { useUser } from "../../hooks/useAuth";
+import { IoCardOutline } from "react-icons/io5";
 
 export default function PropertyInspectionForm() {
+  const navigate = useNavigate();
   const { user } = useUser();
   const { id } = useParams();
   const { isPending, property, realtor } = useOnePropertyListing(id);
@@ -35,25 +37,26 @@ export default function PropertyInspectionForm() {
     setValue,
     watch,
     reset,
-  } = useForm();
-
-  const now = new Date();
-  const formattedNow = now.toISOString().slice(0, 16);
+  } = useForm({ defaultValues: { payNow: true } });
 
   useEffect(() => {
-    setValue("scheduleDate", formattedNow);
-  }, [setValue, formattedNow]);
+    const now = new Date().toISOString().slice(0, 16);
+    setValue("scheduleDate", now);
+  }, [setValue]);
 
-  function onSubmit({ message, scheduleDate }) {
+  function onSubmit(data) {
+    const payNow = data?.payNow === true || data.payNow === "true";
     sendSchedule(
       {
         property: id,
-        message,
-        scheduleDate: moment(scheduleDate).format("LLL"),
+        message: data?.message,
+        scheduleDate: moment(data?.scheduleDate).format("LLL"),
+        payNow,
       },
       {
         onSuccess: () => {
           reset();
+          navigate("/client/schedules");
         },
       }
     );
@@ -133,7 +136,28 @@ export default function PropertyInspectionForm() {
             {...register("message", { required: "Enter your inquiry message" })}
           />
         </FormFieldHolder>
-        {/* <p className="text-yellow-500 text-center">
+        <FormFieldHolder
+          label="Payment Preference"
+          error={errors?.payNow?.message}
+        >
+          <FormInput
+            isRadio
+            id="pay-now"
+            radioDefault="true"
+            optionData={[
+              { value: "true", label: "Pay Now" },
+              { value: "false", label: "Pay Later" },
+            ]}
+            icon={
+              <IoCardOutline className="text-xlg text-blue-500 cursor-default" />
+            }
+            {...register("payNow", {
+              required: "Please select a payment option",
+              setValueAs: (v) => v === "true",
+            })}
+          />
+        </FormFieldHolder>
+        <p className="text-yellow-500 text-[1.7rem] text-center">
           You pay{" "}
           <strong>
             ₦
@@ -141,37 +165,19 @@ export default function PropertyInspectionForm() {
               property?.inspectionCost
             ).totalPay.toLocaleString()}
           </strong>
-          .{" "}
-          <strong>
-            ₦
-            {calculateCommissionedInspection(
-              property?.inspectionCost
-            ).inspectionFee.toLocaleString()}
-          </strong>{" "}
-          goes to the Realtor.{" "}
-          <strong>
-            ₦
-            {calculateCommissionedInspection(
-              property?.inspectionCost
-            ).platformCommission.toLocaleString()}
-          </strong>{" "}
-          is our platform fee.
-        </p> */}
+          <br />
+          <em>+ 7.5% VAT</em>
+        </p>
+
         <div className="mt-20 flex justify-center">
           <Button disabled={isSending}>
             {isSending ? (
               <LoaderSm />
             ) : (
               <>
-                <span>
-                  Schedule{" "}
-                  <strong>
-                    ₦
-                    {calculateCommissionedInspection(
-                      property.inspectionCost
-                    ).totalPay.toLocaleString()}
-                  </strong>
-                </span>
+                {watch("payNow") === "true"
+                  ? "Pay Now & Schedule"
+                  : "Schedule Without Payment"}
                 <HiOutlinePaperAirplane size={24} />
               </>
             )}

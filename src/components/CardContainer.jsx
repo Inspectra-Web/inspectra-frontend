@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { MinFeaturesBox } from "./PropertyFeaturesBox";
 import { IoBedOutline } from "react-icons/io5";
 import { PiBathtub, PiCookingPotLight, PiToilet } from "react-icons/pi";
-import { formatAmount } from "../helpers/helpers";
+import { formatAmount, getRentalDuration } from "../helpers/helpers";
 import { GiHomeGarage } from "react-icons/gi";
 import moment from "moment";
 import { forwardRef } from "react";
@@ -89,12 +89,9 @@ export const CardContainer = forwardRef(({ property, landscape }, ref) => {
             }
           >
             <div className="w-full truncate">
-              <Link
-                to={`/listing-detail/${property?._id}`}
-                className="font-semibold text-slate-900 text-[2.2rem] hover:text-blue-500 transition-all ease-linear"
-              >
+              <span className="font-semibold text-slate-900 text-[2.2rem] hover:text-blue-500 transition-all ease-linear">
                 {property?.title}
-              </Link>
+              </span>
             </div>
             <div className="flex gap-2 text-slate-600">
               <MdOutlineMyLocation size={18} className="text-blue-500" />
@@ -112,21 +109,7 @@ export const CardContainer = forwardRef(({ property, landscape }, ref) => {
                 {formatAmount(property?.price)}{" "}
                 <span className="text-slate-500">
                   {" "}
-                  {property?.rentalDuration === "per_day"
-                    ? "/ day"
-                    : property?.rentalDuration === "per_week"
-                    ? "/ week"
-                    : property?.rentalDuration === "per_month"
-                    ? "/ month"
-                    : property?.rentalDuration === "per_year"
-                    ? "/ year"
-                    : property?.rentalDuration === "1_year"
-                    ? "|| 1 Year"
-                    : property?.rentalDuration === "2_year"
-                    ? "|| 2 Years"
-                    : property?.rentalDuration === "3_year_plus"
-                    ? "|| 3 Years +"
-                    : ""}
+                  {getRentalDuration(property?.rentalDuration)}
                 </span>
               </p>
               <div className="flex items-center gap-5 sm:hidden">

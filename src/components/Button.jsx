@@ -22,7 +22,7 @@ export default function Button({
     return (
       <Link
         to={link}
-        className="flex focus:ring-4 ring-offset-2 items-center gap-3 px-10 py-10 rounded-full text-white bg-gradient-to-tr from-blue-500 to-blue-700 bg-[length:200%] bg-left hover:bg-right transition-all duration-500 ease cursor-pointer"
+        className={`flex focus:ring-4 ring-offset-2 items-center gap-3 px-10 py-10 rounded-full text-white bg-gradient-to-tr from-blue-500 to-blue-700 bg-[length:200%] bg-left hover:bg-right transition-all duration-500 ease cursor-pointer ${color}`}
       >
         {children}
       </Link>

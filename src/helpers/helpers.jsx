@@ -306,3 +306,38 @@ export const calculateCommissionedInspection = (
 
   return { inspectionFee, platformCommission, totalPay };
 };
+
+// Get Status Color For Inspections
+export const getStatusColor = (status) => {
+  switch (status.toLowerCase()) {
+    case "pending":
+      return "bg-gradient-to-b from-yellow-100 to-yellow-200 text-yellow-700";
+    case "accepted":
+      return "bg-gradient-to-b from-green-100 to-green-200 text-green-700";
+    case "rescheduled":
+      return "bg-gradient-to-b from-blue-100 to-blue-200 text-blue-700";
+    case "rejected":
+      return "bg-gradient-to-b from-red-100 to-red-200 text-red-700";
+    default:
+      return "bg-gradient-to-b from-emerald-100 to-emerald-200 text-emerald-700";
+  }
+};
+
+export const getRentalDuration = (duration) =>
+  duration === "per_day"
+    ? "/ day"
+    : duration === "per_night"
+    ? "/ night"
+    : duration === "per_week"
+    ? "/ week"
+    : duration === "per_month"
+    ? "/ month"
+    : duration === "per_year"
+    ? "/ year"
+    : duration === "1_year"
+    ? "|| 1 Year"
+    : duration === "2_year"
+    ? "|| 2 Years"
+    : duration === "3_year_plus"
+    ? "|| 3 Years +"
+    : "";

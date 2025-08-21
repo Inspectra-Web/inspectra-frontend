@@ -1,7 +1,9 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   sendInsectionSchedule as sendInspectionScheduleApi,
+  updateInspectionScheduleStatus as updateInspectionScheduleStatusApi,
   viewClientInspectionSchedules as viewClientInspectionSchedulesApi,
+  viewInspectionScheduleDetails as viewInspectionScheduleDetailsApi,
   viewInspectionSchedules as viewInspectionSchedulesApi,
   viewRealtorInspectionSchedules as viewRealtorInspectionSchedulesApi,
 } from "../services/apiSchedule";
@@ -85,4 +87,35 @@ export function useViewInspectionSchedules({ sort, search, page, limit = 10 }) {
     schedules: schedules?.schedules,
     totalCount: schedules?.totalCount,
   };
+}
+
+export function useViewInspectionScheduleDetails(id) {
+  const { isPending, data, isError } = useQuery({
+    queryKey: ["one-schedule", id],
+    queryFn: () => viewInspectionScheduleDetailsApi(id),
+    enabled: !!id,
+  });
+
+  return { isPending, isError, schedule: data?.schedule };
+}
+
+export function useUpdateInspectionScheduleStatus() {
+  const queryClient = useQueryClient();
+  const {
+    mutate: updateStatus,
+    isPending,
+    isError,
+    isSuccess,
+  } = useMutation({
+    mutationFn: ({ id, status }) =>
+      updateInspectionScheduleStatusApi(id, status),
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries(["one-schedule", variables.id]);
+      queryClient.invalidateQueries(["schedule-status"]);
+      toast.success(data);
+    },
+    onError: errData,
+  });
+
+  return { updateStatus, isPending, isError, isSuccess };
 }

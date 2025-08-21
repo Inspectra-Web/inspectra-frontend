@@ -60,6 +60,7 @@ import SocketProvider from "./context/SocketProvider";
 import NotFoundPage from "./error/NotFoundPage";
 import ErrorFallback from "./error/ErrorFallBack";
 import ClientsListing from "./pages/admin/ClientsListing";
+import InspectionManagement from "./pages/realtor/InspectionManagement";
 
 function RedirectToNewPath() {
   const { slug } = useParams();
@@ -141,6 +142,10 @@ const Router = createBrowserRouter([
       { path: "/client/favourites", element: <ClientSavedProperties /> },
       { path: "/client/live-chat", element: <ClientChatPage /> },
       { path: "/client/inquiries", element: <ClientInquiries /> },
+      {
+        path: "/client/inspection-management/:inspectionId",
+        element: <InspectionManagement />,
+      },
     ],
   },
   { path: "/app", element: <Navigate to="/app/overview" /> },
@@ -183,6 +188,11 @@ const Router = createBrowserRouter([
         index: true,
         path: "/app/overview",
         element: <Overview />,
+      },
+
+      {
+        path: "/app/inspection-management/:inspectionId",
+        element: <InspectionManagement />,
       },
       {
         path: "/app/help",

@@ -10,7 +10,12 @@ import {
 } from "react-icons/hi2";
 import { IoBedOutline } from "react-icons/io5";
 import { GiHomeGarage } from "react-icons/gi";
-import { PiBathtub, PiCookingPotLight, PiResize, PiToilet } from "react-icons/pi";
+import {
+  PiBathtub,
+  PiCookingPotLight,
+  PiResize,
+  PiToilet,
+} from "react-icons/pi";
 import { TbZoomInArea } from "react-icons/tb";
 import IntroHeading from "../../components/IntroHeading";
 import GoBackBtn from "../../components/GoBackBtn";
@@ -33,6 +38,7 @@ import { CiCircleCheck, CiEdit } from "react-icons/ci";
 import { HandleConfirmation } from "../../ui/ConfirmationPrompt";
 import { LuMousePointer2 } from "react-icons/lu";
 import VideoJS from "../../components/VideoJS";
+import { getRentalDuration } from "../../helpers/helpers";
 
 export default function ManageProperty() {
   const { propertyId: id } = useParams();
@@ -78,6 +84,7 @@ export default function ManageProperty() {
     variations,
     verified,
     inspectionCost,
+    rentalDuration,
   } = property;
   const videoJsOptions = {
     autoplay: false,
@@ -106,7 +113,7 @@ export default function ManageProperty() {
     <>
       <GoBackBtn />
       <IntroHeading label="Property overview" />
-      <div className="mx-auto bg-white shadow shadow-slate-200 rounded-2xl p-10">
+      <div className="mx-auto bg-white shadow shadow-slate-200 rounded-2xl p-10 smtablet:p-3">
         <PropertyImageCarousel images={images} listingStatus={listingStatus} />
         <p className="mt-10 mb-5 font-semibold flex items-center smmobile:flex-col-reverse smmobile:items-start gap-5">
           <span className="text-slate-500 midmobile:hidden">Property ID:</span>{" "}
@@ -170,6 +177,7 @@ export default function ManageProperty() {
           <span className="text-slate-600 text-5xl font-semibold">
             ₦ {price.toLocaleString()}
           </span>
+          <span>{getRentalDuration(rentalDuration)}</span>
         </div>
 
         <div className="flex gap-8 midtablet:flex-wrap">

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 
 export default function PropertyImageCarousel({ images, listingStatus }) {
   const [mainImage, setMainImage] = useState({
@@ -71,13 +70,14 @@ export default function PropertyImageCarousel({ images, listingStatus }) {
           isFading ? "opacity-0" : "opacity-100"
         }`}
       >
-        <Link to={mainImage.src} target="_blank">
-          <img
-            src={mainImage.src}
-            alt="Main Property Image"
-            className={`object-cover w-full h-full`}
-          />
-        </Link>
+        {/* <Link to={mainImage.src} target="_blank"> */}
+        <img
+          src={mainImage.src}
+          alt="Main Property Image"
+          className={`object-cover w-full h-full`}
+        />
+        <div className="absolute inset-0"></div>
+        {/* </Link> */}
         {mainImage.status && (
           <div
             className={`py-2 capitalize px-5 bg-gradient-to-b ${

@@ -87,17 +87,20 @@ export function useLogin() {
 
 // Get current user
 export function useUser() {
+  // const token = localStorage.getItem("jwt");
   const {
     isPending,
     data: user,
     isError,
+    error,
   } = useQuery({
     queryKey: ["userKey"],
     queryFn: getCurrentUser,
     staleTime: 0,
+    retry: false,
   });
 
-  return { isPending, isError, user, isAuthenticated: !!user };
+  return { isPending, isError, user, isAuthenticated: !!user, error };
 }
 
 // Logout

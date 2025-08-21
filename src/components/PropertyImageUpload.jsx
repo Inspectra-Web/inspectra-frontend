@@ -34,6 +34,7 @@ export function PropertyImageUpload({
         <h3 className="heading-2 mt-8">Upload your property images here</h3>
         <p className="text-2xl">
           Recommended: High-resolution landscape images (1920 x 1080px or more).
+          Portrait images are allowed as well.
         </p>
         <input
           type="file"
@@ -53,6 +54,9 @@ export function PropertyImageUpload({
         />
         <p className="text-xl text-gray-500 mt-2">
           Accepted formats: JPG, PNG, WebP, SVG recommended.
+        </p>
+        <p className="text-3xl font-semibold text-gray-500 mt-2">
+          15 Images Maximum
         </p>
       </div>
 

@@ -12,7 +12,10 @@ import { LoaderMd, LoaderSm } from "../../static/Loaders";
 import Button from "../../components/Button";
 import { CiEdit } from "react-icons/ci";
 // import { HandleConfirmation } from "../../ui/ConfirmationPrompt";
-import { defaultAvatar } from "../../helpers/helpers";
+import {
+  defaultAvatar,
+  formatNigerianPhoneNumber,
+} from "../../helpers/helpers";
 import { GiRadioactive } from "react-icons/gi";
 import { GoMail } from "react-icons/go";
 
@@ -36,6 +39,7 @@ export default function ClientOverview() {
     avatar,
     role,
     deactivated,
+    telephone,
   } = profile;
 
   return (
@@ -58,9 +62,10 @@ export default function ClientOverview() {
               {/* Franklin C. Okoro */}
             </h4>
             <p className="text-slate-500 text-2xl">{email}</p>
-            <p className="text-3xl uppercase mt-2 text-blue-500 font-medium italic">
+            <p className="text-3xl uppercase my-2 text-blue-500 font-medium italic">
               {role || ""}
             </p>
+            <p>{formatNigerianPhoneNumber(telephone)}</p>
           </div>
 
           <div className="flex flex-wrap gap-5 ml-10 midtablet:ml-0 midtablet:flex-row">

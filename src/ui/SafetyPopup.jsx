@@ -52,11 +52,14 @@ export default function SafetyPopup({ showPopup, onClose }) {
         </div>
 
         <div className="border-t pt-20 font-normal text-2xl text-gray-600 space-y-2">
-          <p className="text-4xl font-medium text-red-600">⚠️ Disclaimer</p>
+          <p className="text-4xl font-medium text-red-600">
+            ⚠️ Important Reminder
+          </p>
           <p>
-            Inspectra does not guarantee the authenticity of every listing or
-            agent. Always inspect properties before making payments and report
-            suspicious activity.
+            While Inspectra works hard to verify agents and review listings, we
+            encourage you to always inspect properties in person before making
+            payments. Please report any suspicious activity so we can take
+            immediate action.
           </p>
           <p>
             By using Inspectra, you agree to our{" "}

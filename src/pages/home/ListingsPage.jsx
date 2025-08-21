@@ -141,24 +141,20 @@ export default function ListingsPage() {
                 propertyIndex === group.properties.length - 1
               ) {
                 return (
-                  <>
-                    {property && (
-                      <CardContainer
-                        ref={lastPropertyRef}
-                        key={property._id}
-                        property={property}
-                      />
-                    )}
-                  </>
+                  property && (
+                    <CardContainer
+                      ref={lastPropertyRef}
+                      key={property._id}
+                      property={property}
+                    />
+                  )
                 );
               }
 
               return (
-                <>
-                  {property && (
-                    <CardContainer key={property._id} property={property} />
-                  )}
-                </>
+                property && (
+                  <CardContainer key={property._id} property={property} />
+                )
               );
             });
           })}

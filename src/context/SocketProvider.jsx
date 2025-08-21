@@ -10,7 +10,7 @@ export default function SocketProvider({ children }) {
   useEffect(() => {
     if (isAuthenticated) {
       socket.connect();
-      socket.emit("user_online", user._id);
+      socket.emit("user_online", user?._id);
 
       return () => socket.disconnect();
     }

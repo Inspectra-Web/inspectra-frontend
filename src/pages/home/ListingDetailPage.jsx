@@ -31,7 +31,8 @@ import { LuAlarmClock, LuMousePointer2 } from "react-icons/lu";
 import { useState } from "react";
 import SafetyPopup from "../../ui/SafetyPopup";
 import VideoJS from "../../components/VideoJS";
-import { calculateCommissionedInspection } from "../../helpers/helpers";
+import { getRentalDuration } from "../../helpers/helpers";
+// import { calculateCommissionedInspection } from "../../helpers/helpers";
 
 export default function ListingDetailPage() {
   const [showPopup, setShowPopup] = useState(false);
@@ -68,7 +69,8 @@ export default function ListingDetailPage() {
     propertyId,
     variations,
     verified,
-    inspectionCost,
+    rentalDuration,
+    // inspectionCost,
   } = property;
 
   const videoJsOptions = {
@@ -107,11 +109,11 @@ export default function ListingDetailPage() {
       <IntroHeading label="Property overview" />
       <div className="mx-auto rounded-2xl">
         <PropertyImageCarousel images={images} listingStatus={listingStatus} />
-        <p className="mt-10 mb-5 font-semibold flex items-center smmobile:flex-col-reverse smmobile:items-start gap-5 flex-wrap">
+        <p className="mt-10 mb-5 font-semibold flex items-center  smmobile:items-start gap-5 flex-wrap">
           <span className="text-slate-500 midmobile:hidden">Property ID:</span>{" "}
           {propertyId}
           <span className="text-slate-200 smmobile:hidden">|</span>
-          <div>
+          {/* <div>
             {inspectionCost === 0 ? (
               <strong className="text-sky-500 px-10 py-3 bg-sky-50 rounded-xl">
                 FREE INSPECTION
@@ -128,6 +130,18 @@ export default function ListingDetailPage() {
                 for Inspection
               </span>
             )}
+          </div> */}
+          <div>
+            <span className="text-slate-500 italic text-[1.4rem] mr-1">
+              Posted by
+            </span>{" "}
+            <Link
+              to={`/realtor-detail/${realtor.profile}`}
+              className="bg-gradient-to-t to-sky-50 from-blue-100 py-2 px-4 text-blue-500 rounded-xl inline-flex items-center gap-2"
+            >
+              {realtor?.fullname.split(" ")[0].toUpperCase()}
+              <HiMiniLink size={16} />
+            </Link>
           </div>
           <button
             onClick={() => setShowPopup(true)}
@@ -178,6 +192,7 @@ export default function ListingDetailPage() {
           <span className="text-slate-600 text-5xl font-semibold">
             ₦ {price.toLocaleString()}
           </span>
+          <span>{getRentalDuration(rentalDuration)}</span>
         </div>
         <div className="flex gap-8 midtablet:flex-wrap">
           {bedrooms > 0 && (

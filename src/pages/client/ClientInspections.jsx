@@ -15,6 +15,8 @@ import { LuMessageCircle } from "react-icons/lu";
 import { SlClose } from "react-icons/sl";
 import { useViewClientInspectionSchedules } from "../../hooks/useSchedule";
 import { HiMiniLink } from "react-icons/hi2";
+import { MdOutlineCancelScheduleSend } from "react-icons/md";
+import { getStatusColor } from "../../helpers/helpers";
 
 export default function ClientInspections() {
   const [sort, setSort] = useState("");
@@ -112,17 +114,9 @@ export default function ClientInspections() {
                       </td>
                       <td>
                         <div
-                          className={`py-2 px-5 bg-gradient-to-b ${
-                            el.status === "pending"
-                              ? "from-yellow-100 to-yellow-200 text-yellow-700"
-                              : el.status === "completed"
-                              ? "from-green-100 to-green-200 text-green-700"
-                              : el.status === "accepted"
-                              ? "from-sky-100 to-sky-200 text-sky-700"
-                              : el.status === "rescheduled"
-                              ? "from-stone-100 to-stone-200 text-stone-700"
-                              : "from-red-100 to-red-200 text-red-700"
-                          } rounded-xl flex justify-center capitalize`}
+                          className={`py-2 px-5 bg-gradient-to-b ${getStatusColor(
+                            el.status
+                          )} rounded-xl flex justify-center capitalize`}
                         >
                           {el.status}
                         </div>
@@ -132,12 +126,20 @@ export default function ClientInspections() {
                       <td>₦{el.totalPaid.toLocaleString()}</td>
                       <td>
                         <div className="flex items-center gap-4">
-                          <Link to={`/listing-detail/${el.property._id}`}>
+                          <Link to={`/listing/${el.property.slug}`}>
                             <BtnAction
                               title="View property details"
                               clr="from-slate-100 to-slate-200 text-slate-600"
                               hoverClr=" hover:from-slate-500 hover:to-slate-500 hover:text-slate-50"
                               icon={<HiOutlineEye size={20} />}
+                            />
+                          </Link>
+                          <Link to={`/client/inspection-management/${el._id}`}>
+                            <BtnAction
+                              title="View inspection details"
+                              clr="from-blue-100 to-blue-200 text-blue-600"
+                              hoverClr=" hover:from-blue-500 hover:to-blue-500 hover:text-blue-50"
+                              icon={<MdOutlineCancelScheduleSend size={20} />}
                             />
                           </Link>
                           <button onClick={() => handleOpenPopup(el.message)}>

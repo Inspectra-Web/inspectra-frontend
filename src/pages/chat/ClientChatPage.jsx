@@ -5,7 +5,6 @@ import nodataImg from "../../assets/no-data-found.svg";
 
 export default function ClientChatPage() {
   const { isPending, clientChatRoom, isError } = useGetClientChatRoom();
-
   return (
     <>
       {isPending && <LoaderLg />}

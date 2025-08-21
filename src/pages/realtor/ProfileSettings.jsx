@@ -210,6 +210,7 @@ export default function ProfileSettings() {
           </FormFieldHolder>
           <FormFieldHolder label="Telephone">
             <FormInput
+              type="number"
               id="telephone"
               defaultValue={telephone}
               placeholder="Enter phone number"
@@ -218,6 +219,7 @@ export default function ProfileSettings() {
           </FormFieldHolder>
           <FormFieldHolder label="Whatsapp">
             <FormInput
+              type="number"
               id="whatsapp"
               defaultValue={whatsapp}
               placeholder="Enter whatsapp contact"

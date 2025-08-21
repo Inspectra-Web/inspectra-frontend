@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function PropertyList({
   chatRooms,
   onSelect,
@@ -25,12 +27,14 @@ export default function PropertyList({
               <img
                 src={chatRoom.property.images[0].url}
                 alt={chatRoom.property.title}
-                className="h-32 w-32 rounded-xl object-cover"
+                className="h-36 w-40 rounded-xl object-cover"
               />
               <div className="w-full">
                 <div className="w-[75%]">
                   <h3 className="text-sky-500 truncate">
-                    {chatRoom.property.title}
+                    <Link to={`/listing/${chatRoom.property.slug}`}>
+                      {chatRoom.property.title}
+                    </Link>
                   </h3>
                 </div>
                 <p className="text-slate-500 italic">

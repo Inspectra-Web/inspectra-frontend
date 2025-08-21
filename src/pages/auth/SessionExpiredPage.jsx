@@ -27,7 +27,9 @@ export default function SessionExpiredPage() {
         label="Sign up"
       />
       <div className="bg-slate-950 p-10 bg-opacity-25 mx-auto mt-20 max-w-[65rem] min-h-20 rounded-3xl shadow-sm text-white text-center">
-        <h1 className="font-bold text-6xl text-red-500 mb-5">Session Closed</h1>
+        <h1 className="font-bold text-6xl text-red-500 mb-5">
+          Log In Required
+        </h1>
         <div className="text-lg mb-10">
           <p>Problem might be as a result of the following: </p>
           <ul>
@@ -39,9 +41,9 @@ export default function SessionExpiredPage() {
         <p className="text-lg">
           For security reasons, please log in again to continue using Inspectra.
         </p>
-        <div className="mt-10 flex items-center gap-10">
+        <div className="mt-10 flex justify-center items-center gap-10">
           <Button onClick={handleLoginRedirect}>
-            <span>Log In Again</span>
+            <span>Log In</span>
             <HiOutlineRefresh size={24} />
           </Button>
           <GoBackBtn marginB="mb-0" />
