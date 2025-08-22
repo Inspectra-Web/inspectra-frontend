@@ -159,7 +159,6 @@ const Router = createBrowserRouter([
     ),
     errorElement: <ErrorFallback />,
     children: [
-      { path: "/app/subscription-history", element: <SubscriptionHistory /> },
       { path: "/app/all-subscriptions", element: <AllSubscriptions /> },
       // { path: "add-a-realtor", element: <AddRealtor /> },
       { path: "/app/realtors-list", element: <RealtorsListing /> },
@@ -189,7 +188,7 @@ const Router = createBrowserRouter([
         path: "/app/overview",
         element: <Overview />,
       },
-
+      { path: "/app/subscription-history", element: <SubscriptionHistory /> },
       {
         path: "/app/inspection-management/:inspectionId",
         element: <InspectionManagement />,

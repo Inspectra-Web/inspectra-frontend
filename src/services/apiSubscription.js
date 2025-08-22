@@ -9,6 +9,7 @@ export async function initiateSubscription({ planId, email, fullname }) {
     });
     return handleResponse(response);
   } catch (error) {
+    console.log(error);
     return handleError(error);
   }
 }
