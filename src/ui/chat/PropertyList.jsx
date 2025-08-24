@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 export default function PropertyList({
   chatRooms,
   onSelect,
@@ -7,7 +5,7 @@ export default function PropertyList({
   selectedChatRoomId,
 }) {
   return (
-    <ul className="flex flex-col gap-10 cursor-pointer p-5 overflow-y-auto overflow-x-hidden">
+    <ul className="w-full flex flex-col gap-10 cursor-pointer p-5 overflow-y-auto overflow-x-hidden">
       {chatRooms &&
         chatRooms?.map((chatRoom, index) => {
           return (
@@ -18,7 +16,7 @@ export default function PropertyList({
                 onOpen(false);
               }}
               key={index}
-              className={`w-full overflow-hidden flex rounded-3xl gap-5 p-6 duration-500 text-left hover:bg-gray-50 ${
+              className={`overflow-hidden flex rounded-3xl gap-5 p-6 duration-500 text-left hover:bg-gray-50 ${
                 selectedChatRoomId === chatRoom._id
                   ? "bg-gradient-to-tr from-sky-50 to-blue-100"
                   : ""
@@ -30,11 +28,9 @@ export default function PropertyList({
                 className="h-36 w-40 rounded-xl object-cover"
               />
               <div className="w-full">
-                <div className="w-[75%]">
-                  <h3 className="text-sky-500 truncate">
-                    <Link to={`/listing/${chatRoom.property.slug}`}>
-                      {chatRoom.property.title}
-                    </Link>
+                <div className="max-w-[20rem]  bigmobile:max-w-[35rem] overflow-hidden">
+                  <h3 className="text-sky-500 line-clamp-2">
+                    {chatRoom.property.title}
                   </h3>
                 </div>
                 <p className="text-slate-500 italic">

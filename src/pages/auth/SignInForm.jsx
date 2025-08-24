@@ -29,7 +29,6 @@ export default function SignInForm() {
   const rawRedirect =
     location.state?.from?.pathname ||
     localStorage.getItem("redirectAfterLogin");
-  console.log(rawRedirect);
 
   const from = ["/session-expire", "unauthorized"].includes(rawRedirect)
     ? null

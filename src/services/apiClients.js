@@ -20,7 +20,6 @@ export async function allClients({
 
     return handleResponse(response);
   } catch (error) {
-    console.error(error);
     return handleError(error);
   }
 }

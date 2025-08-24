@@ -10,7 +10,6 @@ export default function ProtectRoute({ children, allowedRoles = [] }) {
 
   if (isError) {
     localStorage.setItem("redirectAfterLogin", location.pathname);
-    console.log(location);
     return <Navigate to="/session-expire" state={{ from: location }} />;
   }
 

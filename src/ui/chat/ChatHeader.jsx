@@ -1,7 +1,7 @@
 import { IoChatbubbles, IoChatbubblesOutline } from "react-icons/io5";
 import { useReadProfile } from "../../hooks/useProfile";
 import { defaultAvatar } from "../../helpers/helpers";
-
+import defaultMale from "../../assets/default-male.webp";
 export default function ChatHeader({
   currentUserRole,
   selectedChatRoom,
@@ -20,13 +20,16 @@ export default function ChatHeader({
       : selectedChatRoom?.client?._id;
 
   const isOnline = onlineUsers?.includes(targetUserId);
-
   return (
     <header className="flex items-center justify-between border-b border-gray-100 px-12 py-6">
       <div className="flex items-center gap-6">
         <div className="relative h-24 w-24">
           <img
-            src={isPending ? defaultAvatar(profile?.gender) : profile?.avatar}
+            src={
+              isPending
+                ? defaultAvatar(profile?.gender)
+                : profile?.avatar || defaultMale
+            }
             alt="Profile"
             className="h-24 w-24 rounded-full object-cover"
           />

@@ -3,7 +3,7 @@ import IntroHeading from "../../components/IntroHeading";
 import GoBackBtn from "../../components/GoBackBtn";
 import { useState } from "react";
 import { LoaderMd } from "../../static/Loaders";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NoMessage } from "../../components/NoDataMsg";
 import {
   BtnAction,
@@ -18,6 +18,7 @@ import { IoChatbubblesOutline } from "react-icons/io5";
 import { HiMiniLink } from "react-icons/hi2";
 
 export default function ClientsInquiry() {
+  const navigate = useNavigate();
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
@@ -98,13 +99,17 @@ export default function ClientsInquiry() {
                     <tr key={idx}>
                       <td>{idx + 1}</td>
                       <td>
-                        <Link
-                          to="/app/live-chat"
+                        <div
                           className="hover:text-blue-500 transition-all duration-300"
+                          onClick={() => {
+                            navigate("/app/live-chat", {
+                              state: { selectedChatRoomId: el.chatRoom },
+                            });
+                          }}
                         >
                           {el.clientName}
                           <HiMiniLink size={16} />
-                        </Link>
+                        </div>
                       </td>
                       <td className="uppercase">{el.property.propertyId}</td>
                       <td>
@@ -143,7 +148,11 @@ export default function ClientsInquiry() {
                           </button>
                           <Link
                             title={`Chat with ${el.clientName}`}
-                            to={`/app/live-chat`}
+                            onClick={() => {
+                              navigate("/app/live-chat", {
+                                state: { selectedChatRoomId: el.chatRoom },
+                              });
+                            }}
                             className="flex items-center gap-3 text-white bg-blue-500 px-5 py-2 rounded-md"
                           >
                             <IoChatbubblesOutline />

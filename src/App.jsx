@@ -208,7 +208,7 @@ const Router = createBrowserRouter([
       },
       { path: "/app/inquiries", element: <ClientsInquiry /> },
       { path: "/app/schedules", element: <ClientsInspection /> },
-      { path: "/app/live-chat", element: <LiveChatPage /> },
+      { path: "/app/live-chat/:chatRoomId?", element: <LiveChatPage /> },
       {
         path: "/app/manage-property/:propertyId",
         element: <ManageProperty />,

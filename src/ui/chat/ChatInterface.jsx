@@ -7,11 +7,15 @@ import { IoChatbubbles, IoChatbubblesOutline } from "react-icons/io5";
 import { useGetMessagesForChatRoom } from "../../hooks/useMessage";
 import socket from "../../utils/socket";
 import { NoMessage } from "../../components/NoDataMsg";
+import { useLocation } from "react-router-dom";
 
 export default function ChatInterface({ apiData, currentUserRole }) {
+  const location = useLocation();
   const [chatRooms, setChatRooms] = useState([]);
   const [selectedChatRoom, setSelectedChatRoom] = useState(null);
-  const [selectedChatRoomId, setSelectedChatRoomId] = useState(null);
+  const [selectedChatRoomId, setSelectedChatRoomId] = useState(
+    location.state?.selectedChatRoomId || null
+  );
   const [messages, setMessages] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -42,22 +46,36 @@ export default function ChatInterface({ apiData, currentUserRole }) {
   useEffect(() => {
     if (apiData?.chatRooms) setChatRooms(apiData?.chatRooms);
   }, [apiData]);
-
   useEffect(() => {
-    if (chatRooms.length > 0) {
-      const storedId = localStorage.getItem("selectedChatRoomId");
-      const savedRoom = chatRooms.find((room) => room._id === storedId);
+    if (chatRooms.length === 0) return;
 
-      if (storedId && savedRoom) {
-        setSelectedChatRoomId(storedId);
+    // Try state first, fallback to localStorage
+    let storedId =
+      selectedChatRoomId || localStorage.getItem("selectedChatRoomId");
+    if (storedId) storedId = String(storedId);
+
+    // See if we actually have this room
+    const savedRoom = storedId
+      ? chatRooms.find((room) => String(room._id) === storedId)
+      : null;
+
+    if (savedRoom) {
+      // Only update if different
+      if (!selectedChatRoom || selectedChatRoom._id !== savedRoom._id) {
         setSelectedChatRoom(savedRoom);
-      } else {
-        setSelectedChatRoom(chatRooms[0]);
-        setSelectedChatRoomId(chatRooms[0]?._id);
-        localStorage.setItem("selectedChatRoomId", chatRooms[0]?._id);
+        setSelectedChatRoomId(savedRoom._id);
+        localStorage.setItem("selectedChatRoomId", savedRoom._id);
+      }
+    } else {
+      // Default to first chat room
+      const firstRoom = chatRooms[0];
+      if (firstRoom) {
+        setSelectedChatRoom(firstRoom);
+        setSelectedChatRoomId(firstRoom._id);
+        localStorage.setItem("selectedChatRoomId", firstRoom._id);
       }
     }
-  }, [chatRooms]);
+  }, [chatRooms, selectedChatRoom, selectedChatRoomId]);
 
   useEffect(() => {
     if (selectedChatRoomId) {

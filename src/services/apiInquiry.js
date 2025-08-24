@@ -24,7 +24,7 @@ export async function viewRealtorInquiries({
     query.append("limit", limit);
 
     const response = await apiClient.get(
-      `/inquiry/realtor-inquiry-list?${query.toString()}&fields=_id,clientEmail,clientName,message,property,createdAt,urgencyLevel`
+      `/inquiry/realtor-inquiry-list?${query.toString()}&fields=_id,clientEmail,clientName,message,property,createdAt,urgencyLevel,chatRoom`
     );
     return handleResponse(response);
   } catch (error) {
