@@ -32,14 +32,19 @@ import { useState } from "react";
 import SafetyPopup from "../../ui/SafetyPopup";
 import VideoJS from "../../components/VideoJS";
 import { getRentalDuration } from "../../helpers/helpers";
+import { NoMessage } from "../../components/NoDataMsg";
 // import { calculateCommissionedInspection } from "../../helpers/helpers";
 
 export default function ListingDetailPage() {
   const [showPopup, setShowPopup] = useState(false);
   // const { propertyId: id } = useParams();
   const { slug } = useParams();
-  const { isPending, property, realtor } = useOnePropertyListingBySlug(slug);
-  if (!property || isPending) return <LoaderMd />;
+  const { isPending, property, realtor, error } =
+    useOnePropertyListingBySlug(slug);
+  if (isPending) return <LoaderMd />;
+  if (error === "No property listing found")
+    return <NoMessage model="Property Listing" option={false} />;
+  if (!property) return <LoaderMd />;
 
   const {
     address: { fullAddress, city, state, country },

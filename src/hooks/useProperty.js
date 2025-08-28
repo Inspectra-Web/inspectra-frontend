@@ -144,7 +144,7 @@ export function useGetPropertyListingsInfinite({
 
 export function useOnePropertyListing(id) {
   const isValid = Boolean(id);
-  const { isPending, isError, data } = useQuery({
+  const { isPending, isError, data, error } = useQuery({
     queryKey: ["propertyKey", id],
     queryFn: () => onePropertyListingApi(id),
     enabled: isValid,
@@ -155,12 +155,13 @@ export function useOnePropertyListing(id) {
     isError,
     property: data?.property,
     realtor: data?.realtor,
+    error,
   };
 }
 
 export function useOnePropertyListingBySlug(slug) {
   const isValid = Boolean(slug);
-  const { isPending, isError, data } = useQuery({
+  const { isPending, isError, data, error } = useQuery({
     queryKey: ["propertySlugKey", slug],
     queryFn: () => onePropertyListingBySlugApi(slug),
     enabled: isValid,
@@ -171,6 +172,7 @@ export function useOnePropertyListingBySlug(slug) {
     isError,
     property: data?.property,
     realtor: data?.realtor,
+    error,
   };
 }
 

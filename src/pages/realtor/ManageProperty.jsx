@@ -39,10 +39,11 @@ import { HandleConfirmation } from "../../ui/ConfirmationPrompt";
 import { LuMousePointer2 } from "react-icons/lu";
 import VideoJS from "../../components/VideoJS";
 import { getRentalDuration } from "../../helpers/helpers";
+import { NoMessage } from "../../components/NoDataMsg";
 
 export default function ManageProperty() {
   const { propertyId: id } = useParams();
-  const { isPending, property, realtor } = useOnePropertyListing(id);
+  const { isPending, property, realtor, error } = useOnePropertyListing(id);
   const { updateReviewStatus, isPending: isLoading } =
     useUpdateListingReviewStatus();
   const { deleteListing, isPending: isDeleting } = useDeletePropertyListing(
@@ -51,7 +52,11 @@ export default function ManageProperty() {
   const [reason, setReason] = useState("");
   const { user } = useUser();
 
-  if (!property || isPending) return <LoaderMd />;
+  if (isPending) return <LoaderMd />;
+
+  if (error) return <NoMessage model="Property Detail" option={false} />;
+
+  if (!property) return <LoaderMd />;
 
   const {
     _id,

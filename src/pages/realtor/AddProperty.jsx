@@ -23,6 +23,7 @@ import { PropertyImageUpload } from "../../components/PropertyImageUpload";
 import Form from "../../components/Form";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../../hooks/useAuth";
+import { useFormPersist } from "../../hooks/useFormPersist";
 
 export default function AddProperty() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ export default function AddProperty() {
     setValue,
     watch,
   } = useForm({ defaultValues: { imagesToKeep: [], videoFile: null } });
+  useFormPersist("propertyFormDraft", watch, setValue);
   const listingStatus = useWatch({ control, name: "listingStatus" });
   const { addProperty, isPending } = useAddPropertyListing();
 
@@ -62,7 +64,6 @@ export default function AddProperty() {
       setImagesToKeep(property?.images || []);
     }
   }, [property, reset]);
-
   function onSubmit(data) {
     const {
       title,
@@ -129,6 +130,7 @@ export default function AddProperty() {
       { id, data: formData },
       {
         onSuccess: () => {
+          localStorage.removeItem("propertyFormDraft");
           setSelectedImages([]);
           setImagesToKeep([]);
           reset();
@@ -227,9 +229,11 @@ export default function AddProperty() {
                   disabled={isPending}
                   {...register("type", { required: "Property type?" })}
                   id="property-type"
-                  className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 text-slate-500"
+                  className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 text-slate-800"
                 >
-                  <option value="">Choose property type</option>
+                  <option value="" className="text-slate-500">
+                    Choose property type
+                  </option>
                   <option value="office">Office</option>
                   <option value="flat">Flat</option>
                   <option value="warehouse">Warehouse</option>
@@ -268,7 +272,7 @@ export default function AddProperty() {
                     required: "Property category?",
                   })}
                   id="property-category"
-                  className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10 text-slate-500"
+                  className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-full h-20 px-10"
                 >
                   <option value="">Choose property category</option>
                   <option value="commercial">Commercial</option>
@@ -295,7 +299,7 @@ export default function AddProperty() {
                     {...register("description", {
                       required: "Description of property?",
                     })}
-                    className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-3xl h-40 px-10 py-5 placeholder:text-slate-500 text-slate-500 resize-none"
+                    className="italic border-2 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-transparent transition-all duration-300 rounded-3xl h-40 px-10 py-5 placeholder:text-slate-500 text-slate-800 resize-none"
                     placeholder="Provide detailed description of the property"
                   ></textarea>
                 </FormFieldHolder>

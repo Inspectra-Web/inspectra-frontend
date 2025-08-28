@@ -12,7 +12,6 @@ export default function ProtectRoute({ children, allowedRoles = [] }) {
     localStorage.setItem("redirectAfterLogin", location.pathname);
     return <Navigate to="/session-expire" state={{ from: location }} />;
   }
-
   if (!isAuthenticated) {
     return <Navigate to="/sign-in" state={{ from: location }} replace />;
   }

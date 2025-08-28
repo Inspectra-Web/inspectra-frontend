@@ -29,7 +29,7 @@ export default function RealtorDetailPage() {
   const location = useLocation();
   const { isAuthenticated } = useUser();
   const { id } = useParams();
-  const { isPending, profile } = useReadProfile(id);
+  const { isPending, profile, error } = useReadProfile(id);
   const {
     isError,
     isLoading,
@@ -39,6 +39,11 @@ export default function RealtorDetailPage() {
     hasNextPage,
     totalProperties,
   } = useGetRealtorListingsMain(profile?.user._id);
+
+  if (isPending) return <LoaderMd />;
+
+  if (error) return <NoMessage option={false} model="Realtor Profile" />;
+
   if (!profile) return <LoaderMd />;
 
   const {
@@ -64,10 +69,8 @@ export default function RealtorDetailPage() {
     // consultationCost,
     specialization,
   } = profile;
-
   return (
     <main className="p-10 smtablet:p-0">
-      {isPending && <LoaderMd />}
       <div className="smtablet:pl-10">
         <GoBackBtn />
       </div>
@@ -185,7 +188,7 @@ export default function RealtorDetailPage() {
             ) : null}
           </div>
         ) : (
-          <span className="p-5 bg-yellow-50 text-yellow-700 rounded-xl">
+          <span className="inline-block p-5 bg-yellow-50 text-yellow-700 rounded-xl">
             Login to view Realtor&apos;s Contact & Social Media Information
           </span>
         )}
@@ -246,7 +249,7 @@ export default function RealtorDetailPage() {
             />
           </ul>
         ) : (
-          <span className="p-5 bg-yellow-50 text-yellow-700 rounded-xl">
+          <span className="inline-block p-5 bg-yellow-50 text-yellow-700 rounded-xl">
             Login to View Realtor&apos;s Additional Details & Information
           </span>
         )}

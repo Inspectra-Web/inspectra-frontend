@@ -9,13 +9,13 @@ import { toast } from "react-toastify";
 import { errData } from "../helpers/apiHelpers";
 
 export function useReadProfile(id) {
-  const { isPending, isError, data } = useQuery({
+  const { isPending, isError, data, error } = useQuery({
     queryKey: ["profileKey", id],
     queryFn: () => readProfileApi({ id }),
     enabled: !!id,
   });
 
-  return { isPending, isError, profile: data?.profile };
+  return { isPending, isError, profile: data?.profile, error };
 }
 
 export function useUpdateProfile() {
