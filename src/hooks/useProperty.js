@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 import {
   addPropertyListing as addPropertyListingApi,
+  deleteLegalDocument as deleteLegalDocumentApi,
   deletePropertyListing as deletePropertyListingApi,
   getFeaturedListings as getFeaturedListingsApi,
   getLastestPropertyListings as getLastestPropertyListingsApi,
@@ -148,6 +149,9 @@ export function useOnePropertyListing(id) {
     queryKey: ["propertyKey", id],
     queryFn: () => onePropertyListingApi(id),
     enabled: isValid,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+    staleTime: 0,
   });
 
   return {
@@ -253,4 +257,19 @@ export function useGetRealtorListingsMain(userId, limit = 10) {
     hasNextPage,
     isFetchingNextPage,
   };
+}
+
+export function useDeleteLegalDocument(propertyId) {
+  const queryClient = useQueryClient();
+
+  const { isPending, mutate: deleteDoc } = useMutation({
+    mutationFn: (documentId) => deleteLegalDocumentApi(propertyId, documentId),
+    onSuccess: (msg) => {
+      toast.success(msg);
+      queryClient.invalidateQueries(["property", propertyId]);
+    },
+    onError: (error) => toast.error(error),
+  });
+
+  return { isPending, deleteDoc };
 }

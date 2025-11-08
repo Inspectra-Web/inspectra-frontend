@@ -10,6 +10,7 @@ import {
   PiBathtub,
   PiCookingPotLight,
   PiResize,
+  PiShootingStar,
   PiToilet,
 } from "react-icons/pi";
 import { TbZoomInArea } from "react-icons/tb";
@@ -23,16 +24,18 @@ import PropertyImageCarousel from "../../components/PropertyImageCarousel";
 import PropertyFeaturesBox from "../../components/PropertyFeaturesBox";
 import PropertyAmenitiesList from "../../components/PropertyAmenitiesList";
 import ListDetails from "../../components/ListDetails";
-import VideoEmbedUrl from "../../components/VideoEmbedUrl";
+// import VideoEmbedUrl from "../../components/VideoEmbedUrl";
 import Button from "../../components/Button";
 import { SiGitconnected } from "react-icons/si";
 import { CiCircleCheck } from "react-icons/ci";
 import { LuAlarmClock, LuMousePointer2 } from "react-icons/lu";
 import { useState } from "react";
 import SafetyPopup from "../../ui/SafetyPopup";
-import VideoJS from "../../components/VideoJS";
+// import VideoJS from "../../components/VideoJS";
 import { getRentalDuration } from "../../helpers/helpers";
 import { NoMessage } from "../../components/NoDataMsg";
+import { BsHouseHeart } from "react-icons/bs";
+import { FaRegCirclePlay } from "react-icons/fa6";
 // import { calculateCommissionedInspection } from "../../helpers/helpers";
 
 export default function ListingDetailPage() {
@@ -75,32 +78,35 @@ export default function ListingDetailPage() {
     variations,
     verified,
     rentalDuration,
+    urgencyTag,
+    notablePoint,
+    specialOffer,
     // inspectionCost,
   } = property;
 
-  const videoJsOptions = {
-    autoplay: false,
-    controls: true,
-    responsive: true,
-    fluid: true,
-    poster: images[0].url, // Optional: first image as video thumbnail
-    sources: [
-      {
-        src: videoFile?.url,
-        type: "video/mp4",
-      },
-    ],
-  };
+  // const videoJsOptions = {
+  //   autoplay: false,
+  //   controls: true,
+  //   responsive: true,
+  //   fluid: true,
+  //   poster: images[0].url, // Optional: first image as video thumbnail
+  //   sources: [
+  //     {
+  //       src: videoFile?.url,
+  //       type: "video/mp4",
+  //     },
+  //   ],
+  // };
 
-  const handlePlayerReady = (player) => {
-    player.on("waiting", () => {
-      return "Video is buffering";
-    });
+  // const handlePlayerReady = (player) => {
+  //   player.on("waiting", () => {
+  //     return "Video is buffering";
+  //   });
 
-    player.on("dispose", () => {
-      return "Player disposed";
-    });
-  };
+  //   player.on("dispose", () => {
+  //     return "Player disposed";
+  //   });
+  // };
 
   return (
     <main className="py-10 px-32 midtablet:px-10">
@@ -113,8 +119,12 @@ export default function ListingDetailPage() {
       <GoBackBtn />
       <IntroHeading label="Property overview" />
       <div className="mx-auto rounded-2xl">
-        <PropertyImageCarousel images={images} listingStatus={listingStatus} />
-        <p className="mt-10 mb-5 font-semibold flex items-center  smmobile:items-start gap-5 flex-wrap">
+        <PropertyImageCarousel
+          images={images}
+          listingStatus={listingStatus}
+          urgencyTag={urgencyTag}
+        />
+        <div className="mt-10 mb-5 font-semibold flex items-center  smmobile:items-start gap-5 flex-wrap">
           <span className="text-slate-500 midmobile:hidden">Property ID:</span>{" "}
           {propertyId}
           <span className="text-slate-200 smmobile:hidden">|</span>
@@ -154,7 +164,7 @@ export default function ListingDetailPage() {
           >
             View Safety Info
           </button>
-        </p>
+        </div>
         <div className="flex justify-between items-center mb-5 midtablet:flex-col midtablet:items-start midtablet:gap-5">
           <div>
             <h2 className="heading-2 text-6xl mb-5">{title}.</h2>
@@ -199,6 +209,12 @@ export default function ListingDetailPage() {
           </span>
           <span>{getRentalDuration(rentalDuration)}</span>
         </div>
+        {specialOffer && (
+          <div className="p-5 px-10 mb-10 inline-flex items-center gap-5 bg-gradient-to-b from-yellow-100 to-yellow-200 text-yellow-600 rounded-3xl">
+            <PiShootingStar size={32} className="flex-shrink-0 self-start" />
+            <span>{specialOffer}</span>
+          </div>
+        )}
         <div className="flex gap-8 midtablet:flex-wrap">
           {bedrooms > 0 && (
             <PropertyFeaturesBox
@@ -285,6 +301,14 @@ export default function ListingDetailPage() {
         </div>
         <h3 className="heading-2 text-5xl mt-20 mb-5">Description</h3>
         <p className="text-slate-500 text-3xl leading-[1.7]">{description}</p>
+        {notablePoint && (
+          <div className="flex justify-center">
+            <div className="p-5 px-10 mt-10 inline-flex  items-center gap-5 bg-gradient-to-b from-blue-100 to-blue-200 text-blue-600 rounded-3xl">
+              <BsHouseHeart size={32} className="flex-shrink-0 self-start" />
+              <span>{notablePoint}</span>
+            </div>
+          </div>
+        )}
         <h3 className="heading-2 text-5xl mt-20 mb-5">Amenities</h3>
         <ul className="grid grid-cols-4 gap-10 mt-5 mb-24 bigmobile:grid-cols-2 smmobile:grid-cols-1">
           {amenities.map((amenity, index) => (
@@ -292,10 +316,29 @@ export default function ListingDetailPage() {
           ))}
         </ul>
 
-        {videoFile?.url ? (
+        {/* {videoFile?.url ? (
           <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
         ) : (
           videos && <VideoEmbedUrl videos={videos} />
+        )} */}
+        {(videoFile?.url || videos) && (
+          <div className="h-[60rem] midmobile:h-[35rem] rounded-3xl overflow-hidden relative">
+            <img
+              src={images[0].url}
+              alt={title + " Image"}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute bg-black bg-opacity-50 h-full w-full top-0 left-0 flex justify-center items-center">
+              <Link
+                to={videoFile?.url || videos}
+                target="_blank"
+                className="inline-flex focus:ring-4 ring-offset-2 items-center gap-3 px-10 py-5 smmobile:px-5 smmobile:py-5 rounded-full text-white bg-gradient-to-tr from-blue-500 to-blue-700 bg-[length:200%] bg-left hover:bg-right transition-all duration-500 ease justify-center cursor-pointer"
+              >
+                <FaRegCirclePlay className="text-[5rem] text-white" />
+                <span>Watch Video</span>
+              </Link>
+            </div>
+          </div>
         )}
         <h3 className="heading-2 text-5xl mt-20 mb-3">Additional Details</h3>
         <ul className="list mb-16">

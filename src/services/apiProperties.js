@@ -183,3 +183,15 @@ export async function getFeaturedListings() {
     return handleError(error);
   }
 }
+
+export async function deleteLegalDocument(propertyId, documentId) {
+  try {
+    const response = await apiClient.delete(
+      `/property/${propertyId}/legal-documents/${documentId}`
+    );
+
+    return handleResponse(response);
+  } catch (error) {
+    return handleError(error);
+  }
+}

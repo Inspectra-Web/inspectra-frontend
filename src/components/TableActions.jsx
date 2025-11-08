@@ -93,7 +93,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }) {
       </button>
       {generatePageNumbers().map((page, index) =>
         page === "..." ? (
-          <span key={index} className="text-2xl">
+          <span key={`page-${page}-${index}`} className="text-2xl">
             ...
           </span>
         ) : (

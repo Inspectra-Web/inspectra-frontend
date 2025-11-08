@@ -199,9 +199,12 @@ const Router = createBrowserRouter([
       },
       {
         path: "/app/add-property",
-        element: <AddProperty />,
+        element: <AddProperty key="add-property" />,
       },
-      { path: "/app/update-property/:id", element: <AddProperty /> },
+      {
+        path: "/app/update-property/:id",
+        element: <AddProperty key="update-property" />,
+      },
       {
         path: "/app/property-listings",
         element: <PropertyListing />,

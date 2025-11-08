@@ -7,7 +7,7 @@ export const FormCheckbox = React.forwardRef(({ label, id, ...props }, ref) => {
         ref={ref}
         id={id}
         type="checkbox"
-        className="cursor-pointer w-8 h-8 focus:accent-blue-500"
+        className="cursor-pointer w-8 h-8 focus:accent-blue-500 flex-shrink-0 self-start"
         {...props}
       />
       <label

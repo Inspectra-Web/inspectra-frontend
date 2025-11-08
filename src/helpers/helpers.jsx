@@ -271,6 +271,33 @@ const convertFeaturesToList = (features, name) => {
   ];
 };
 
+export const legalDocumentOptions = [
+  "Certificate of Occupancy (C of O)",
+  "Governor’s Consent",
+  "Deed of Assignment",
+  "Deed of Conveyance",
+  "Deed of Lease / Sublease",
+  "Power of Attorney",
+  "Land Purchase Receipt",
+  "Registered Survey Plan",
+  "Excision / Gazette",
+  "Building Plan Approval",
+  "Environmental Impact Assessment (EIA)",
+  "Completion Certificate",
+  "Certificate of Habitability",
+  "Property Tax Clearance Certificate",
+  "Valuation Report",
+  "Tenancy Agreement",
+  "Lease Agreement",
+  "Inspection Report",
+  "Estate Allocation Letter",
+  "Agency Agreement",
+  "Government Allocation Letter",
+  "Affidavit of Ownership",
+  "Offer Letter / Acceptance Letter",
+  "Other",
+];
+
 export const formatNigerianPhoneNumber = (input) => {
   // Remove all non-digit characters
   const digits = input.replace(/\D/g, "");
@@ -341,3 +368,60 @@ export const getRentalDuration = (duration) =>
     : duration === "3_year_plus"
     ? "|| 3 Years +"
     : "";
+
+const urgencyTagCategories = {
+  scarcity: {
+    color: "bg-red-600",
+    tags: [
+      "1 unit left📌",
+      "few units remaining",
+      "last chance – limited offer",
+      "almost sold out",
+    ],
+  },
+  timeLimited: {
+    color: "bg-orange-500",
+    tags: [
+      "limited time offer⏳",
+      "discount valid this week only",
+      "offer ends soon",
+      "move-in before month end",
+    ],
+  },
+  exclusivity: {
+    color: "bg-purple-600",
+    tags: [
+      "exclusive listing",
+      "private viewing only",
+      "luxury – rare find",
+      "premium deal",
+    ],
+  },
+  deals: {
+    color: "bg-blue-600",
+    tags: [
+      "price reduced🔥",
+      "hot deal – act fast",
+      "flash sale – today only",
+      "best deal in area",
+    ],
+  },
+  newListings: {
+    color: "bg-green-600",
+    tags: [
+      "just listed✨",
+      "brand new apartment",
+      "newly built home",
+      "fresh on market",
+    ],
+  },
+};
+
+export const getTagColor = (tag) => {
+  for (const category in urgencyTagCategories) {
+    if (urgencyTagCategories[category].tags.includes(tag))
+      return urgencyTagCategories[category].color;
+  }
+
+  return "bg-gray-500";
+};

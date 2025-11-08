@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { getTagColor } from "../helpers/helpers";
 
-export default function PropertyImageCarousel({ images, listingStatus }) {
+export default function PropertyImageCarousel({
+  images,
+  listingStatus,
+  urgencyTag,
+}) {
   const [mainImage, setMainImage] = useState({
     src: images[0].url,
     status: listingStatus,
@@ -78,21 +83,32 @@ export default function PropertyImageCarousel({ images, listingStatus }) {
         />
         <div className="absolute inset-0"></div>
         {/* </Link> */}
-        {mainImage.status && (
-          <div
-            className={`py-2 capitalize px-5 bg-gradient-to-b ${
-              mainImage.status === "shortlet"
-                ? "from-purple-100 to-purple-200 text-purple-700"
-                : mainImage.status === "rent"
-                ? "from-green-100 to-green-200 text-green-700"
-                : mainImage.status === "lease"
-                ? "from-orange-100 to-orange-200 text-orange-700"
-                : "from-sky-100 to-sky-200 text-sky-700"
-            } rounded-xl flex justify-center absolute top-10 left-10`}
-          >
-            For {mainImage.status}
-          </div>
-        )}
+        <div className="absolute top-10 left-10 flex gap-5">
+          {mainImage.status && (
+            <div
+              className={`py-2 capitalize px-5 bg-gradient-to-b ${
+                mainImage.status === "shortlet"
+                  ? "from-purple-100 to-purple-200 text-purple-700"
+                  : mainImage.status === "rent"
+                  ? "from-green-100 to-green-200 text-green-700"
+                  : mainImage.status === "lease"
+                  ? "from-orange-100 to-orange-200 text-orange-700"
+                  : "from-sky-100 to-sky-200 text-sky-700"
+              } rounded-xl flex justify-center`}
+            >
+              For {mainImage.status}
+            </div>
+          )}
+          {urgencyTag && urgencyTag !== "none" && (
+            <div
+              className={`py-2 capitalize px-5 text-white ${getTagColor(
+                urgencyTag
+              )} rounded-xl flex justify-center`}
+            >
+              {urgencyTag}
+            </div>
+          )}
+        </div>
       </div>
       <div
         ref={carouselRef}

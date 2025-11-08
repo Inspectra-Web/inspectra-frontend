@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { MinFeaturesBox } from "./PropertyFeaturesBox";
 import { IoBedOutline } from "react-icons/io5";
 import { PiBathtub, PiCookingPotLight, PiToilet } from "react-icons/pi";
-import { formatAmount, getRentalDuration } from "../helpers/helpers";
+import {
+  formatAmount,
+  getRentalDuration,
+  getTagColor,
+} from "../helpers/helpers";
 import { GiHomeGarage } from "react-icons/gi";
 import moment from "moment";
 import { forwardRef } from "react";
@@ -53,15 +57,26 @@ export const CardContainer = forwardRef(({ property, landscape }, ref) => {
                 label={`for ${property?.listingStatus}`}
                 css="text-slate-900 bg-white hover:bg-slate-900 hover:text-white"
               />
-              {property?.variations?.map((el, idx) => (
-                <span key={idx}>
-                  {el === "Featured" ? (
-                    <Tags label={el} css="text-white bg-sky-500" />
-                  ) : el === "Hot" ? (
-                    <Tags label="Hot" css="text-white bg-red-500" />
-                  ) : null}
-                </span>
-              ))}
+              {property?.urgencyTag && property?.urgencyTag !== "none" && (
+                <div
+                  className={`py-2 capitalize px-5 text-white ${getTagColor(
+                    property?.urgencyTag
+                  )} rounded-xl flex justify-center`}
+                >
+                  {property?.urgencyTag.toLowerCase()}
+                </div>
+              )}
+              {property?.urgencyTag
+                ? null
+                : property?.variations?.map((el, idx) => (
+                    <span key={idx}>
+                      {el === "Featured" ? (
+                        <Tags label={el} css="text-white bg-sky-500" />
+                      ) : el === "Hot" ? (
+                        <Tags label="Hot" css="text-white bg-red-500" />
+                      ) : null}
+                    </span>
+                  ))}
             </div>
 
             <div
