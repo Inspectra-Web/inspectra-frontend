@@ -22,7 +22,7 @@ import { PropertyImageUpload } from "../../components/PropertyImageUpload";
 import Form from "../../components/Form";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../../hooks/useAuth";
-import PropertyDetails from "./property/propertyDetails";
+import PropertyDetails from "./property/PropertyDetails.jsx";
 import PropertyFeatures from "./property/PropertyFeatures";
 import PropertyAmenities from "./property/PropertyAmenities";
 import PropertyHighlights from "./property/PropertyHighlights";
