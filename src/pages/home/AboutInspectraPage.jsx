@@ -179,16 +179,16 @@ const core = [
     icon: (
       <HiFingerPrint className="text-blue-600 text-[3.5rem] midmobile:text-[3rem]" />
     ),
-    heading: "Verified Listings",
+    heading: "Verified Realtors",
     description:
-      "Every property on our platform is verified by our team to ensure accuracy and authenticity, giving you peace of mind.",
+      "Realtors undergo verification that extends beyond identity checks, including license validation, qualification review, and more.",
     lists: [
-      "Authentic property details",
-      "High-quality images",
-      "Accurate location information",
+      "License / Qualification Verification",
+      "Multi-layer identity checks",
+      "Credibility assurance",
     ],
-    href: "/listings",
-    hrefLabel: "Browse Verified Listings",
+    href: "#",
+    hrefLabel: "View Verified Realtors",
     color: "blue",
     iconcolor: "from-blue-50 to-blue-100",
   },
@@ -196,16 +196,16 @@ const core = [
     icon: (
       <HiOutlineOfficeBuilding className="text-sky-600 text-[3.5rem] midmobile:text-[3rem]" />
     ),
-    heading: "Book Inspections",
+    heading: "Document Verification",
     description:
-      "Schedule property viewings with just a few clicks. Our streamlined booking system makes it easy to find the perfect time.",
+      "A framework for validating critical real estate documents, enabling seekers to make informed decisions before proceeding.",
     lists: [
-      "Real-time availability",
-      "Instant confirmation",
-      "Reminder notifications",
+      "Property Document checks",
+      "Survey plan validation",
+      "Tenancy / ownership documents",
     ],
-    href: "/listings",
-    hrefLabel: "Schedule an Inspection",
+    href: "#",
+    hrefLabel: "Verify Property Documents",
     color: "sky",
     iconcolor: "from-sky-50 to-sky-100",
   },
@@ -213,16 +213,16 @@ const core = [
     icon: (
       <HiOutlineUsers className="text-cyan-600 text-[3.5rem] midmobile:text-[3rem]" />
     ),
-    heading: "Trusted Realtors",
+    heading: "Credibility Layer",
     description:
-      "Connect with verified, professional realtors who are experts in their local markets and committed to your success.",
+      "A structured reputation system that assigns trust badges for identity, license, and qualification verification.",
     lists: [
-      "Verified credentials",
-      "Client reviews and ratings",
-      "Direct messaging",
+      "Visible trust badges",
+      "Realtor credibility scoring",
+      "Fraud / duplicate listing detection",
     ],
     href: "#",
-    hrefLabel: "Find a Realtor",
+    hrefLabel: "Explore Trust System",
     color: "cyan",
     iconcolor: "from-cyan-50 to-cyan-100",
   },
@@ -230,16 +230,16 @@ const core = [
     icon: (
       <BsCreditCard className="text-indigo-600 text-[3.5rem] midmobile:text-[3rem]" />
     ),
-    heading: "Secured Payments",
+    heading: "Transparent Transactions",
     description:
-      "Easily pay for inspections through our trusted platform, with payment protection and automated receipts.",
+      "A standardized presentation of inspection fees, commissions, and payment structures to remove ambiguity in transactions.",
     lists: [
-      "Pay directly on Inspectra",
-      "Transaction protection",
-      "Instant email receipts",
+      "Clear inspection fees",
+      "Upfront commission breakdowns",
+      "Detailed payment policy",
     ],
     href: "#",
-    hrefLabel: "Learn about payments",
+    hrefLabel: "Review Fee Structure",
     color: "indigo",
     iconcolor: "from-indigo-50 to-indigo-100",
   },
@@ -247,12 +247,16 @@ const core = [
     icon: (
       <HiOutlineAdjustments className="text-purple-600 text-[3.5rem] midmobile:text-[3rem]" />
     ),
-    heading: "Analytics Dashboard",
+    heading: "Location Intelligence",
     description:
-      "Powerful analytics tools for agents to track performance, monitor leads, and optimize their listings.",
-    lists: ["Performance metrics", "Lead tracking", "Market insights"],
+      "Environmental and neighborhood data that evaluates climate risk, safety, amenities, transport access, and overall suitability.",
+    lists: [
+      "Flood and erosion risk indicators",
+      "Neighborhood and amenity mapping",
+      "Environmental and community insights",
+    ],
     href: "#",
-    hrefLabel: "Explore Analytics",
+    hrefLabel: "View Location Insights",
     color: "purple",
     iconcolor: "from-purple-50 to-purple-100",
   },
@@ -282,7 +286,7 @@ function CoreFeaturesSection() {
               >
                 {el.icon}
               </div>
-              <h3 className="text-5xl font-bold mb-6 text-[#333]">
+              <h3 className="text-4xl font-bold mb-6 text-[#333]">
                 {el.heading}
               </h3>
               <p className="mb-12 text-[1.7rem]">{el.description}</p>
